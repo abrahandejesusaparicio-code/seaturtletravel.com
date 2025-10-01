@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeaTurtleTravels Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- AOS CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    html {
+      scroll-behavior: smooth; /* Smooth scrolling */
+    }
+  </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
@@ -13,7 +20,7 @@
     <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
       <source src="your-video.mp4" type="video/mp4">
     </video>
-    <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6">
+    <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6" data-aos="fade-up">
       <h1 class="text-4xl md:text-6xl font-bold mb-4">SeaTurtleTravels Studio</h1>
       <p class="text-lg md:text-2xl">Art that speaks across Paintings, Ceramics, Jewelry & Books</p>
     </div>
@@ -34,25 +41,23 @@
 
     <!-- Paintings -->
     <section id="paintings">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Paintings</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Paintings</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <!-- Item -->
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Painting" class="w-full h-64 object-cover">
           <div class="p-4">
             <h3 class="font-semibold">Untitled Painting</h3>
             <p class="text-teal-400">$500</p>
           </div>
         </div>
-        <!-- Duplicate as needed -->
       </div>
     </section>
 
     <!-- Ceramics -->
     <section id="ceramics">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Ceramics</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Ceramics</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Ceramic" class="w-full h-64 object-cover">
           <div class="p-4">
             <h3 class="font-semibold">Ceramic Vase</h3>
@@ -64,9 +69,9 @@
 
     <!-- Jewelry -->
     <section id="jewelry">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Jewelry</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Jewelry</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Jewelry" class="w-full h-64 object-cover">
           <div class="p-4">
             <h3 class="font-semibold">Silver Necklace</h3>
@@ -78,9 +83,9 @@
 
     <!-- Books -->
     <section id="books">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Books</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Books</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Book" class="w-full h-64 object-cover">
           <div class="p-4">
             <h3 class="font-semibold">Art Book Vol. 1</h3>
@@ -93,9 +98,18 @@
   </main>
 
   <!-- ===== Footer ===== -->
-  <footer class="bg-gray-800 py-6 text-center text-gray-400 text-sm">
+  <footer class="bg-gray-800 py-6 text-center text-gray-400 text-sm" data-aos="fade-up">
     © 2025 SeaTurtleTravels Studio. All rights reserved.
   </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
 
 </body>
 </html>
