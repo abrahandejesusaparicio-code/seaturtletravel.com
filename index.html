@@ -27,6 +27,28 @@
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
+    <!-- ===== Hero Section (with video placeholder) ===== -->
+  <section class="relative w-full h-screen">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
+      <source src="placeholder-video.mp4" type="video/mp4">
+      <!-- Fallback if video can't load -->
+      Your browser does not support the video tag.
+    </video>
+    <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeInDown"
+          data-en="Welcome to SeaTurtleTravels"
+          data-es="Bienvenidos a SeaTurtleTravels">
+          Welcome to SeaTurtleTravels
+      </h1>
+      <p class="text-lg md:text-2xl animate-fadeInUp delay-500"
+         data-en="Discover Art, Ceramics, Jewelry & Books"
+         data-es="Descubre Arte, Cerámica, Joyería y Libros">
+         Discover Art, Ceramics, Jewelry & Books
+      </p>
+    </div>
+  </section>
+
+
   <!-- ===== Navigation Tabs with Language Switch & Cart ===== -->
   <nav class="sticky top-0 z-50 bg-gray-800 shadow-md">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
