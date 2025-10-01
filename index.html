@@ -12,6 +12,17 @@
     .btn-add { @apply mt-2 w-full bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition; }
     .scroll-container { overflow-x: auto; display: flex; gap: 1rem; scroll-behavior: smooth; }
     .scroll-item { min-width: 250px; flex: 0 0 auto; }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeInDown { animation: fadeInDown 1s ease-out; }
+    .animate-fadeInUp { animation: fadeInUp 1s ease-out; }
+    .delay-500 { animation-delay: 0.5s; }
   </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
@@ -21,13 +32,13 @@
     <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
       <source src="your-video.mp4" type="video/mp4">
     </video>
-    <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6" data-aos="fade-up">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4"
+    <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeInDown"
           data-en="SeaTurtleTravels Studio"
           data-es="SeaTurtleTravels Estudio">
           SeaTurtleTravels Studio
       </h1>
-      <p class="text-lg md:text-2xl"
+      <p class="text-lg md:text-2xl animate-fadeInUp delay-500"
          data-en="Art that speaks across Paintings, Ceramics, Jewelry & Books"
          data-es="Arte que habla a través de Pinturas, Cerámicas, Joyería y Libros">
          Art that speaks across Paintings, Ceramics, Jewelry & Books
@@ -36,70 +47,126 @@
   </header>
 
   <!-- ===== Navigation Tabs with Language Switch & Cart ===== -->
-  <nav class="sticky top-0 z-50 bg-gray-800 shadow-md flex items-center justify-between px-6">
-    <ul class="flex space-x-6 py-4 text-lg font-semibold">
-      <li><a href="#paintings" class="hover:text-teal-400" data-en="Paintings" data-es="Pinturas">Paintings</a></li>
-      <li><a href="#ceramics" class="hover:text-teal-400" data-en="Ceramics" data-es="Cerámicas">Ceramics</a></li>
-      <li><a href="#jewelry" class="hover:text-teal-400" data-en="Jewelry" data-es="Joyería">Jewelry</a></li>
-      <li><a href="#books" class="hover:text-teal-400" data-en="Books" data-es="Libros">Books</a></li>
-    </ul>
-    <div class="flex items-center space-x-4">
-      <button onclick="setLang('en')" class="hover:scale-110" aria-label="English">🇬🇧</button>
-      <button onclick="setLang('es')" class="hover:scale-110" aria-label="Español">🇪🇸</button>
-      <!-- Cart Icon -->
-      <button onclick="toggleCart()" class="relative">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-teal-400 hover:text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 11-2 0 1 1 0 012 0zm10 
-            0a1 1 0 11-2 0 1 1 0 012 0z"/>
-        </svg>
-        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1">0</span>
-      </button>
+  <nav class="sticky top-0 z-50 bg-gray-800 shadow-md">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
+      <div></div>
+      <!-- Center Nav -->
+      <ul class="flex space-x-8 py-4 text-lg font-semibold">
+        <li><a href="#paintings" class="hover:text-teal-400">Paintings</a></li>
+        <li><a href="#ceramics" class="hover:text-teal-400">Ceramics</a></li>
+        <li><a href="#jewelry" class="hover:text-teal-400">Jewelry</a></li>
+        <li><a href="#books" class="hover:text-teal-400">Books</a></li>
+      </ul>
+      <!-- Right Controls -->
+      <div class="flex items-center space-x-4">
+        <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
+        <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
+        <button onclick="toggleCart()" class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-teal-400 hover:text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
+              11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+          </svg>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1">0</span>
+        </button>
+      </div>
     </div>
   </nav>
 
   <!-- ===== Gallery Sections ===== -->
   <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
-    <!-- Template Section (reused with placeholders) -->
+    <!-- Section Template -->
     <section id="paintings">
-      <h2 class="text-3xl font-bold mb-4" data-aos="fade-right" data-en="Paintings" data-es="Pinturas">Paintings</h2>
-      <!-- Scroll Container -->
+      <h2 class="text-3xl font-bold mb-4" data-aos="fade-right">Paintings</h2>
       <div class="relative">
-        <button onclick="scrollLeft('paintings-scroll')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full">⬅</button>
+        <button onclick="scrollLeft('paintings-scroll')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
         <div id="paintings-scroll" class="scroll-container">
-          <!-- Placeholder Items -->
-          <div class="scroll-item bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in">
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg" data-aos="zoom-in">
             <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover">
-            <div class="p-4">
-              <h3>Untitled Painting</h3>
-              <p class="text-teal-400">$500</p>
-              <button onclick="addToCart('Untitled Painting',500)" class="btn-add">Add to Cart</button>
-            </div>
+            <div class="p-4"><h3>Untitled Painting</h3><p class="text-teal-400">$500</p>
+              <button onclick="addToCart('Untitled Painting',500)" class="btn-add">Add to Cart</button></div>
           </div>
-          <div class="scroll-item bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in">
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg" data-aos="zoom-in">
             <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover">
-            <div class="p-4">
-              <h3>Landscape Painting</h3>
-              <p class="text-teal-400">$600</p>
-              <button onclick="addToCart('Landscape Painting',600)" class="btn-add">Add to Cart</button>
-            </div>
+            <div class="p-4"><h3>Landscape Painting</h3><p class="text-teal-400">$600</p>
+              <button onclick="addToCart('Landscape Painting',600)" class="btn-add">Add to Cart</button></div>
           </div>
-          <div class="scroll-item bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in">
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg" data-aos="zoom-in">
             <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover">
-            <div class="p-4">
-              <h3>Abstract Art</h3>
-              <p class="text-teal-400">$400</p>
-              <button onclick="addToCart('Abstract Art',400)" class="btn-add">Add to Cart</button>
-            </div>
+            <div class="p-4"><h3>Abstract Art</h3><p class="text-teal-400">$400</p>
+              <button onclick="addToCart('Abstract Art',400)" class="btn-add">Add to Cart</button></div>
           </div>
         </div>
-        <button onclick="scrollRight('paintings-scroll')" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full">➡</button>
+        <button onclick="scrollRight('paintings-scroll')" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </section>
 
-    <!-- Repeat the same structure for Ceramics, Jewelry, Books -->
-    <!-- You can duplicate the above <section> block and replace ids/titles/items -->
+    <!-- Duplicate for Ceramics, Jewelry, Books -->
+    <section id="ceramics"><h2 class="text-3xl font-bold mb-4" data-aos="fade-right">Ceramics</h2>
+      <div class="relative">
+        <button onclick="scrollLeft('ceramics-scroll')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div id="ceramics-scroll" class="scroll-container">
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg"><img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover"><div class="p-4"><h3>Ceramic Vase</h3><p class="text-teal-400">$120</p><button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div></div>
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg"><img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover"><div class="p-4"><h3>Ceramic Bowl</h3><p class="text-teal-400">$80</p><button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div></div>
+        </div>
+        <button onclick="scrollRight('ceramics-scroll')" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <section id="jewelry"><h2 class="text-3xl font-bold mb-4" data-aos="fade-right">Jewelry</h2>
+      <div class="relative">
+        <button onclick="scrollLeft('jewelry-scroll')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div id="jewelry-scroll" class="scroll-container">
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg"><img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover"><div class="p-4"><h3>Silver Necklace</h3><p class="text-teal-400">$200</p><button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div></div>
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg"><img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover"><div class="p-4"><h3>Gold Ring</h3><p class="text-teal-400">$350</p><button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div></div>
+        </div>
+        <button onclick="scrollRight('jewelry-scroll')" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <section id="books"><h2 class="text-3xl font-bold mb-4" data-aos="fade-right">Books</h2>
+      <div class="relative">
+        <button onclick="scrollLeft('books-scroll')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <div id="books-scroll" class="scroll-container">
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg"><img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover"><div class="p-4"><h3>Art Book Vol. 1</h3><p class="text-teal-400">$45</p><button onclick="addToCart('Art Book Vol. 1',45)" class="btn-add">Add to Cart</button></div></div>
+          <div class="scroll-item bg-gray-800 rounded-lg shadow-lg"><img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover"><div class="p-4"><h3>Art Book Vol. 2</h3><p class="text-teal-400">$60</p><button onclick="addToCart('Art Book Vol. 2',60)" class="btn-add">Add to Cart</button></div></div>
+        </div>
+        <button onclick="scrollRight('books-scroll')" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full hover:bg-teal-500 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </section>
 
   </main>
 
