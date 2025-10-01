@@ -8,9 +8,7 @@
   <!-- AOS CSS -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    html {
-      scroll-behavior: smooth; /* Smooth scrolling */
-    }
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
@@ -21,19 +19,32 @@
       <source src="your-video.mp4" type="video/mp4">
     </video>
     <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6" data-aos="fade-up">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4">SeaTurtleTravels Studio</h1>
-      <p class="text-lg md:text-2xl">Art that speaks across Paintings, Ceramics, Jewelry & Books</p>
+      <h1 class="text-4xl md:text-6xl font-bold mb-4" 
+          data-en="SeaTurtleTravels Studio" 
+          data-es="SeaTurtleTravels Estudio">
+          SeaTurtleTravels Studio
+      </h1>
+      <p class="text-lg md:text-2xl" 
+         data-en="Art that speaks across Paintings, Ceramics, Jewelry & Books" 
+         data-es="Arte que habla a través de Pinturas, Cerámicas, Joyería y Libros">
+         Art that speaks across Paintings, Ceramics, Jewelry & Books
+      </p>
     </div>
   </header>
 
-  <!-- ===== Navigation Tabs ===== -->
-  <nav class="sticky top-0 z-50 bg-gray-800 shadow-md">
-    <ul class="flex justify-center space-x-6 py-4 text-lg font-semibold">
-      <li><a href="#paintings" class="hover:text-teal-400">Paintings</a></li>
-      <li><a href="#ceramics" class="hover:text-teal-400">Ceramics</a></li>
-      <li><a href="#jewelry" class="hover:text-teal-400">Jewelry</a></li>
-      <li><a href="#books" class="hover:text-teal-400">Books</a></li>
+  <!-- ===== Navigation Tabs with Language Switch ===== -->
+  <nav class="sticky top-0 z-50 bg-gray-800 shadow-md flex items-center justify-between px-6">
+    <ul class="flex space-x-6 py-4 text-lg font-semibold">
+      <li><a href="#paintings" class="hover:text-teal-400" data-en="Paintings" data-es="Pinturas">Paintings</a></li>
+      <li><a href="#ceramics" class="hover:text-teal-400" data-en="Ceramics" data-es="Cerámicas">Ceramics</a></li>
+      <li><a href="#jewelry" class="hover:text-teal-400" data-en="Jewelry" data-es="Joyería">Jewelry</a></li>
+      <li><a href="#books" class="hover:text-teal-400" data-en="Books" data-es="Libros">Books</a></li>
     </ul>
+    <!-- Language Switch -->
+    <div class="flex space-x-4">
+      <button onclick="setLang('en')" class="hover:scale-110 transition">🇬🇧</button>
+      <button onclick="setLang('es')" class="hover:scale-110 transition">🇪🇸</button>
+    </div>
   </nav>
 
   <!-- ===== Gallery Sections ===== -->
@@ -41,12 +52,13 @@
 
     <!-- Paintings -->
     <section id="paintings">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Paintings</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
+          data-en="Paintings" data-es="Pinturas">Paintings</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Painting" class="w-full h-64 object-cover">
           <div class="p-4">
-            <h3 class="font-semibold">Untitled Painting</h3>
+            <h3 class="font-semibold" data-en="Untitled Painting" data-es="Pintura Sin Título">Untitled Painting</h3>
             <p class="text-teal-400">$500</p>
           </div>
         </div>
@@ -55,12 +67,13 @@
 
     <!-- Ceramics -->
     <section id="ceramics">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Ceramics</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
+          data-en="Ceramics" data-es="Cerámicas">Ceramics</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Ceramic" class="w-full h-64 object-cover">
           <div class="p-4">
-            <h3 class="font-semibold">Ceramic Vase</h3>
+            <h3 class="font-semibold" data-en="Ceramic Vase" data-es="Jarrón de Cerámica">Ceramic Vase</h3>
             <p class="text-teal-400">$120</p>
           </div>
         </div>
@@ -69,12 +82,13 @@
 
     <!-- Jewelry -->
     <section id="jewelry">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Jewelry</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
+          data-en="Jewelry" data-es="Joyería">Jewelry</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Jewelry" class="w-full h-64 object-cover">
           <div class="p-4">
-            <h3 class="font-semibold">Silver Necklace</h3>
+            <h3 class="font-semibold" data-en="Silver Necklace" data-es="Collar de Plata">Silver Necklace</h3>
             <p class="text-teal-400">$200</p>
           </div>
         </div>
@@ -83,12 +97,13 @@
 
     <!-- Books -->
     <section id="books">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right">Books</h2>
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
+          data-en="Books" data-es="Libros">Books</h2>
       <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
           <img src="https://via.placeholder.com/400x500" alt="Book" class="w-full h-64 object-cover">
           <div class="p-4">
-            <h3 class="font-semibold">Art Book Vol. 1</h3>
+            <h3 class="font-semibold" data-en="Art Book Vol. 1" data-es="Libro de Arte Vol. 1">Art Book Vol. 1</h3>
             <p class="text-teal-400">$45</p>
           </div>
         </div>
@@ -97,29 +112,25 @@
 
   </main>
 
-   <!-- ===== Footer ===== -->
+  <!-- ===== Footer ===== -->
   <footer class="bg-gray-800 py-6 text-center text-gray-400 text-sm" data-aos="fade-up">
     <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
     <div class="mt-4 flex justify-center space-x-6">
-      <!-- Email -->
-      <a href="mailto:Megetsten@gmail.com" class="hover:text-teal-400 transition">
-        📧 Megetsten@gmail.com
-      </a>
-      <!-- Instagram -->
-      <a href="https://www.instagram.com/seaturtletravels?igsh=MTE3bnF4a3I3MHlnNg==" target="_blank" class="hover:text-pink-400 transition">
-        📸 Instagram
-      </a>
+      <a href="mailto:Megetsten@gmail.com" class="hover:text-teal-400 transition">📧 Megetsten@gmail.com</a>
+      <a href="https://www.instagram.com/seaturtletravels?igsh=MTE3bnF4a3I3MHlnNg==" target="_blank" class="hover:text-pink-400 transition">📸 Instagram</a>
     </div>
   </footer>
-
 
   <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
+    AOS.init({ duration: 1000, once: true });
+
+    function setLang(lang) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
   </script>
 
 </body>
