@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeaTurtleTravels Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     :root {
       --lavender: #e4c1f9;
@@ -16,130 +15,119 @@
       --text-dark: #2e2e2e;
       --bg-light: #fdfcf7;
     }
-
     body {
-      background: linear-gradient(to bottom right, var(--bg-light), var(--lavender));
+      background: var(--bg-light);
       color: var(--text-dark);
-      font-family: 'Inter', sans-serif;
+      font-family: "Helvetica Neue", Arial, sans-serif;
     }
-
-    h1, h2 {
-      font-family: 'Playfair Display', serif;
+    h1, h2, h3 {
+      font-family: "Georgia", serif;
     }
-
-    /* Card Styling */
+    .scroll-container { overflow-x: auto; display: flex; gap: 1rem; scroll-behavior: smooth; }
     .scroll-item {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
       min-width: 250px;
-      flex: 0 0 auto;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.2s;
     }
-    .scroll-item:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-    }
-
-    /* Section colors */
-    #paintings h2 { color: var(--lavender); }
-    #ceramics h2 { color: var(--mint); }
-    #jewelry h2 { color: var(--coral); }
-    #books h2 { color: var(--blue); }
-
-    /* Buttons */
+    .scroll-item:hover { transform: translateY(-4px); }
     .btn-add {
       display: block;
       width: 100%;
-      padding: 0.5rem;
-      border-radius: 8px;
-      background: var(--lavender);
+      background: var(--mint);
       color: var(--text-dark);
-      font-weight: bold;
-      transition: transform 0.2s, box-shadow 0.2s;
+      font-weight: 600;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s, transform 0.2s;
     }
-    .btn-add:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-
-    /* Arrows */
+    .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
     .arrow-btn {
-      background: var(--yellow);
+      background: var(--lavender);
+      border: none;
+      padding: 0.4rem 0.6rem;
       border-radius: 50%;
-      padding: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background 0.3s;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s;
     }
-    .arrow-btn:hover { background: var(--coral); }
-
-    /* Cart */
+    .arrow-btn:hover { opacity: 1; }
     #cart-panel {
-      background: var(--bg-light);
+      background: #fff;
       color: var(--text-dark);
-      box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
     }
     #cart-panel h2 {
-      color: var(--coral);
-    }
-    #cart-total {
-      color: var(--lavender);
-      font-weight: bold;
-    }
-
-    footer {
-      background: var(--lavender);
-      color: var(--text-dark);
+      font-family: "Georgia", serif;
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== Hero Section ===== -->
+  <!-- Hero -->
   <section class="relative w-full h-screen">
     <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
       <source src="placeholder-video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-6">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeInDown">
-        Welcome to SeaTurtleTravels
+      <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white"
+          data-en="Welcome to SeaTurtleTravels Art Gallery"
+          data-es="Bienvenidos a SeaTurtleTravels Galería de Arte">
+          Welcome to SeaTurtleTravels
       </h1>
-      <p class="text-lg md:text-2xl animate-fadeInUp delay-500">
-        Discover Art, Ceramics, Jewelry & Books
+      <p class="text-lg md:text-2xl text-gray-100"
+         data-en="Discover Art, Ceramics, Jewelry & Books"
+         data-es="Descubre Arte, Cerámica, Joyería y Libros">
+         Discover Art, Ceramics, Jewelry & Books
       </p>
     </div>
   </section>
 
-  <!-- ===== Navigation ===== -->
-  <nav class="sticky top-0 z-50 bg-white/90 shadow-md backdrop-blur">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-white/90 shadow">
     <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
-      <ul class="flex space-x-8 py-4 text-lg font-semibold">
+      <ul class="flex space-x-8 py-4 text-lg font-medium">
         <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
         <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
         <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
         <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
       </ul>
-      <button onclick="toggleCart()" class="relative">
-        🛒 <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--coral)] text-xs rounded-full px-1">0</span>
-      </button>
+      <div class="flex items-center space-x-4">
+        <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
+        <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
+        <button onclick="toggleCart()" class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[var(--coral)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
+              11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+          </svg>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- ===== Gallery Sections ===== -->
+  <!-- Gallery Sections -->
   <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
     <!-- Paintings -->
     <section id="paintings">
-      <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Paintings</h2>
+      <h2 class="text-3xl font-bold mb-4 text-center">Paintings</h2>
       <div class="relative">
         <button onclick="scrollLeft('paintings-scroll')" class="arrow-btn absolute left-0 top-1/2 -translate-y-1/2">◀</button>
-        <div id="paintings-scroll" class="scroll-container flex gap-4">
-          <div class="scroll-item p-4" data-aos="zoom-in">
+        <div id="paintings-scroll" class="scroll-container">
+          <div class="scroll-item">
             <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-            <h3>Untitled Painting</h3>
-            <p>$500</p>
-            <button onclick="addToCart('Untitled Painting',500)" class="btn-add">Add to Cart</button>
+            <div class="p-4"><h3>Untitled Painting</h3><p class="text-sm text-[var(--coral)]">$500</p>
+              <button onclick="addToCart('Untitled Painting',500)" class="btn-add">Add to Cart</button></div>
+          </div>
+          <div class="scroll-item">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+            <div class="p-4"><h3>Landscape</h3><p class="text-sm text-[var(--coral)]">$600</p>
+              <button onclick="addToCart('Landscape',600)" class="btn-add">Add to Cart</button></div>
           </div>
         </div>
         <button onclick="scrollRight('paintings-scroll')" class="arrow-btn absolute right-0 top-1/2 -translate-y-1/2">▶</button>
@@ -148,11 +136,15 @@
 
     <!-- Ceramics -->
     <section id="ceramics">
-      <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Ceramics</h2>
+      <h2 class="text-3xl font-bold mb-4 text-center">Ceramics</h2>
       <div class="relative">
         <button onclick="scrollLeft('ceramics-scroll')" class="arrow-btn absolute left-0 top-1/2 -translate-y-1/2">◀</button>
-        <div id="ceramics-scroll" class="scroll-container flex gap-4">
-          <div class="scroll-item p-4"><img src="https://via.placeholder.com/400x500"><h3>Ceramic Vase</h3><p>$120</p><button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
+        <div id="ceramics-scroll" class="scroll-container">
+          <div class="scroll-item">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+            <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
+              <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
+          </div>
         </div>
         <button onclick="scrollRight('ceramics-scroll')" class="arrow-btn absolute right-0 top-1/2 -translate-y-1/2">▶</button>
       </div>
@@ -160,11 +152,15 @@
 
     <!-- Jewelry -->
     <section id="jewelry">
-      <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Jewelry</h2>
+      <h2 class="text-3xl font-bold mb-4 text-center">Jewelry</h2>
       <div class="relative">
         <button onclick="scrollLeft('jewelry-scroll')" class="arrow-btn absolute left-0 top-1/2 -translate-y-1/2">◀</button>
-        <div id="jewelry-scroll" class="scroll-container flex gap-4">
-          <div class="scroll-item p-4"><img src="https://via.placeholder.com/400x500"><h3>Gold Ring</h3><p>$350</p><button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
+        <div id="jewelry-scroll" class="scroll-container">
+          <div class="scroll-item">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+            <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
+              <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
+          </div>
         </div>
         <button onclick="scrollRight('jewelry-scroll')" class="arrow-btn absolute right-0 top-1/2 -translate-y-1/2">▶</button>
       </div>
@@ -172,11 +168,15 @@
 
     <!-- Books -->
     <section id="books">
-      <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Books</h2>
+      <h2 class="text-3xl font-bold mb-4 text-center">Books</h2>
       <div class="relative">
         <button onclick="scrollLeft('books-scroll')" class="arrow-btn absolute left-0 top-1/2 -translate-y-1/2">◀</button>
-        <div id="books-scroll" class="scroll-container flex gap-4">
-          <div class="scroll-item p-4"><img src="https://via.placeholder.com/400x500"><h3>Art Book Vol. 1</h3><p>$45</p><button onclick="addToCart('Art Book Vol. 1',45)" class="btn-add">Add to Cart</button></div>
+        <div id="books-scroll" class="scroll-container">
+          <div class="scroll-item">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+            <div class="p-4"><h3>Art Book Vol. 1</h3><p class="text-sm text-[var(--lavender)]">$45</p>
+              <button onclick="addToCart('Art Book Vol. 1',45)" class="btn-add">Add to Cart</button></div>
+          </div>
         </div>
         <button onclick="scrollRight('books-scroll')" class="arrow-btn absolute right-0 top-1/2 -translate-y-1/2">▶</button>
       </div>
@@ -184,26 +184,34 @@
 
   </main>
 
-  <!-- ===== Cart Panel ===== -->
-  <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full transition-transform z-50">
-    <div class="p-4 flex justify-between items-center border-b border-gray-200">
-      <h2 class="text-xl font-bold">Your Cart</h2>
+  <!-- Cart Panel -->
+  <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50">
+    <div class="p-4 flex justify-between items-center border-b">
+      <h2>Your Cart</h2>
       <button onclick="toggleCart()">✖</button>
     </div>
     <div id="cart-items" class="p-4 space-y-2 text-sm"></div>
-    <div class="p-4 border-t border-gray-200">
-      <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
-      <button class="w-full py-2 rounded-lg bg-[var(--blue)] hover:bg-[var(--mint)] transition">Checkout</button>
+    <div class="p-4 border-t">
+      <p>Total: $<span id="cart-total">0</span></p>
     </div>
   </div>
 
-  <!-- ===== Footer ===== -->
-  <footer class="py-6 text-center text-sm">
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
     <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
+    <div class="mt-4 flex justify-center space-x-6">
+      <a href="mailto:Megetsten@gmail.com" class="hover:text-[var(--coral)]">📧 Megetsten@gmail.com</a>
+      <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-[var(--blue)]">📸 Instagram</a>
+    </div>
   </footer>
 
   <!-- Scripts -->
   <script>
+    function setLang(lang) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
     let cart = [];
     function toggleCart() {
       document.getElementById('cart-panel').classList.toggle('translate-x-full');
@@ -218,19 +226,23 @@
       updateCart();
     }
     function updateCart() {
-      const itemsDiv = document.getElementById('cart-items');
-      const totalSpan = document.getElementById('cart-total');
-      itemsDiv.innerHTML = '';
+      const div = document.getElementById('cart-items');
+      let html = '';
       let total = 0;
-      cart.forEach((item, index) => {
-        itemsDiv.innerHTML += `<div class="flex justify-between items-center"><span>${item.name}</span><div class="flex items-center space-x-2"><span>$${item.price}</span><button onclick="removeFromCart(${index})" class="text-red-500">✖</button></div></div>`;
+      cart.forEach((item, i) => {
+        html += `<div class="flex justify-between items-center"><span>${item.name}</span><span>$${item.price}</span><button onclick="removeFromCart(${i})" class="text-red-500">✖</button></div>`;
         total += item.price;
       });
-      totalSpan.textContent = total.toFixed(2);
-      document.getElementById('cart-count').textContent = cart.length;
+      div.innerHTML = html;
+      document.getElementById('cart-total').innerText = total.toFixed(2);
+      document.getElementById('cart-count').innerText = cart.length;
     }
-    function scrollLeft(id) { document.getElementById(id).scrollBy({ left: -300, behavior: 'smooth' }); }
-    function scrollRight(id) { document.getElementById(id).scrollBy({ left: 300, behavior: 'smooth' }); }
+    function scrollLeft(id) {
+      document.getElementById(id).scrollBy({ left: -300, behavior: 'smooth' });
+    }
+    function scrollRight(id) {
+      document.getElementById(id).scrollBy({ left: 300, behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
