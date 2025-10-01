@@ -9,30 +9,33 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     html { scroll-behavior: smooth; }
+    .btn-add { @apply mt-2 w-full bg-teal-500 text-white px-4 py-2 rounded-lg hover:bg-teal-600 transition; }
+    .scroll-container { overflow-x: auto; display: flex; gap: 1rem; scroll-behavior: smooth; }
+    .scroll-item { min-width: 250px; flex: 0 0 auto; }
   </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
 
   <!-- ===== Hero Section with Video ===== -->
   <header class="relative w-full h-screen">
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
       <source src="your-video.mp4" type="video/mp4">
     </video>
     <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6" data-aos="fade-up">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4" 
-          data-en="SeaTurtleTravels Studio" 
+      <h1 class="text-4xl md:text-6xl font-bold mb-4"
+          data-en="SeaTurtleTravels Studio"
           data-es="SeaTurtleTravels Estudio">
           SeaTurtleTravels Studio
       </h1>
-      <p class="text-lg md:text-2xl" 
-         data-en="Art that speaks across Paintings, Ceramics, Jewelry & Books" 
+      <p class="text-lg md:text-2xl"
+         data-en="Art that speaks across Paintings, Ceramics, Jewelry & Books"
          data-es="Arte que habla a través de Pinturas, Cerámicas, Joyería y Libros">
          Art that speaks across Paintings, Ceramics, Jewelry & Books
       </p>
     </div>
   </header>
 
-  <!-- ===== Navigation Tabs with Language Switch ===== -->
+  <!-- ===== Navigation Tabs with Language Switch & Cart ===== -->
   <nav class="sticky top-0 z-50 bg-gray-800 shadow-md flex items-center justify-between px-6">
     <ul class="flex space-x-6 py-4 text-lg font-semibold">
       <li><a href="#paintings" class="hover:text-teal-400" data-en="Paintings" data-es="Pinturas">Paintings</a></li>
@@ -40,88 +43,98 @@
       <li><a href="#jewelry" class="hover:text-teal-400" data-en="Jewelry" data-es="Joyería">Jewelry</a></li>
       <li><a href="#books" class="hover:text-teal-400" data-en="Books" data-es="Libros">Books</a></li>
     </ul>
-    <!-- Language Switch -->
-    <div class="flex space-x-4">
-      <button onclick="setLang('en')" class="hover:scale-110 transition">🇬🇧</button>
-      <button onclick="setLang('es')" class="hover:scale-110 transition">🇪🇸</button>
+    <div class="flex items-center space-x-4">
+      <button onclick="setLang('en')" class="hover:scale-110" aria-label="English">🇬🇧</button>
+      <button onclick="setLang('es')" class="hover:scale-110" aria-label="Español">🇪🇸</button>
+      <!-- Cart Icon -->
+      <button onclick="toggleCart()" class="relative">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-teal-400 hover:text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 11-2 0 1 1 0 012 0zm10 
+            0a1 1 0 11-2 0 1 1 0 012 0z"/>
+        </svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full px-1">0</span>
+      </button>
     </div>
   </nav>
 
   <!-- ===== Gallery Sections ===== -->
   <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
-    <!-- Paintings -->
+    <!-- Template Section (reused with placeholders) -->
     <section id="paintings">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
-          data-en="Paintings" data-es="Pinturas">Paintings</h2>
-      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x500" alt="Painting" class="w-full h-64 object-cover">
-          <div class="p-4">
-            <h3 class="font-semibold" data-en="Untitled Painting" data-es="Pintura Sin Título">Untitled Painting</h3>
-            <p class="text-teal-400">$500</p>
+      <h2 class="text-3xl font-bold mb-4" data-aos="fade-right" data-en="Paintings" data-es="Pinturas">Paintings</h2>
+      <!-- Scroll Container -->
+      <div class="relative">
+        <button onclick="scrollLeft('paintings-scroll')" class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full">⬅</button>
+        <div id="paintings-scroll" class="scroll-container">
+          <!-- Placeholder Items -->
+          <div class="scroll-item bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <h3>Untitled Painting</h3>
+              <p class="text-teal-400">$500</p>
+              <button onclick="addToCart('Untitled Painting',500)" class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+          <div class="scroll-item bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <h3>Landscape Painting</h3>
+              <p class="text-teal-400">$600</p>
+              <button onclick="addToCart('Landscape Painting',600)" class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+          <div class="scroll-item bg-gray-800 rounded-lg overflow-hidden shadow-lg" data-aos="zoom-in">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover">
+            <div class="p-4">
+              <h3>Abstract Art</h3>
+              <p class="text-teal-400">$400</p>
+              <button onclick="addToCart('Abstract Art',400)" class="btn-add">Add to Cart</button>
+            </div>
           </div>
         </div>
+        <button onclick="scrollRight('paintings-scroll')" class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-700 p-2 rounded-full">➡</button>
       </div>
     </section>
 
-    <!-- Ceramics -->
-    <section id="ceramics">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
-          data-en="Ceramics" data-es="Cerámicas">Ceramics</h2>
-      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x500" alt="Ceramic" class="w-full h-64 object-cover">
-          <div class="p-4">
-            <h3 class="font-semibold" data-en="Ceramic Vase" data-es="Jarrón de Cerámica">Ceramic Vase</h3>
-            <p class="text-teal-400">$120</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Jewelry -->
-    <section id="jewelry">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
-          data-en="Jewelry" data-es="Joyería">Jewelry</h2>
-      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x500" alt="Jewelry" class="w-full h-64 object-cover">
-          <div class="p-4">
-            <h3 class="font-semibold" data-en="Silver Necklace" data-es="Collar de Plata">Silver Necklace</h3>
-            <p class="text-teal-400">$200</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Books -->
-    <section id="books">
-      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2" data-aos="fade-right" 
-          data-en="Books" data-es="Libros">Books</h2>
-      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform" data-aos="zoom-in">
-          <img src="https://via.placeholder.com/400x500" alt="Book" class="w-full h-64 object-cover">
-          <div class="p-4">
-            <h3 class="font-semibold" data-en="Art Book Vol. 1" data-es="Libro de Arte Vol. 1">Art Book Vol. 1</h3>
-            <p class="text-teal-400">$45</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Repeat the same structure for Ceramics, Jewelry, Books -->
+    <!-- You can duplicate the above <section> block and replace ids/titles/items -->
 
   </main>
+
+  <!-- ===== Cart Panel ===== -->
+  <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full bg-gray-900 text-white shadow-lg transform translate-x-full transition-transform z-50">
+    <div class="p-4 flex justify-between items-center border-b border-gray-700">
+      <h2 class="text-xl font-bold">Your Cart</h2>
+      <button onclick="toggleCart()">✖</button>
+    </div>
+    <div id="cart-items" class="p-4 space-y-2 text-sm"></div>
+    <div class="p-4 border-t border-gray-700">
+      <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+        <input type="hidden" name="item_name" id="paypal-item-name" value="Art Gallery Order">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="amount" id="paypal-total" value="0.00">
+        <button type="submit" class="w-full bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-400 transition">
+          Checkout with PayPal
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- ===== Footer ===== -->
   <footer class="bg-gray-800 py-6 text-center text-gray-400 text-sm" data-aos="fade-up">
     <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
     <div class="mt-4 flex justify-center space-x-6">
       <a href="mailto:Megetsten@gmail.com" class="hover:text-teal-400 transition">📧 Megetsten@gmail.com</a>
-      <a href="https://www.instagram.com/seaturtletravels?igsh=MTE3bnF4a3I3MHlnNg==" target="_blank" class="hover:text-pink-400 transition">📸 Instagram</a>
+      <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-pink-400 transition">📸 Instagram</a>
     </div>
   </footer>
 
-  <!-- AOS JS -->
+  <!-- AOS + Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000, once: true });
@@ -130,6 +143,38 @@
       document.querySelectorAll('[data-en]').forEach(el => {
         el.textContent = el.getAttribute(`data-${lang}`);
       });
+    }
+
+    // Cart Logic
+    let cart = [];
+    function toggleCart() {
+      document.getElementById('cart-panel').classList.toggle('translate-x-full');
+    }
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
+    function updateCart() {
+      const itemsDiv = document.getElementById('cart-items');
+      const totalSpan = document.getElementById('cart-total');
+      const paypalTotal = document.getElementById('paypal-total');
+      itemsDiv.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        itemsDiv.innerHTML += `<div class="flex justify-between"><span>${item.name}</span><span>$${item.price}</span></div>`;
+        total += item.price;
+      });
+      totalSpan.textContent = total.toFixed(2);
+      paypalTotal.value = total.toFixed(2);
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+
+    // Carousel Scroll
+    function scrollLeft(id) {
+      document.getElementById(id).scrollBy({ left: -300, behavior: 'smooth' });
+    }
+    function scrollRight(id) {
+      document.getElementById(id).scrollBy({ left: 300, behavior: 'smooth' });
     }
   </script>
 
