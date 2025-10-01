@@ -168,7 +168,7 @@
 
 <!-- Books -->
 <section id="books">
-  <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Books</h2>
+  <h2 class="text-3xl font-extrabold mb-6 text-center">Books</h2>
   <div class="relative">
     <button onclick="scrollLeft('books-scroll')" 
       class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 p-2 rounded-full hover:bg-[var(--coral)] transition">
@@ -178,8 +178,8 @@
     <div id="books-scroll" class="scroll-container">
       
       <!-- Book 1 -->
-      <div class="scroll-item" data-aos="zoom-in">
-        <img src="pictures/books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
+      <div class="scroll-item">
+        <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
         <div class="p-4 space-y-2 text-center">
           <h3 class="font-semibold">More Than a Moose</h3>
           <p class="text-[var(--coral)] font-bold">$9.95</p>
@@ -192,8 +192,8 @@
       </div>
 
       <!-- Book 2 -->
-      <div class="scroll-item" data-aos="zoom-in">
-        <img src="pictures/books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
+      <div class="scroll-item">
+        <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
         <div class="p-4 space-y-2 text-center">
           <h3 class="font-semibold">TIMOTHY and TONYA: A Tale Of Two Turtles</h3>
           <p class="text-[var(--coral)] font-bold">$9.95</p>
@@ -206,8 +206,8 @@
       </div>
 
       <!-- Book 3 -->
-      <div class="scroll-item" data-aos="zoom-in">
-        <img src="pictures/books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
+      <div class="scroll-item">
+        <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
         <div class="p-4 space-y-2 text-center">
           <h3 class="font-semibold">The Iguana from Tijuana</h3>
           <p class="text-[var(--coral)] font-bold">$9.95</p>
@@ -231,26 +231,34 @@
 
 
 
-  <!-- Cart Panel -->
-  <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50">
-    <div class="p-4 border-t">
-  <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
-  
-  <!-- ✅ PayPal Checkout -->
-  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-    <input type="hidden" name="cmd" value="_xclick">
-    <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
-    <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
-    <input type="hidden" name="currency_code" value="USD">
-    <input type="hidden" name="amount" id="paypal-total" value="0.00">
-    <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
-      Checkout with PayPal
-    </button>
-  </form>
+<!-- Cart Panel -->
+<div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50 p-4 border-l bg-white">
+  <div class="flex justify-between items-center border-b pb-2 mb-2">
+    <h2 class="text-lg font-bold">Your Cart</h2>
+    <button onclick="toggleCart()">✖</button>
+  </div>
 
-  <!-- ✅ Other Methods Placeholder -->
-  <div class="mt-3 text-xs text-gray-500 text-center">
-    Other payment methods coming soon…
+  <!-- 🛒 This is where items will appear -->
+  <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
+
+  <div class="border-t pt-2">
+    <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
+
+    <!-- ✅ PayPal Checkout -->
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+      <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
+      <input type="hidden" name="currency_code" value="USD">
+      <input type="hidden" name="amount" id="paypal-total" value="0.00">
+      <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
+        Checkout with PayPal
+      </button>
+    </form>
+
+    <div class="mt-3 text-xs text-gray-500 text-center">
+      Other payment methods coming soon…
+    </div>
   </div>
 </div>
 
@@ -264,14 +272,13 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
-    function setLang(lang) {
-      document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
-      });
-    }
-   <script>
+  function setLang(lang) {
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${lang}`);
+    });
+  }
+
   // Cart Logic
   let cart = [];
 
@@ -286,17 +293,6 @@
     // Auto-open cart
     const cartPanel = document.getElementById('cart-panel');
     cartPanel.classList.remove('translate-x-full');
-
-    // Small bounce animation
-    cartPanel.classList.add('cart-bounce');
-    setTimeout(() => cartPanel.classList.remove('cart-bounce'), 500);
-
-    // Animate cart icon
-    const cartIcon = document.querySelector('button[onclick="toggleCart()"] svg');
-    if (cartIcon) {
-      cartIcon.classList.add('cart-animate');
-      setTimeout(() => cartIcon.classList.remove('cart-animate'), 600);
-    }
   }
 
   function removeFromCart(index) {
