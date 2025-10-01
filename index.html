@@ -166,35 +166,93 @@
       </div>
     </section>
 
-    <!-- Books -->
-    <section id="books">
-      <h2 class="text-3xl font-bold mb-4 text-center">Books</h2>
-      <div class="relative">
-        <button onclick="scrollLeft('books-scroll')" class="arrow-btn absolute left-0 top-1/2 -translate-y-1/2">◀</button>
-        <div id="books-scroll" class="scroll-container">
-          <div class="scroll-item">
-            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-            <div class="p-4"><h3>Art Book Vol. 1</h3><p class="text-sm text-[var(--lavender)]">$45</p>
-              <button onclick="addToCart('Art Book Vol. 1',45)" class="btn-add">Add to Cart</button></div>
-          </div>
-        </div>
-        <button onclick="scrollRight('books-scroll')" class="arrow-btn absolute right-0 top-1/2 -translate-y-1/2">▶</button>
-      </div>
-    </section>
+ <!-- Books -->
+<section id="books">
+  <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Books</h2>
+  <div class="relative">
+    <button onclick="scrollLeft('books-scroll')" 
+      class="absolute left-0 top-1/2 -translate-y-1/2 bg-gray-200 p-2 rounded-full hover:bg-[var(--coral)] transition">
+      ‹
+    </button>
 
-  </main>
+    <div id="books-scroll" class="scroll-container">
+      
+      <!-- Book 1 -->
+      <div class="scroll-item" data-aos="zoom-in">
+        <img src="pictures/books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
+        <div class="p-4 space-y-2">
+          <h3 class="font-semibold">More Than a Moose</h3>
+          <button onclick="addToCart('More Than a Moose',45)" class="btn-add">Add to Cart</button>
+          <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
+             class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                    hover:bg-amber-300 transition transform hover:scale-105">
+            Buy
+          </a>
+        </div>
+      </div>
+
+      <!-- Book 2 -->
+      <div class="scroll-item" data-aos="zoom-in">
+        <img src="pictures/books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
+        <div class="p-4 space-y-2">
+          <h3 class="font-semibold">Timothy and Tonya</h3>
+          <button onclick="addToCart('Timothy and Tonya',50)" class="btn-add">Add to Cart</button>
+          <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
+             class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                    hover:bg-amber-300 transition transform hover:scale-105">
+            Buy
+          </a>
+        </div>
+      </div>
+
+      <!-- Book 3 -->
+      <div class="scroll-item" data-aos="zoom-in">
+        <img src="pictures/books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
+        <div class="p-4 space-y-2">
+          <h3 class="font-semibold">The Iguana from Tijuana</h3>
+          <button onclick="addToCart('The Iguana from Tijuana',55)" class="btn-add">Add to Cart</button>
+          <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
+             class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                    hover:bg-amber-300 transition transform hover:scale-105">
+            Buy
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <button onclick="scrollRight('books-scroll')" 
+      class="absolute right-0 top-1/2 -translate-y-1/2 bg-gray-200 p-2 rounded-full hover:bg-[var(--coral)] transition">
+      ›
+    </button>
+  </div>
+</section>
+
+
 
   <!-- Cart Panel -->
   <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50">
-    <div class="p-4 flex justify-between items-center border-b">
-      <h2>Your Cart</h2>
-      <button onclick="toggleCart()">✖</button>
-    </div>
-    <div id="cart-items" class="p-4 space-y-2 text-sm"></div>
     <div class="p-4 border-t">
-      <p>Total: $<span id="cart-total">0</span></p>
-    </div>
+  <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
+  
+  <!-- ✅ PayPal Checkout -->
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+    <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="amount" id="paypal-total" value="0.00">
+    <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
+      Checkout with PayPal
+    </button>
+  </form>
+
+  <!-- ✅ Other Methods Placeholder -->
+  <div class="mt-3 text-xs text-gray-500 text-center">
+    Other payment methods coming soon…
   </div>
+</div>
+
 
   <!-- Footer -->
   <footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
