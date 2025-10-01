@@ -166,7 +166,7 @@
       </div>
     </section>
 
- <!-- Books -->
+<!-- Books -->
 <section id="books">
   <h2 class="text-3xl font-extrabold mb-6 text-center" data-aos="fade-up">Books</h2>
   <div class="relative">
@@ -180,9 +180,9 @@
       <!-- Book 1 -->
       <div class="scroll-item" data-aos="zoom-in">
         <img src="pictures/books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
-        <div class="p-4 space-y-2">
+        <div class="p-4 space-y-2 text-center">
           <h3 class="font-semibold">More Than a Moose</h3>
-          <button onclick="addToCart('More Than a Moose',45)" class="btn-add">Add to Cart</button>
+          <p class="text-[var(--coral)] font-bold">$9.95</p>
           <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
              class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
                     hover:bg-amber-300 transition transform hover:scale-105">
@@ -194,9 +194,9 @@
       <!-- Book 2 -->
       <div class="scroll-item" data-aos="zoom-in">
         <img src="pictures/books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
-        <div class="p-4 space-y-2">
-          <h3 class="font-semibold">Timothy and Tonya</h3>
-          <button onclick="addToCart('Timothy and Tonya',50)" class="btn-add">Add to Cart</button>
+        <div class="p-4 space-y-2 text-center">
+          <h3 class="font-semibold">TIMOTHY and TONYA: A Tale Of Two Turtles</h3>
+          <p class="text-[var(--coral)] font-bold">$9.95</p>
           <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
              class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
                     hover:bg-amber-300 transition transform hover:scale-105">
@@ -208,9 +208,9 @@
       <!-- Book 3 -->
       <div class="scroll-item" data-aos="zoom-in">
         <img src="pictures/books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
-        <div class="p-4 space-y-2">
+        <div class="p-4 space-y-2 text-center">
           <h3 class="font-semibold">The Iguana from Tijuana</h3>
-          <button onclick="addToCart('The Iguana from Tijuana',55)" class="btn-add">Add to Cart</button>
+          <p class="text-[var(--coral)] font-bold">$9.95</p>
           <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
              class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
                     hover:bg-amber-300 transition transform hover:scale-105">
@@ -227,6 +227,7 @@
     </button>
   </div>
 </section>
+
 
 
 
@@ -270,37 +271,61 @@
         el.textContent = el.getAttribute(`data-${lang}`);
       });
     }
-    let cart = [];
-    function toggleCart() {
-      document.getElementById('cart-panel').classList.toggle('translate-x-full');
+   <script>
+  // Cart Logic
+  let cart = [];
+
+  function toggleCart() {
+    document.getElementById('cart-panel').classList.toggle('translate-x-full');
+  }
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCart();
+
+    // Auto-open cart
+    const cartPanel = document.getElementById('cart-panel');
+    cartPanel.classList.remove('translate-x-full');
+
+    // Small bounce animation
+    cartPanel.classList.add('cart-bounce');
+    setTimeout(() => cartPanel.classList.remove('cart-bounce'), 500);
+
+    // Animate cart icon
+    const cartIcon = document.querySelector('button[onclick="toggleCart()"] svg');
+    if (cartIcon) {
+      cartIcon.classList.add('cart-animate');
+      setTimeout(() => cartIcon.classList.remove('cart-animate'), 600);
     }
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCart();
-      document.getElementById('cart-panel').classList.remove('translate-x-full');
-    }
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      updateCart();
-    }
-    function updateCart() {
-      const div = document.getElementById('cart-items');
-      let html = '';
-      let total = 0;
-      cart.forEach((item, i) => {
-        html += `<div class="flex justify-between items-center"><span>${item.name}</span><span>$${item.price}</span><button onclick="removeFromCart(${i})" class="text-red-500">✖</button></div>`;
-        total += item.price;
-      });
-      div.innerHTML = html;
-      document.getElementById('cart-total').innerText = total.toFixed(2);
-      document.getElementById('cart-count').innerText = cart.length;
-    }
-    function scrollLeft(id) {
-      document.getElementById(id).scrollBy({ left: -300, behavior: 'smooth' });
-    }
-    function scrollRight(id) {
-      document.getElementById(id).scrollBy({ left: 300, behavior: 'smooth' });
-    }
-  </script>
-</body>
-</html>
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function updateCart() {
+    const itemsDiv = document.getElementById('cart-items');
+    const totalSpan = document.getElementById('cart-total');
+    const paypalTotal = document.getElementById('paypal-total');
+
+    itemsDiv.innerHTML = '';
+    let total = 0;
+
+    cart.forEach((item, index) => {
+      itemsDiv.innerHTML += `
+        <div class="flex justify-between items-center">
+          <span>${item.name}</span>
+          <div class="flex items-center space-x-2">
+            <span>$${item.price.toFixed(2)}</span>
+            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-400">✖</button>
+          </div>
+        </div>`;
+      total += item.price;
+    });
+
+    totalSpan.textContent = total.toFixed(2);
+    if (paypalTotal) paypalTotal.value = total.toFixed(2);
+    document.getElementById('cart-count').textContent = cart.length;
+  }
+</script>
