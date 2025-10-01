@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeaTurtleTravels Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- ===== Hero Section with Video ===== -->
+  <header class="relative w-full h-screen">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
+      <source src="your-video.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-6">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">SeaTurtleTravels Studio</h1>
+      <p class="text-lg md:text-2xl">Art that speaks across Paintings, Ceramics, Jewelry & Books</p>
+    </div>
+  </header>
+
+  <!-- ===== Navigation Tabs ===== -->
+  <nav class="sticky top-0 z-50 bg-gray-800 shadow-md">
+    <ul class="flex justify-center space-x-6 py-4 text-lg font-semibold">
+      <li><a href="#paintings" class="hover:text-teal-400">Paintings</a></li>
+      <li><a href="#ceramics" class="hover:text-teal-400">Ceramics</a></li>
+      <li><a href="#jewelry" class="hover:text-teal-400">Jewelry</a></li>
+      <li><a href="#books" class="hover:text-teal-400">Books</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== Gallery Sections ===== -->
+  <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+
+    <!-- Paintings -->
+    <section id="paintings">
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Paintings</h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <!-- Item -->
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+          <img src="https://via.placeholder.com/400x500" alt="Painting" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Untitled Painting</h3>
+            <p class="text-teal-400">$500</p>
+          </div>
+        </div>
+        <!-- Duplicate as needed -->
+      </div>
+    </section>
+
+    <!-- Ceramics -->
+    <section id="ceramics">
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Ceramics</h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+          <img src="https://via.placeholder.com/400x500" alt="Ceramic" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Ceramic Vase</h3>
+            <p class="text-teal-400">$120</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Jewelry -->
+    <section id="jewelry">
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Jewelry</h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+          <img src="https://via.placeholder.com/400x500" alt="Jewelry" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Silver Necklace</h3>
+            <p class="text-teal-400">$200</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Books -->
+    <section id="books">
+      <h2 class="text-3xl font-bold mb-8 border-b border-teal-500 pb-2">Books</h2>
+      <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
+          <img src="https://via.placeholder.com/400x500" alt="Book" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-semibold">Art Book Vol. 1</h3>
+            <p class="text-teal-400">$45</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="bg-gray-800 py-6 text-center text-gray-400 text-sm">
+    © 2025 SeaTurtleTravels Studio. All rights reserved.
+  </footer>
+
+</body>
+</html>
