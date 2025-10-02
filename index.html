@@ -7,6 +7,31 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
 
+    /* Section Title Styling */
+.section-title {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  color: #2e2e2e;
+  margin-bottom: 1.5rem;
+}
+
+/* Specific colors per section */
+#paintings .section-title {
+  background: var(--lavender);
+}
+#ceramics .section-title {
+  background: var(--mint);
+}
+#jewelry .section-title {
+  background: var(--coral);
+}
+#books .section-title {
+  background: var(--blue);
+}
+
+
     nav {
   background: #001f3f !important; /* deep navy blue */
   color: white;
@@ -204,7 +229,7 @@ nav svg {
 
   <!-- Paintings -->
   <section id="paintings" class="section-bg">
-    <h2 class="text-3xl font-bold mb-4 text-center">Paintings</h2>
+    <h2 class="section-title text-3xl">Paintings</h2>
     <div class="relative">
       <button onclick="scrollLeft('paintings-scroll')" class="carousel-btn left">◀</button>
       <div id="paintings-scroll" class="scroll-container">
@@ -241,7 +266,7 @@ nav svg {
 
   <!-- Ceramics -->
   <section id="ceramics" class="section-bg">
-    <h2 class="text-3xl font-bold mb-4 text-center">Ceramics</h2>
+    <h2 class="section-title text-3xl">Ceramics</h2>
     <div class="relative">
       <button onclick="scrollLeft('ceramics-scroll')" class="carousel-btn left">◀</button>
       <div id="ceramics-scroll" class="scroll-container">
@@ -263,7 +288,7 @@ nav svg {
 
   <!-- Jewelry -->
   <section id="jewelry" class="section-bg">
-    <h2 class="text-3xl font-bold mb-4 text-center">Jewelry</h2>
+    <h2 class="section-title text-3xl">Jewelry</h2>
     <div class="relative">
       <button onclick="scrollLeft('jewelry-scroll')" class="carousel-btn left">◀</button>
       <div id="jewelry-scroll" class="scroll-container">
@@ -285,7 +310,7 @@ nav svg {
 
   <!-- Books -->
   <section id="books" class="section-bg">
-    <h2 class="text-3xl font-extrabold mb-6 text-center">Books</h2>
+    <h2 class="section-title text-3xl">Books</h2>
     <div class="relative">
       <button onclick="scrollLeft('books-scroll')" class="carousel-btn left">◀</button>
       <div id="books-scroll" class="scroll-container">
@@ -329,7 +354,6 @@ nav svg {
     </div>
   </section>
 </main>
-
 
 <!-- Cart Panel -->
 <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50 p-4 border-l bg-white">
