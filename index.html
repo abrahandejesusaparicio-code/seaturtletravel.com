@@ -330,7 +330,7 @@
 
 
 <!-- Cart Panel -->
-<div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50 p-4 border-l bg-white">
+<div id="cart-panel" class="fixed top-0 right-0 w-80 h-full z-50 p-4 border-l bg-white">
   <div class="flex justify-between items-center border-b pb-2 mb-2">
     <h2 class="text-lg font-bold">Your Cart</h2>
     <button onclick="toggleCart()">✖</button>
@@ -371,30 +371,17 @@
     });
   }
 
-  // 🛒 Cart Logic
+  // 🛒 Cart Logic (✅ final clean version, no duplicates!)
   let cart = [];
 
   function toggleCart() {
-  document.getElementById('cart-panel').classList.toggle('active');
-}
-
-function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCart();
-  const panel = document.getElementById('cart-panel');
-  panel.classList.add('active'); // ✅ Show cart
-
-  // Auto-close after 3 seconds (optional)
-  setTimeout(() => {
-    panel.classList.remove('active');
-  }, 3000);
-}
-
+    document.getElementById('cart-panel').classList.toggle('active');
+  }
 
   function addToCart(name, price) {
     cart.push({ name, price });
     updateCart();
-    document.getElementById('cart-panel').classList.remove('translate-x-full');
+    document.getElementById('cart-panel').classList.add('active'); // open cart
   }
 
   function removeFromCart(index) {
@@ -434,6 +421,5 @@ function addToCart(name, price) {
     once: true
   });
 </script>
-
 </body>
 </html>
