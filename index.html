@@ -426,17 +426,40 @@ nav svg {
     document.getElementById('cart-count').textContent = cart.length;
   }
 
-  // 🎯 Carousel Arrow Controls
-  function scrollLeft(id) {
-    const container = document.getElementById(id);
-    const itemWidth = container.querySelector('.scroll-item').offsetWidth + 16; // card + gap
-    container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
-  }
+ // 🎯 Carousel Arrow Controls (improved)
+function scrollLeft(id) {
+  const container = document.getElementById(id);
+  if (!container) return;
 
-  function scrollRight(id) {
-    const container = document.getElementById(id);
-    const itemWidth = container.querySelector('.scroll-item').offsetWidth + 16;
-    container.scrollBy({ left: itemWidth, behavior: 'smooth' });
-  }
-</script>
+  const item = container.querySelector('.scroll-item');
+  if (!item) return;
+
+  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
+  const cardWidth = item.getBoundingClientRect().width + gap;
+
+  const currentIndex = Math.round(container.scrollLeft / cardWidth);
+  const nextIndex = Math.max(0, currentIndex - 1);
+
+  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
+}
+
+function scrollRight(id) {
+  const container = document.getElementById(id);
+  if (!container) return;
+
+  const item = container.querySelector('.scroll-item');
+  if (!item) return;
+
+  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
+  const cardWidth = item.getBoundingClientRect().width + gap;
+
+  const currentIndex = Math.round(container.scrollLeft / cardWidth);
+  const maxIndex = Math.ceil(
+    (container.scrollWidth - container.clientWidth) / cardWidth
+  );
+  const nextIndex = Math.min(maxIndex, currentIndex + 1);
+
+  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
+}
+
 
