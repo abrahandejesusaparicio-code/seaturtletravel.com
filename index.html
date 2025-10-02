@@ -130,27 +130,28 @@
   }
   .arrow-btn:hover { opacity: 1; }
 
-  #cart-panel {
+ #cart-panel {
   position: fixed;
-  top: 0;
+  top: 4rem; /* ✅ Push down so it starts below the navbar */
   right: 0;
   width: 20rem;
-  height: 100%;
+  height: calc(100% - 4rem); /* ✅ Full height minus navbar */
   background: #fff;
   color: var(--text-dark);
   box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  transform: translateX(100%); /* 🔒 Hidden by default */
-  opacity: 0;                  /* 🔒 Invisible */
-  pointer-events: none;        /* 🔒 Not clickable */
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 50;
 }
 
 #cart-panel.active {
-  transform: translateX(0); /* ✅ Slide in */
-  opacity: 1;              /* ✅ Visible */
-  pointer-events: auto;    /* ✅ Clickable */
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
 }
+
 
 </style>
 
