@@ -131,14 +131,27 @@
   .arrow-btn:hover { opacity: 1; }
 
   #cart-panel {
-    background: #fff;
-    color: var(--text-dark);
-    box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-  }
-  #cart-panel h2 {
-    font-family: "Georgia", serif;
-  }
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 20rem;
+  height: 100%;
+  background: #fff;
+  color: var(--text-dark);
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  transform: translateX(100%); /* 🔒 Hidden by default */
+  opacity: 0;                  /* 🔒 Invisible */
+  pointer-events: none;        /* 🔒 Not clickable */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 50;
+}
+
+#cart-panel.active {
+  transform: translateX(0); /* ✅ Slide in */
+  opacity: 1;              /* ✅ Visible */
+  pointer-events: auto;    /* ✅ Clickable */
+}
+
 </style>
 
 
@@ -361,8 +374,21 @@
   let cart = [];
 
   function toggleCart() {
-    document.getElementById('cart-panel').classList.toggle('translate-x-full');
-  }
+  document.getElementById('cart-panel').classList.toggle('active');
+}
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCart();
+  const panel = document.getElementById('cart-panel');
+  panel.classList.add('active'); // ✅ Show cart
+
+  // Auto-close after 3 seconds (optional)
+  setTimeout(() => {
+    panel.classList.remove('active');
+  }, 3000);
+}
+
 
   function addToCart(name, price) {
     cart.push({ name, price });
