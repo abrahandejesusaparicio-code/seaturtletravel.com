@@ -6,6 +6,30 @@
   <title>SeaTurtleTravels Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+
+    /* 🎨 Card Hover Effect + Carousel Snap */
+.scroll-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.scroll-item {
+  scroll-snap-align: start;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  min-width: 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
     
     .section-bg {
   background: var(--blue); /* pastel turquoise from your palette */
@@ -73,25 +97,27 @@
 </head>
 <body>
 
-  <!-- Hero -->
-  <section class="relative w-full h-screen">
-    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
-      <source src="placeholder-video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-    <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-6">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white"
-          data-en="Welcome to SeaTurtleTravels Art Gallery"
-          data-es="Bienvenidos a SeaTurtleTravels Galería de Arte">
-          Welcome to SeaTurtleTravels
-      </h1>
-      <p class="text-lg md:text-2xl text-gray-100"
-         data-en="Discover Art, Ceramics, Jewelry & Books"
-         data-es="Descubre Arte, Cerámica, Joyería y Libros">
-         Discover Art, Ceramics, Jewelry & Books
-      </p>
-    </div>
-  </section>
+<!-- Hero -->
+<section class="relative w-full h-screen">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
+    <source src="hero video/gallery_sample_vid.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center text-center px-6">
+    <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white"
+        data-en="Welcome to SeaTurtleTravels Art Gallery"
+        data-es="Bienvenidos a SeaTurtleTravels Galería de Arte">
+        Welcome to SeaTurtleTravels
+    </h1>
+    <p class="text-lg md:text-2xl text-gray-100"
+       data-en="Discover Art, Ceramics, Jewelry & Books"
+       data-es="Descubre Arte, Cerámica, Joyería y Libros">
+       Discover Art, Ceramics, Jewelry & Books
+    </p>
+  </div>
+</section>
+
+
 
   <!-- Navigation -->
   <nav class="sticky top-0 z-50 bg-white/90 shadow">
@@ -315,14 +341,15 @@
     </div>
   </footer>
 
-  <script>
+ <script>
+  // 🌍 Language Switch
   function setLang(lang) {
     document.querySelectorAll('[data-en]').forEach(el => {
       el.textContent = el.getAttribute(`data-${lang}`);
     });
   }
 
-  // Cart Logic
+  // 🛒 Cart Logic
   let cart = [];
 
   function toggleCart() {
@@ -367,4 +394,18 @@
     if (paypalTotal) paypalTotal.value = total.toFixed(2);
     document.getElementById('cart-count').textContent = cart.length;
   }
+
+  // 🎯 Carousel Arrow Controls
+  function scrollLeft(id) {
+    const container = document.getElementById(id);
+    const itemWidth = container.querySelector('.scroll-item').offsetWidth + 16; // card + gap
+    container.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+  }
+
+  function scrollRight(id) {
+    const container = document.getElementById(id);
+    const itemWidth = container.querySelector('.scroll-item').offsetWidth + 16;
+    container.scrollBy({ left: itemWidth, behavior: 'smooth' });
+  }
 </script>
+
