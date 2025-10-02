@@ -29,7 +29,7 @@
 }
 #books .section-title {
   background: #fa8072; 
-  color: white;        
+  color: black;        
 }
 
 
@@ -89,19 +89,21 @@ nav svg {
 .scroll-container {
   display: flex;
   gap: 1rem;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
+  overflow-x: auto;              /* keep horizontal scroll */
+  scroll-behavior: smooth;       /* smooth animation */
+  scroll-snap-type: x mandatory; /* snap to cards */
+  padding-bottom: 1rem;          /* prevents arrows covering bottom */
 }
 
 .scroll-item {
-  scroll-snap-align: start;
   background: #fff;
   border-radius: 0.75rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
   min-width: 250px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.2s;
+  scroll-snap-align: start;      /* snap each card */
 }
+
 
 .scroll-item:hover {
   transform: translateY(-8px) scale(1.02);
@@ -419,12 +421,38 @@ nav svg {
 
     function updateCart() { ... }
 
-    // 🎯 Carousel Arrow Controls (improved)
-    function scrollLeft(id) { ... }
+    // 🎯 Carousel Arrow Controls (snap to card)
+function scrollLeft(id) {
+  const container = document.getElementById(id);
+  if (!container) return;
 
-    function scrollRight(id) { ... }
-  </script>
-</body>
-</html>
+  const item = container.querySelector('.scroll-item');
+  if (!item) return;
 
+  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
+  const cardWidth = item.getBoundingClientRect().width + gap;
 
+  const currentIndex = Math.round(container.scrollLeft / cardWidth);
+  const nextIndex = Math.max(0, currentIndex - 1);
+
+  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
+}
+
+function scrollRight(id) {
+  const container = document.getElementById(id);
+  if (!container) return;
+
+  const item = container.querySelector('.scroll-item');
+  if (!item) return;
+
+  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
+  const cardWidth = item.getBoundingClientRect().width + gap;
+
+  const currentIndex = Math.round(container.scrollLeft / cardWidth);
+  const maxIndex = Math.ceil(
+    (container.scrollWidth - container.clientWidth) / cardWidth
+  );
+  const nextIndex = Math.min(maxIndex, currentIndex + 1);
+
+  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
+}
