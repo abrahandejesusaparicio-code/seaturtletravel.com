@@ -130,12 +130,12 @@
   }
   .arrow-btn:hover { opacity: 1; }
 
- #cart-panel {
-  position: fixed;
-  top: 4rem; /* ✅ Push down so it starts below the navbar */
+#cart-panel {
+  position: absolute;   /* instead of fixed */
+  top: 0;               /* relative to the page, not viewport */
   right: 0;
   width: 20rem;
-  height: calc(100% - 4rem); /* ✅ Full height minus navbar */
+  min-height: 100%;     /* let it stretch with the content */
   background: #fff;
   color: var(--text-dark);
   box-shadow: -4px 0 12px rgba(0,0,0,0.1);
@@ -151,8 +151,6 @@
   opacity: 1;
   pointer-events: auto;
 }
-
-
 </style>
 
 
