@@ -5,92 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SeaTurtleTravels Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- ✅ AOS CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
   <style>
-
     /* Section Title Styling */
-.section-title {
-  display: inline-block;
-  padding: 0.5rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  color: #2e2e2e;
-  margin-bottom: 1.5rem;
-}
+    .section-title {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      color: #2e2e2e;
+      margin-bottom: 1.5rem;
+    }
 
-/* Specific colors per section */
-#paintings .section-title {
-  background: var(--lavender);
-}
-#ceramics .section-title {
-  background: var(--mint);
-}
-#jewelry .section-title {
-  background: var(--coral);
-}
-#books .section-title {
-  background: #fa8072; 
-  color: black;        
-}
-
-
+    /* Specific colors per section */
+    #paintings .section-title { background: var(--lavender); }
+    #ceramics .section-title { background: var(--mint); }
+    #jewelry .section-title { background: var(--coral); }
+    #books .section-title { background: #fa8072; color: black; }
 
     nav {
-  background: #001f3f !important; /* deep navy blue */
-  color: white;
-}
-nav a {
-  color: white;
-  transition: color 0.3s;
-}
-nav a:hover {
-  color: var(--lavender);
-}
+      background: #001f3f !important; /* deep navy blue */
+      color: white;
+    }
+    nav a { color: white; transition: color 0.3s; }
+    nav a:hover { color: var(--lavender); }
 
-
-
-/* 🛒 Cart Icon */
-nav svg {
-  stroke: white;   /* cart lines white */
-}
-#cart-count {
-  background: var(--yellow);
-  color: black;
-  font-weight: bold;
-}
-
-
+    /* 🛒 Cart Icon */
+    nav svg { stroke: white; }
+    #cart-count {
+      background: var(--yellow);
+      color: black;
+      font-weight: bold;
+    }
 
     /* 🎨 Card Hover Effect + Carousel Snap */
-.scroll-container {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;              /* keep horizontal scroll */
-  scroll-behavior: smooth;       /* smooth animation */
-  scroll-snap-type: x mandatory; /* snap to cards */
-  padding-bottom: 1rem;          /* prevents arrows covering bottom */
-}
+    .scroll-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
+    }
 
-.scroll-item {
-  background: #fff;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  min-width: 250px;
-  transition: transform 0.2s;
-  scroll-snap-align: start;      /* snap each card */
-}
+    .scroll-item {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      min-width: 250px;
+      transition: transform 0.2s;
+      scroll-snap-align: start;
+    }
 
+    .scroll-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
 
-.scroll-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-
-    
     .section-bg {
-  background: var(--blue); /* pastel turquoise from your palette */
-  border-radius: 0.75rem;
-  padding: 2rem 1rem;
-}
+      background: var(--blue);
+      border-radius: 0.75rem;
+      padding: 2rem 1rem;
+    }
 
     :root {
       --lavender: #e4c1f9;
@@ -101,23 +80,17 @@ nav svg {
       --text-dark: #2e2e2e;
       --bg-light: #fdfcf7;
     }
+
     body {
       background: var(--bg-light);
       color: var(--text-dark);
       font-family: "Helvetica Neue", Arial, sans-serif;
     }
+
     h1, h2, h3 {
       font-family: "Georgia", serif;
     }
-    .scroll-container { overflow-x: auto; display: flex; gap: 1rem; scroll-behavior: smooth; }
-    .scroll-item {
-      background: #fff;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      min-width: 250px;
-      transition: transform 0.2s;
-    }
-    .scroll-item:hover { transform: translateY(-4px); }
+
     .btn-add {
       display: block;
       width: 100%;
@@ -129,6 +102,7 @@ nav svg {
       transition: background 0.3s, transform 0.2s;
     }
     .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
+
     .arrow-btn {
       background: var(--lavender);
       border: none;
@@ -139,6 +113,7 @@ nav svg {
       transition: opacity 0.3s;
     }
     .arrow-btn:hover { opacity: 1; }
+
     #cart-panel {
       background: #fff;
       color: var(--text-dark);
@@ -172,130 +147,103 @@ nav svg {
   </div>
 </section>
 
+<!-- Navigation -->
+<nav class="sticky top-0 z-50 bg-white/90 shadow">
+  <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
+    <ul class="flex space-x-8 py-4 text-lg font-medium">
+      <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
+      <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
+      <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
+      <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
+      <li><a href="about.html" class="hover:text-[var(--coral)]">About Me</a></li>
+    </ul>
 
-
-  <!-- Navigation -->
-  <nav class="sticky top-0 z-50 bg-white/90 shadow">
-    <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
-      <ul class="flex space-x-8 py-4 text-lg font-medium">
-  <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
-  <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
-  <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
-  <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
-  <li><a href="about.html" class="hover:text-[var(--coral)]">About Me</a></li>
-</ul>
-
-      <div class="flex items-center space-x-4">
-        <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
-        <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
-       <button onclick="toggleCart()" class="relative">
-  <svg xmlns="http://www.w3.org/2000/svg" 
-       class="h-7 w-7" 
-       fill="none" 
-       viewBox="0 0 24 24" 
-       stroke="currentColor">
-
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
-              11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
-          </svg>
-          <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
-        </button>
-      </div>
+    <div class="flex items-center space-x-4">
+      <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
+      <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
+      <button onclick="toggleCart()" class="relative">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
+            11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+        </svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
+      </button>
     </div>
-  </nav>
+  </div>
+</nav>
 
 <!-- Gallery Sections -->
 <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
   <!-- Paintings -->
-  <section id="paintings" class="section-bg">
-    <h2 class="section-title text-3xl">Paintings</h2>
-    <div class="relative">
-     
+  <section id="paintings" class="section-bg" data-aos="fade-up">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Paintings</h2>
+    <div class="relative" data-aos="fade-up" data-aos-delay="150">
       <div id="paintings-scroll" class="scroll-container">
-        <!-- ✅ Painting Items -->
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="200">
           <img src="pictures paintings/kahuna_tuna.jpg" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Kahuna Tuna</h3><p class="text-sm text-[var(--coral)]">$500</p>
             <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button></div>
         </div>
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="250">
           <img src="pictures paintings/panga.jpg" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Panga</h3><p class="text-sm text-[var(--coral)]">$600</p>
             <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button></div>
         </div>
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="300">
           <img src="pictures paintings/pears_and_blooms.jpg" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Pears and Blooms</h3><p class="text-sm text-[var(--coral)]">$450</p>
             <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button></div>
         </div>
-        <div class="scroll-item">
-          <img src="pictures paintings/potted_plants.jpg" class="w-full h-64 object-cover rounded-t-lg">
-          <div class="p-4"><h3>Potted Plants</h3><p class="text-sm text-[var(--coral)]">$300</p>
-            <button onclick="addToCart('Potted Plants',300)" class="btn-add">Add to Cart</button></div>
-        </div>
-        <div class="scroll-item">
-          <img src="pictures paintings/mermaid_in_sand.jpg" class="w-full h-64 object-cover rounded-t-lg">
-          <div class="p-4"><h3>Mermaid in Sand</h3><p class="text-sm text-[var(--coral)]">$700</p>
-            <button onclick="addToCart('Mermaid in Sand',700)" class="btn-add">Add to Cart</button></div>
-        </div>
       </div>
-     
     </div>
   </section>
 
   <!-- Ceramics -->
-  <section id="ceramics" class="section-bg">
-    <h2 class="section-title text-3xl">Ceramics</h2>
-    <div class="relative">
-     
+  <section id="ceramics" class="section-bg" data-aos="fade-right">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Ceramics</h2>
+    <div class="relative" data-aos="fade-right" data-aos-delay="150">
       <div id="ceramics-scroll" class="scroll-container">
-        <!-- ✅ Ceramic Items -->
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="flip-left" data-aos-delay="200">
           <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
             <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
         </div>
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="flip-left" data-aos-delay="250">
           <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
             <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
         </div>
       </div>
-     
     </div>
   </section>
 
   <!-- Jewelry -->
-  <section id="jewelry" class="section-bg">
-    <h2 class="section-title text-3xl">Jewelry</h2>
-    <div class="relative">
+  <section id="jewelry" class="section-bg" data-aos="fade-left">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Jewelry</h2>
+    <div class="relative" data-aos="fade-left" data-aos-delay="150">
       <div id="jewelry-scroll" class="scroll-container">
-        <!-- ✅ Jewelry Items -->
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="200">
           <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
             <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
         </div>
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="250">
           <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
           <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
             <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
         </div>
       </div>
-    
     </div>
   </section>
 
   <!-- Books -->
-  <section id="books" class="section-bg">
-    <h2 class="section-title text-3xl">Books</h2>
-    <div class="relative">
-     
+  <section id="books" class="section-bg" data-aos="fade-up">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Books</h2>
+    <div class="relative" data-aos="fade-up" data-aos-delay="150">
       <div id="books-scroll" class="scroll-container">
-        <!-- Book 1 -->
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="flip-up" data-aos-delay="200">
           <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
           <div class="p-4 space-y-2 text-center">
             <h3 class="font-semibold">More Than a Moose</h3>
@@ -305,9 +253,7 @@ nav svg {
                       hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
           </div>
         </div>
-
-        <!-- Book 2 -->
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="flip-up" data-aos-delay="250">
           <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
           <div class="p-4 space-y-2 text-center">
             <h3 class="font-semibold">TIMOTHY and TONYA</h3>
@@ -317,9 +263,7 @@ nav svg {
                       hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
           </div>
         </div>
-
-        <!-- Book 3 -->
-        <div class="scroll-item">
+        <div class="scroll-item" data-aos="flip-up" data-aos-delay="300">
           <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
           <div class="p-4 space-y-2 text-center">
             <h3 class="font-semibold">The Iguana from Tijuana</h3>
@@ -341,14 +285,9 @@ nav svg {
     <h2 class="text-lg font-bold">Your Cart</h2>
     <button onclick="toggleCart()">✖</button>
   </div>
-
-  <!-- 🛒 This is where items will appear -->
   <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
-
   <div class="border-t pt-2">
     <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
-
-    <!-- ✅ PayPal Checkout -->
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
       <input type="hidden" name="cmd" value="_xclick">
       <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
@@ -359,25 +298,21 @@ nav svg {
         Checkout with PayPal
       </button>
     </form>
-
-    <div class="mt-3 text-xs text-gray-500 text-center">
-      Other payment methods coming soon…
-    </div>
+    <div class="mt-3 text-xs text-gray-500 text-center">Other payment methods coming soon…</div>
   </div>
 </div>
 
+<!-- Footer -->
+<footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
+  <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
+  <div class="mt-4 flex justify-center space-x-6">
+    <a href="mailto:Megetsten@gmail.com" class="hover:text-[var(--coral)]">📧 Megetsten@gmail.com</a>
+    <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-[var(--blue)]">📸 Instagram</a>
+  </div>
+</footer>
 
-  ...
-  <!-- Footer -->
-  <footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
-    <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
-    <div class="mt-4 flex justify-center space-x-6">
-      <a href="mailto:Megetsten@gmail.com" class="hover:text-[var(--coral)]">📧 Megetsten@gmail.com</a>
-      <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-[var(--blue)]">📸 Instagram</a>
-    </div>
-  </footer>
-
-  <!-- ✅ Place scripts here -->
+<!-- ✅ Scripts -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
   // 🌍 Language Switch
   function setLang(lang) {
@@ -386,7 +321,7 @@ nav svg {
     });
   }
 
-  // 🛒 Cart Logic (full bodies, no placeholders)
+  // 🛒 Cart Logic
   let cart = [];
 
   function toggleCart() {
@@ -408,6 +343,7 @@ nav svg {
     const itemsDiv = document.getElementById('cart-items');
     const totalSpan = document.getElementById('cart-total');
     const paypalTotal = document.getElementById('paypal-total');
+    const countEl = document.getElementById('cart-count');
 
     itemsDiv.innerHTML = '';
     let total = 0;
@@ -426,64 +362,15 @@ nav svg {
 
     totalSpan.textContent = total.toFixed(2);
     if (paypalTotal) paypalTotal.value = total.toFixed(2);
-    const countEl = document.getElementById('cart-count');
     if (countEl) countEl.textContent = cart.length;
   }
 
-  // 🎯 Carousel Arrow Controls (robust)
-  function getCardStep(container) {
-    const first = container.querySelector('.scroll-item');
-    if (!first) return 0;
+  // 🎨 Init AOS
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
 
-    const r1 = first.getBoundingClientRect();
-
-    // Try to measure real gap between first two cards
-    const second = first.nextElementSibling;
-    let gap = 16;
-    if (second && second.classList.contains('scroll-item')) {
-      const r2 = second.getBoundingClientRect();
-      gap = Math.max(0, r2.left - r1.right);
-    } else {
-      const g = getComputedStyle(container).gap || '16px';
-      const parsed = parseFloat(g);
-      if (!isNaN(parsed)) gap = parsed;
-    }
-
-    return r1.width + gap;
-  }
-
- function scrollLeftCarousel(id) {
-  const container = document.getElementById(id);
-  if (!container) return;
-
-  const item = container.querySelector('.scroll-item');
-  if (!item) return;
-
-  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
-  const cardWidth = item.getBoundingClientRect().width + gap;
-
-  const currentIndex = Math.round(container.scrollLeft / cardWidth);
-  const nextIndex = Math.max(0, currentIndex - 1);
-
-  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
-}
-
-function scrollRightCarousel(id) {
-  const container = document.getElementById(id);
-  if (!container) return;
-
-  const item = container.querySelector('.scroll-item');
-  if (!item) return;
-
-  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
-  const cardWidth = item.getBoundingClientRect().width + gap;
-
-  const currentIndex = Math.round(container.scrollLeft / cardWidth);
-  const maxIndex = Math.ceil(
-    (container.scrollWidth - container.clientWidth) / cardWidth
-  );
-  const nextIndex = Math.min(maxIndex, currentIndex + 1);
-
-  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
-}
-(containder. scrooling 
+</body>
+</html>
