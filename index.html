@@ -47,31 +47,6 @@ nav a:hover {
 }
 
 
-/* 🎯 Carousel Button Fix */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 20;
-  background: white; /* white circle */
-  color: black;
-  font-weight: bold;
-  padding: 0.6rem 0.9rem;
-  border-radius: 50%;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: all 0.3s;
-}
-.carousel-btn:hover {
-  background: var(--coral);
-  color: white;
-}
-.carousel-btn.left {
-  left: 0.5rem;  /* inside white container */
-}
-.carousel-btn.right {
-  right: 0.5rem;
-}
 
 /* 🛒 Cart Icon */
 nav svg {
@@ -235,7 +210,7 @@ nav svg {
   <section id="paintings" class="section-bg">
     <h2 class="section-title text-3xl">Paintings</h2>
     <div class="relative">
-      <button onclick="scrollLeftCarousel('paintings-scroll')" class="carousel-btn left">◀</button>
+     
       <div id="paintings-scroll" class="scroll-container">
         <!-- ✅ Painting Items -->
         <div class="scroll-item">
@@ -264,7 +239,7 @@ nav svg {
             <button onclick="addToCart('Mermaid in Sand',700)" class="btn-add">Add to Cart</button></div>
         </div>
       </div>
-      <button onclick="scrollRightCarousel('paintings-scroll')" class="carousel-btn right">▶</button>
+     
     </div>
   </section>
 
@@ -272,7 +247,7 @@ nav svg {
   <section id="ceramics" class="section-bg">
     <h2 class="section-title text-3xl">Ceramics</h2>
     <div class="relative">
-      <button onclick="scrollLeftCarousel('ceramics-scroll')" class="carousel-btn left">◀</button>
+     
       <div id="ceramics-scroll" class="scroll-container">
         <!-- ✅ Ceramic Items -->
         <div class="scroll-item">
@@ -286,7 +261,7 @@ nav svg {
             <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
         </div>
       </div>
-      <button onclick="scrollRightCarousel('ceramics-scroll')" class="carousel-btn right">▶</button>
+     
     </div>
   </section>
 
@@ -294,7 +269,6 @@ nav svg {
   <section id="jewelry" class="section-bg">
     <h2 class="section-title text-3xl">Jewelry</h2>
     <div class="relative">
-      <button onclick="scrollLeftCarousel('jewelry-scroll')" class="carousel-btn left">◀</button>
       <div id="jewelry-scroll" class="scroll-container">
         <!-- ✅ Jewelry Items -->
         <div class="scroll-item">
@@ -308,7 +282,7 @@ nav svg {
             <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
         </div>
       </div>
-      <button onclick="scrollRightCarousel('jewelry-scroll')" class="carousel-btn right">▶</button>
+    
     </div>
   </section>
 
@@ -316,7 +290,7 @@ nav svg {
   <section id="books" class="section-bg">
     <h2 class="section-title text-3xl">Books</h2>
     <div class="relative">
-      <button onclick="scrollLeftCarousel('books-scroll')" class="carousel-btn left">◀</button>
+     
       <div id="books-scroll" class="scroll-container">
         <!-- Book 1 -->
         <div class="scroll-item">
