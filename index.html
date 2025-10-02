@@ -8,124 +8,139 @@
   
   <!-- ✅ AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+<style>
+  /* 🌟 Smooth Page Entry */
+  body {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease-out forwards;
 
-  <style>
-    /* Section Title Styling */
-    .section-title {
-      display: inline-block;
-      padding: 0.5rem 1.5rem;
-      border-radius: 0.5rem;
-      font-weight: bold;
-      color: #2e2e2e;
-      margin-bottom: 1.5rem;
-    }
+    /* merged normal styling */
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
 
-    /* Specific colors per section */
-    #paintings .section-title { background: var(--lavender); }
-    #ceramics .section-title { background: var(--mint); }
-    #jewelry .section-title { background: var(--coral); }
-    #books .section-title { background: #fa8072; color: black; }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-    nav {
-      background: #001f3f !important; /* deep navy blue */
-      color: white;
-    }
-    nav a { color: white; transition: color 0.3s; }
-    nav a:hover { color: var(--lavender); }
+  /* Section Title Styling */
+  .section-title {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    color: #2e2e2e;
+    margin-bottom: 1.5rem;
+  }
 
-    /* 🛒 Cart Icon */
-    nav svg { stroke: white; }
-    #cart-count {
-      background: var(--yellow);
-      color: black;
-      font-weight: bold;
-    }
+  /* Specific colors per section */
+  #paintings .section-title { background: var(--lavender); }
+  #ceramics .section-title { background: var(--mint); }
+  #jewelry .section-title { background: var(--coral); }
+  #books .section-title { background: #fa8072; color: black; }
 
-    /* 🎨 Card Hover Effect + Carousel Snap */
-    .scroll-container {
-      display: flex;
-      gap: 1rem;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 1rem;
-    }
+  nav {
+    background: #001f3f !important; /* deep navy blue */
+    color: white;
+  }
+  nav a { color: white; transition: color 0.3s; }
+  nav a:hover { color: var(--lavender); }
 
-    .scroll-item {
-      background: #fff;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      min-width: 250px;
-      transition: transform 0.2s;
-      scroll-snap-align: start;
-    }
+  /* 🛒 Cart Icon */
+  nav svg { stroke: white; }
+  #cart-count {
+    background: var(--yellow);
+    color: black;
+    font-weight: bold;
+  }
 
-    .scroll-item:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    }
+  /* 🎨 Card Hover Effect + Carousel Snap */
+  .scroll-container {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+  }
 
-    .section-bg {
-      background: var(--blue);
-      border-radius: 0.75rem;
-      padding: 2rem 1rem;
-    }
+  .scroll-item {
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    min-width: 250px;
+    transition: transform 0.2s;
+    scroll-snap-align: start;
+  }
 
-    :root {
-      --lavender: #e4c1f9;
-      --blue: #a9def9;
-      --mint: #d0f4de;
-      --yellow: #fcf6bd;
-      --coral: #ffb5a7;
-      --text-dark: #2e2e2e;
-      --bg-light: #fdfcf7;
-    }
+  .scroll-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
 
-    body {
-      background: var(--bg-light);
-      color: var(--text-dark);
-      font-family: "Helvetica Neue", Arial, sans-serif;
-    }
+  .section-bg {
+    background: var(--blue);
+    border-radius: 0.75rem;
+    padding: 2rem 1rem;
+  }
 
-    h1, h2, h3 {
-      font-family: "Georgia", serif;
-    }
+  :root {
+    --lavender: #e4c1f9;
+    --blue: #a9def9;
+    --mint: #d0f4de;
+    --yellow: #fcf6bd;
+    --coral: #ffb5a7;
+    --text-dark: #2e2e2e;
+    --bg-light: #fdfcf7;
+  }
 
-    .btn-add {
-      display: block;
-      width: 100%;
-      background: var(--mint);
-      color: var(--text-dark);
-      font-weight: 600;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
+  h1, h2, h3 {
+    font-family: "Georgia", serif;
+  }
 
-    .arrow-btn {
-      background: var(--lavender);
-      border: none;
-      padding: 0.4rem 0.6rem;
-      border-radius: 50%;
-      cursor: pointer;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-    .arrow-btn:hover { opacity: 1; }
+  .btn-add {
+    display: block;
+    width: 100%;
+    background: var(--mint);
+    color: var(--text-dark);
+    font-weight: 600;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
-    #cart-panel {
-      background: #fff;
-      color: var(--text-dark);
-      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease;
-    }
-    #cart-panel h2 {
-      font-family: "Georgia", serif;
-    }
-  </style>
-</head>
-<body>
+  .arrow-btn {
+    background: var(--lavender);
+    border: none;
+    padding: 0.4rem 0.6rem;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+  }
+  .arrow-btn:hover { opacity: 1; }
+
+  #cart-panel {
+    background: #fff;
+    color: var(--text-dark);
+    box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  #cart-panel h2 {
+    font-family: "Georgia", serif;
+  }
+</style>
+
 
 <!-- Hero -->
 <section class="relative w-full h-screen">
