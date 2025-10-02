@@ -402,57 +402,77 @@ nav svg {
   </footer>
 
   <!-- ✅ Place scripts here -->
-  <script>
-    // 🌍 Language Switch
-    function setLang(lang) {
-      document.querySelectorAll('[data-en]').forEach(el => {
-        el.textContent = el.getAttribute(`data-${lang}`);
-      });
-    }
+<script>
+  // 🌍 Language Switch
+  function setLang(lang) {
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.textContent = el.getAttribute(`data-${lang}`);
+    });
+  }
 
-    // 🛒 Cart Logic
-    let cart = [];
+  // 🛒 Cart Logic
+  let cart = [];
 
-    function toggleCart() { ... }
+  function toggleCart() {
+    document.getElementById('cart-panel').classList.toggle('translate-x-full');
+  }
 
-    function addToCart(name, price) { ... }
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCart();
+    // Auto-open cart
+    document.getElementById('cart-panel').classList.remove('translate-x-full');
+  }
 
-    function removeFromCart(index) { ... }
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
 
-    function updateCart() { ... }
+  function updateCart() {
+    const itemsDiv = document.getElementById('cart-items');
+    const totalSpan = document.getElementById('cart-total');
+    const paypalTotal = document.getElementById('paypal-total');
 
-    // 🎯 Carousel Arrow Controls (snap to card)
-function scrollLeft(id) {
-  const container = document.getElementById(id);
-  if (!container) return;
+    itemsDiv.innerHTML = '';
+    let total = 0;
 
-  const item = container.querySelector('.scroll-item');
-  if (!item) return;
+    cart.forEach((item, index) => {
+      itemsDiv.innerHTML += `
+        <div class="flex justify-between items-center">
+          <span>${item.name}</span>
+          <div class="flex items-center space-x-2">
+            <span>$${item.price.toFixed(2)}</span>
+            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-400">✖</button>
+          </div>
+        </div>`;
+      total += item.price;
+    });
 
-  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
-  const cardWidth = item.getBoundingClientRect().width + gap;
+    totalSpan.textContent = total.toFixed(2);
+    if (paypalTotal) paypalTotal.value = total.toFixed(2);
+    document.getElementById('cart-count').textContent = cart.length;
+  }
 
-  const currentIndex = Math.round(container.scrollLeft / cardWidth);
-  const nextIndex = Math.max(0, currentIndex - 1);
+  // 🎯 Carousel Arrow Controls (fixed with scrollBy)
+  function scrollLeft(id) {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const item = container.querySelector('.scroll-item');
+    if (!item) return;
+    const gap = parseInt(getComputedStyle(container).gap || '16', 10);
+    const cardWidth = item.getBoundingClientRect().width + gap;
+    container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+  }
 
-  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
-}
+  function scrollRight(id) {
+    const container = document.getElementById(id);
+    if (!container) return;
+    const item = container.querySelector('.scroll-item');
+    if (!item) return;
+    const gap = parseInt(getComputedStyle(container).gap || '16', 10);
+    const cardWidth = item.getBoundingClientRect().width + gap;
+    container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+  }
+</script>
 
-function scrollRight(id) {
-  const container = document.getElementById(id);
-  if (!container) return;
-
-  const item = container.querySelector('.scroll-item');
-  if (!item) return;
-
-  const gap = parseInt(getComputedStyle(container).gap || '16', 10);
-  const cardWidth = item.getBoundingClientRect().width + gap;
-
-  const currentIndex = Math.round(container.scrollLeft / cardWidth);
-  const maxIndex = Math.ceil(
-    (container.scrollWidth - container.clientWidth) / cardWidth
-  );
-  const nextIndex = Math.min(maxIndex, currentIndex + 1);
-
-  container.scrollTo({ left: nextIndex * cardWidth, behavior: 'smooth' });
-}
