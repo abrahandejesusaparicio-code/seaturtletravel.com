@@ -20,27 +20,42 @@ nav a:hover {
 }
 
 
-    .carousel-btn {
+/* 🎯 Carousel Button Fix */
+.carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 0.75rem;
+  z-index: 20;
+  background: white; /* white circle */
+  color: black;
+  font-weight: bold;
+  padding: 0.6rem 0.9rem;
   border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
 }
 .carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
+  background: var(--coral);
+  color: white;
 }
 .carousel-btn.left {
-  left: -2rem; /* push left arrow outside */
+  left: 0.5rem;  /* inside white container */
 }
 .carousel-btn.right {
-  right: -2rem; /* push right arrow outside */
+  right: 0.5rem;
 }
+
+/* 🛒 Cart Icon */
+nav svg {
+  stroke: white;   /* cart lines white */
+}
+#cart-count {
+  background: var(--yellow);
+  color: black;
+  font-weight: bold;
+}
+
 
 
     /* 🎨 Card Hover Effect + Carousel Snap */
@@ -167,8 +182,13 @@ nav a:hover {
       <div class="flex items-center space-x-4">
         <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
         <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
-        <button onclick="toggleCart()" class="relative">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-[var(--coral)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+       <button onclick="toggleCart()" class="relative">
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       class="h-7 w-7" 
+       fill="none" 
+       viewBox="0 0 24 24" 
+       stroke="currentColor">
+
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
               11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
@@ -179,139 +199,137 @@ nav a:hover {
     </div>
   </nav>
 
-  <!-- Gallery Sections -->
-  <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+<!-- Gallery Sections -->
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
-   <!-- Paintings -->
-<section id="paintings" class="section-bg">
-  <h2 class="text-3xl font-bold mb-4 text-center">Paintings</h2>
-  <div class="relative">
-    <button onclick="scrollLeft('paintings-scroll')" class="carousel-btn left">◀</button>
-    <div id="paintings-scroll" class="scroll-container">
-      <!-- ✅ Painting Items -->
-      <div class="scroll-item">
-        <img src="pictures paintings/kahuna_tuna.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Kahuna Tuna</h3><p class="text-sm text-[var(--coral)]">$500</p>
-          <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button></div>
-      </div>
-      <div class="scroll-item">
-        <img src="pictures paintings/panga.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Panga</h3><p class="text-sm text-[var(--coral)]">$600</p>
-          <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button></div>
-      </div>
-      <div class="scroll-item">
-        <img src="pictures paintings/pears_and_blooms.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Pears and Blooms</h3><p class="text-sm text-[var(--coral)]">$450</p>
-          <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button></div>
-      </div>
-      <div class="scroll-item">
-        <img src="pictures paintings/potted_plants.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Potted Plants</h3><p class="text-sm text-[var(--coral)]">$300</p>
-          <button onclick="addToCart('Potted Plants',300)" class="btn-add">Add to Cart</button></div>
-      </div>
-      <div class="scroll-item">
-        <img src="pictures paintings/mermaid_in_sand.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Mermaid in Sand</h3><p class="text-sm text-[var(--coral)]">$700</p>
-          <button onclick="addToCart('Mermaid in Sand',700)" class="btn-add">Add to Cart</button></div>
-      </div>
-    </div>
-    <button onclick="scrollRight('paintings-scroll')" class="carousel-btn right">▶</button>
-  </div>
-</section>
-
-
-<!-- Ceramics -->
-<section id="ceramics" class="section-bg">
-  <h2 class="text-3xl font-bold mb-4 text-center">Ceramics</h2>
-  <div class="relative">
-    <button onclick="scrollLeft('ceramics-scroll')" class="carousel-btn left">◀</button>
-    <div id="ceramics-scroll" class="scroll-container">
-      <!-- ✅ Ceramic Items -->
-      <div class="scroll-item">
-        <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
-          <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
-      </div>
-      <div class="scroll-item">
-        <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
-          <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
-      </div>
-    </div>
-    <button onclick="scrollRight('ceramics-scroll')" class="carousel-btn right">▶</button>
-  </div>
-</section>
-
-
-<!-- Jewelry -->
-<section id="jewelry" class="section-bg">
-  <h2 class="text-3xl font-bold mb-4 text-center">Jewelry</h2>
-  <div class="relative">
-    <button onclick="scrollLeft('jewelry-scroll')" class="carousel-btn left">◀</button>
-    <div id="jewelry-scroll" class="scroll-container">
-      <!-- ✅ Jewelry Items -->
-      <div class="scroll-item">
-        <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
-          <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
-      </div>
-      <div class="scroll-item">
-        <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
-          <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
-      </div>
-    </div>
-    <button onclick="scrollRight('jewelry-scroll')" class="carousel-btn right">▶</button>
-  </div>
-</section>
-
-
-<!-- Books -->
-<section id="books" class="section-bg">
-  <h2 class="text-3xl font-extrabold mb-6 text-center">Books</h2>
-  <div class="relative">
-    <button onclick="scrollLeft('books-scroll')" class="carousel-btn left">◀</button>
-    <div id="books-scroll" class="scroll-container">
-      
-      <!-- Book 1 -->
-      <div class="scroll-item">
-        <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
-        <div class="p-4 space-y-2 text-center">
-          <h3 class="font-semibold">More Than a Moose</h3>
-          <p class="text-[var(--coral)] font-bold">$9.95</p>
-          <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
-             class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                    hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+  <!-- Paintings -->
+  <section id="paintings" class="section-bg">
+    <h2 class="text-3xl font-bold mb-4 text-center">Paintings</h2>
+    <div class="relative">
+      <button onclick="scrollLeft('paintings-scroll')" class="carousel-btn left">◀</button>
+      <div id="paintings-scroll" class="scroll-container">
+        <!-- ✅ Painting Items -->
+        <div class="scroll-item">
+          <img src="pictures paintings/kahuna_tuna.jpg" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Kahuna Tuna</h3><p class="text-sm text-[var(--coral)]">$500</p>
+            <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button></div>
+        </div>
+        <div class="scroll-item">
+          <img src="pictures paintings/panga.jpg" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Panga</h3><p class="text-sm text-[var(--coral)]">$600</p>
+            <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button></div>
+        </div>
+        <div class="scroll-item">
+          <img src="pictures paintings/pears_and_blooms.jpg" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Pears and Blooms</h3><p class="text-sm text-[var(--coral)]">$450</p>
+            <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button></div>
+        </div>
+        <div class="scroll-item">
+          <img src="pictures paintings/potted_plants.jpg" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Potted Plants</h3><p class="text-sm text-[var(--coral)]">$300</p>
+            <button onclick="addToCart('Potted Plants',300)" class="btn-add">Add to Cart</button></div>
+        </div>
+        <div class="scroll-item">
+          <img src="pictures paintings/mermaid_in_sand.jpg" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Mermaid in Sand</h3><p class="text-sm text-[var(--coral)]">$700</p>
+            <button onclick="addToCart('Mermaid in Sand',700)" class="btn-add">Add to Cart</button></div>
         </div>
       </div>
-
-      <!-- Book 2 -->
-      <div class="scroll-item">
-        <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
-        <div class="p-4 space-y-2 text-center">
-          <h3 class="font-semibold">TIMOTHY and TONYA</h3>
-          <p class="text-[var(--coral)] font-bold">$9.95</p>
-          <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
-             class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                    hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
-        </div>
-      </div>
-
-      <!-- Book 3 -->
-      <div class="scroll-item">
-        <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
-        <div class="p-4 space-y-2 text-center">
-          <h3 class="font-semibold">The Iguana from Tijuana</h3>
-          <p class="text-[var(--coral)] font-bold">$9.95</p>
-          <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
-             class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                    hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
-        </div>
-      </div>
+      <button onclick="scrollRight('paintings-scroll')" class="carousel-btn right">▶</button>
     </div>
-    <button onclick="scrollRight('books-scroll')" class="carousel-btn right">▶</button>
-  </div>
-</section>
+  </section>
+
+  <!-- Ceramics -->
+  <section id="ceramics" class="section-bg">
+    <h2 class="text-3xl font-bold mb-4 text-center">Ceramics</h2>
+    <div class="relative">
+      <button onclick="scrollLeft('ceramics-scroll')" class="carousel-btn left">◀</button>
+      <div id="ceramics-scroll" class="scroll-container">
+        <!-- ✅ Ceramic Items -->
+        <div class="scroll-item">
+          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
+            <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
+        </div>
+        <div class="scroll-item">
+          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
+            <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
+        </div>
+      </div>
+      <button onclick="scrollRight('ceramics-scroll')" class="carousel-btn right">▶</button>
+    </div>
+  </section>
+
+  <!-- Jewelry -->
+  <section id="jewelry" class="section-bg">
+    <h2 class="text-3xl font-bold mb-4 text-center">Jewelry</h2>
+    <div class="relative">
+      <button onclick="scrollLeft('jewelry-scroll')" class="carousel-btn left">◀</button>
+      <div id="jewelry-scroll" class="scroll-container">
+        <!-- ✅ Jewelry Items -->
+        <div class="scroll-item">
+          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
+            <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
+        </div>
+        <div class="scroll-item">
+          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
+          <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
+            <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
+        </div>
+      </div>
+      <button onclick="scrollRight('jewelry-scroll')" class="carousel-btn right">▶</button>
+    </div>
+  </section>
+
+  <!-- Books -->
+  <section id="books" class="section-bg">
+    <h2 class="text-3xl font-extrabold mb-6 text-center">Books</h2>
+    <div class="relative">
+      <button onclick="scrollLeft('books-scroll')" class="carousel-btn left">◀</button>
+      <div id="books-scroll" class="scroll-container">
+        <!-- Book 1 -->
+        <div class="scroll-item">
+          <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
+          <div class="p-4 space-y-2 text-center">
+            <h3 class="font-semibold">More Than a Moose</h3>
+            <p class="text-[var(--coral)] font-bold">$9.95</p>
+            <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
+               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+          </div>
+        </div>
+
+        <!-- Book 2 -->
+        <div class="scroll-item">
+          <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
+          <div class="p-4 space-y-2 text-center">
+            <h3 class="font-semibold">TIMOTHY and TONYA</h3>
+            <p class="text-[var(--coral)] font-bold">$9.95</p>
+            <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
+               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+          </div>
+        </div>
+
+        <!-- Book 3 -->
+        <div class="scroll-item">
+          <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
+          <div class="p-4 space-y-2 text-center">
+            <h3 class="font-semibold">The Iguana from Tijuana</h3>
+            <p class="text-[var(--coral)] font-bold">$9.95</p>
+            <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
+               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+          </div>
+        </div>
+      </div>
+      <button onclick="scrollRight('books-scroll')" class="carousel-btn right">▶</button>
+    </div>
+  </section>
+</main>
+
 
 <!-- Cart Panel -->
 <div id="cart-panel" class="fixed top-0 right-0 w-80 h-full transform translate-x-full z-50 p-4 border-l bg-white">
