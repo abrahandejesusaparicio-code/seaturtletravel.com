@@ -7,14 +7,20 @@
   <title>SeaTurtleTravels Gallery</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  
+
 
   <!-- ✅ AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
-    /* ✅ kill horizontal white strip on mobile */
-    html, body { max-width: 100%; overflow-x: hidden; }
+  /* ✅ kill horizontal white strip on mobile */
+html, body { max-width: 100%; overflow-x: hidden; }
 
+/* ✅ Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
     /* 🌟 Smooth Page Entry */
     body {
       opacity: 0;
@@ -170,22 +176,24 @@
       font-weight: 600;
     }
 
-/* ✅ Mobile Menu: dropdown under navbar with smooth animation */
+/* ✅ Mobile Menu: dropdown attached to navbar */
 #mobile-menu {
-  max-height: 0;                     /* collapsed by default */
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: #001f3f;
+  position: absolute;       /* sits under nav */
+  top: 100%;                /* directly below the navbar */
+  left: 0;
   width: 100%;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  background: #001f3f;
+  flex-direction: column;
+  overflow: hidden;
+  max-height: 0;
   opacity: 0;
   transform: translateY(-10px);
   transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+  z-index: 9999;            /* above content */
 }
 
 #mobile-menu.active {
-  max-height: 500px;                 /* enough for all links */
+  max-height: 500px;
   opacity: 1;
   transform: translateY(0);
 }
@@ -196,6 +204,7 @@
   font-size: 1.125rem;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+
 
   </style>
 </head>
