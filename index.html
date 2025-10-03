@@ -8,20 +8,10 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   
-
-
   <!-- ✅ AOS CSS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
-
-    /* ✅ Lightbox styling */
-#lightbox {
-  display: none; /* hidden by default */
-}
-#lightbox.active {
-  display: flex; /* show when active */
-}
 
   /* ✅ kill horizontal white strip on mobile */
 html, body { max-width: 100%; overflow-x: hidden; }
@@ -240,11 +230,6 @@ html {
   text-align: center;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-
-<!-- ✅ Lightbox -->
-<div id="lightbox" onclick="closeLightbox()">
-  <img src="" alt="Enlarged product">
-</div>
 
   </style>
 </head>
@@ -539,6 +524,12 @@ html {
       <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-[var(--blue)]">📸 Instagram</a>
     </div>
   </footer>
+  
+<!-- ✅ Lightbox Overlay -->
+<div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[10000]">
+  <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] rounded-lg shadow-lg" alt="Expanded image">
+  <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl font-bold">✖</button>
+</div>
 
   <!-- ✅ Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
