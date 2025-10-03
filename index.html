@@ -485,13 +485,18 @@ html {
       cartPanel.setAttribute('aria-hidden', String(!isOpen));
     }
 
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      updateCart();
-      const panel = document.getElementById('cart-panel');
-      panel.classList.add('active');              // open cart on add
-      panel.setAttribute('aria-hidden', 'false');
-    }
+   function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCart();
+
+  const panel = document.getElementById('cart-panel');
+  panel.classList.add('active');  
+  panel.setAttribute('aria-hidden', 'false');
+
+  // ✅ Make sure user sees it
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
 
     function removeFromCart(index) {
       cart.splice(index, 1);
