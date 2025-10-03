@@ -135,8 +135,7 @@ html {
     }
     .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
-    /* 🧺 Cart Panel (hidden by default) */
-  #cart-panel {
+#cart-panel {
   position: fixed;
   top: 0;              /* always top of viewport */
   right: 0;
@@ -150,18 +149,22 @@ html {
   pointer-events: none;
   transition: transform 0.3s ease, opacity 0.3s ease;
   z-index: 9999;
-  overflow-y: auto;    /* scroll cart if too long */
+
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  /* stack header, items, footer */
+}
+
+#cart-items {
+  flex: 1;                 /* take available space */
+  overflow-y: auto;        /* scroll only this part */
+  padding: 0.5rem;         /* reduce white space */
+}
+
+#cart-panel .border-t {
+  margin-top: auto;        /* push footer down neatly */
 }
 
 
-    /* ✅ When active, slide in & enable interaction */
-    #cart-panel.active {
-      transform: translateX(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
 
     /* ✅ Footer Responsive */
     footer .links {
@@ -236,6 +239,7 @@ html {
          data-en="Discover Art, Ceramics, Jewelry & Books"
          data-es="Descubre Arte, Cerámica, Joyería y Libros">
          Discover Art, Ceramics, Jewelry & Books
+        
       </p>
     </div>
   </section>
@@ -434,11 +438,14 @@ html {
   </main>
 
   <!-- Cart Panel -->
-  <div id="cart-panel" class="z-50 p-4 border-l bg-white" role="dialog" aria-hidden="true">
-    <div class="flex justify-between items-center border-b pb-2 mb-2">
-      <h2 class="text-lg font-bold">Your Cart</h2>
-      <button onclick="toggleCart()" aria-label="Close cart">✖</button>
-    </div>
+  <<div class="flex justify-between items-center border-b pb-2 mb-2">
+  <h2 class="text-lg font-bold">Your Cart</h2>
+  <div class="flex space-x-3">
+    <button onclick="clearCart()" class="text-sm text-red-500 hover:text-red-400">Remove All</button>
+    <button onclick="toggleCart()" aria-label="Close cart">✖</button>
+  </div>
+</div>
+
     <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
     <div class="border-t pt-2">
       <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
@@ -493,18 +500,23 @@ html {
   panel.classList.add('active');  
   panel.setAttribute('aria-hidden', 'false');
 
-  // ✅ scroll the cart contents so the latest item is visible
+  // ✅ scroll the cart contents so newest item is visible
   const itemsDiv = document.getElementById('cart-items');
   setTimeout(() => {
-    itemsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    itemsDiv.scrollTop = itemsDiv.scrollHeight;
   }, 300);
 }
+
 
 
     function removeFromCart(index) {
       cart.splice(index, 1);
       updateCart();
     }
+function clearCart() {
+  cart = [];
+  updateCart();
+}
 
     function updateCart() {
       const itemsDiv = document.getElementById('cart-items');
