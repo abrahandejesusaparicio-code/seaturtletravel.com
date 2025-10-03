@@ -232,6 +232,10 @@ html {
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
+<!-- ✅ Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img src="" alt="Enlarged product">
+</div>
 
   </style>
 </head>
@@ -311,7 +315,7 @@ html {
 
   </nav>
 
-  <!-- Gallery Sections -->
+ <!-- Gallery Sections -->
   <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
     <!-- Paintings -->
@@ -322,7 +326,10 @@ html {
 
           <!-- Kahuna Tuna -->
           <div class="scroll-item" data-aos="zoom-in" data-aos-delay="200">
-            <img src="pictures_paintings/kahuna_tuna.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Kahuna Tuna painting">
+            <img src="pictures_paintings/kahuna_tuna.jpg" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Kahuna Tuna painting"
+                 onclick="openLightbox(this.src)">
             <div class="p-4">
               <h3>Kahuna Tuna</h3>
               <p class="text-sm text-[var(--coral)]">$500</p>
@@ -332,7 +339,10 @@ html {
 
           <!-- Mermaid in Sand -->
           <div class="scroll-item" data-aos="zoom-in" data-aos-delay="220">
-            <img src="pictures_paintings/mermaid_in_sand.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Mermaid in Sand painting">
+            <img src="pictures_paintings/mermaid_in_sand.jpg" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Mermaid in Sand painting"
+                 onclick="openLightbox(this.src)">
             <div class="p-4">
               <h3>Mermaid in Sand</h3>
               <p class="text-sm text-[var(--coral)]">$550</p>
@@ -342,7 +352,10 @@ html {
 
           <!-- Panga -->
           <div class="scroll-item" data-aos="zoom-in" data-aos-delay="240">
-            <img src="pictures_paintings/panga.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Panga painting">
+            <img src="pictures_paintings/panga.jpg" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Panga painting"
+                 onclick="openLightbox(this.src)">
             <div class="p-4">
               <h3>Panga</h3>
               <p class="text-sm text-[var(--coral)]">$600</p>
@@ -352,7 +365,10 @@ html {
 
           <!-- Pears and Blooms -->
           <div class="scroll-item" data-aos="zoom-in" data-aos-delay="260">
-            <img src="pictures_paintings/pears_and_blooms.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Pears and Blooms painting">
+            <img src="pictures_paintings/pears_and_blooms.jpg" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Pears and Blooms painting"
+                 onclick="openLightbox(this.src)">
             <div class="p-4">
               <h3>Pears and Blooms</h3>
               <p class="text-sm text-[var(--coral)]">$450</p>
@@ -362,7 +378,10 @@ html {
 
           <!-- Potted Plants -->
           <div class="scroll-item" data-aos="zoom-in" data-aos-delay="280">
-            <img src="pictures_paintings/potted_plants.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Potted Plants painting">
+            <img src="pictures_paintings/potted_plants.jpg" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Potted Plants painting"
+                 onclick="openLightbox(this.src)">
             <div class="p-4">
               <h3>Potted Plants</h3>
               <p class="text-sm text-[var(--coral)]">$400</p>
@@ -380,12 +399,18 @@ html {
       <div class="relative" data-aos="fade-right" data-aos-delay="150">
         <div id="ceramics-scroll" class="scroll-container">
           <div class="scroll-item" data-aos="flip-left" data-aos-delay="200">
-            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Ceramic Vase">
+            <img src="https://via.placeholder.com/400x500" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Ceramic Vase"
+                 onclick="openLightbox(this.src)">
             <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
               <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
           </div>
           <div class="scroll-item" data-aos="flip-left" data-aos-delay="250">
-            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Ceramic Bowl">
+            <img src="https://via.placeholder.com/400x500" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Ceramic Bowl"
+                 onclick="openLightbox(this.src)">
             <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
               <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
           </div>
@@ -399,12 +424,18 @@ html {
       <div class="relative" data-aos="fade-left" data-aos-delay="150">
         <div id="jewelry-scroll" class="scroll-container">
           <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="200">
-            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Silver Necklace">
+            <img src="https://via.placeholder.com/400x500" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Silver Necklace"
+                 onclick="openLightbox(this.src)">
             <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
               <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
           </div>
           <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="250">
-            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Gold Ring">
+            <img src="https://via.placeholder.com/400x500" 
+                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+                 alt="Gold Ring"
+                 onclick="openLightbox(this.src)">
             <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
               <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
           </div>
@@ -418,7 +449,10 @@ html {
       <div class="relative" data-aos="fade-up" data-aos-delay="150">
         <div id="books-scroll" class="scroll-container">
           <div class="scroll-item" data-aos="flip-up" data-aos-delay="200">
-            <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl" alt="More Than a Moose book cover">
+            <img src="pictures books/more_than_a_moose.jpg" 
+                 class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
+                 alt="More Than a Moose book cover"
+                 onclick="openLightbox(this.src)">
             <div class="p-4 space-y-2 text-center">
               <h3 class="font-semibold">More Than a Moose</h3>
               <p class="text-[var(--coral)] font-bold">$9.95</p>
@@ -428,7 +462,10 @@ html {
             </div>
           </div>
           <div class="scroll-item" data-aos="flip-up" data-aos-delay="250">
-            <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl" alt="Timothy and Tonya book cover">
+            <img src="pictures books/timothy_and_tonya.jpg" 
+                 class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
+                 alt="Timothy and Tonya book cover"
+                 onclick="openLightbox(this.src)">
             <div class="p-4 space-y-2 text-center">
               <h3 class="font-semibold">TIMOTHY and TONYA</h3>
               <p class="text-[var(--coral)] font-bold">$9.95</p>
@@ -438,7 +475,10 @@ html {
             </div>
           </div>
           <div class="scroll-item" data-aos="flip-up" data-aos-delay="300">
-            <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl" alt="The Iguana from Tijuana book cover">
+            <img src="pictures books/the_iguana_from_tijuana.jpg" 
+                 class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
+                 alt="The Iguana from Tijuana book cover"
+                 onclick="openLightbox(this.src)">
             <div class="p-4 space-y-2 text-center">
               <h3 class="font-semibold">The Iguana from Tijuana</h3>
               <p class="text-[var(--coral)] font-bold">$9.95</p>
@@ -451,6 +491,7 @@ html {
       </div>
     </section>
   </main>
+
 
  <!-- Cart Panel -->
 <div id="cart-panel" class="z-50 p-4 border-l bg-white" role="dialog" aria-hidden="true">
