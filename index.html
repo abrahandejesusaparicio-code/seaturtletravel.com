@@ -14,22 +14,14 @@
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 1s ease-out forwards;
-
-    /* merged normal styling */
     background: var(--bg-light);
     color: var(--text-dark);
     font-family: "Helvetica Neue", Arial, sans-serif;
   }
 
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   /* Section Title Styling */
@@ -49,10 +41,10 @@
   #books .section-title { background: #fa8072; color: black; }
 
   nav {
-    background: #001f3f !important; /* deep navy blue */
+    background: #001f3f !important;
     color: white;
   }
-  nav a { color: white; transition: color 0.3s; }
+  nav a { color: white; transition: color 0.3s; font-size: 0.9rem; }
   nav a:hover { color: var(--lavender); }
 
   /* 🛒 Cart Icon */
@@ -77,9 +69,13 @@
     background: #fff;
     border-radius: 0.75rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    min-width: 250px;
+    min-width: 80%;   /* ✅ mobile friendly */
     transition: transform 0.2s;
     scroll-snap-align: start;
+  }
+
+  @media (min-width: 640px) {
+    .scroll-item { min-width: 250px; } /* ✅ keep desktop */
   }
 
   .scroll-item:hover {
@@ -103,9 +99,7 @@
     --bg-light: #fdfcf7;
   }
 
-  h1, h2, h3 {
-    font-family: "Georgia", serif;
-  }
+  h1, h2, h3 { font-family: "Georgia", serif; }
 
   .btn-add {
     display: block;
@@ -119,40 +113,49 @@
   }
   .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
-  .arrow-btn {
-    background: var(--lavender);
-    border: none;
-    padding: 0.4rem 0.6rem;
-    border-radius: 50%;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+  /* Cart Panel */
+  #cart-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;          /* ✅ full width mobile */
+    max-width: 20rem;     /* ✅ sidebar on desktop */
+    height: 100%;
+    background: #fff;
+    color: var(--text-dark);
+    box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 50;
   }
-  .arrow-btn:hover { opacity: 1; }
+  #cart-panel.active {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
 
-#cart-panel {
-  position: absolute;   /* instead of fixed */
-  top: 0;               /* relative to the page, not viewport */
-  right: 0;
-  width: 20rem;
-  min-height: 100%;     /* let it stretch with the content */
-  background: #fff;
-  color: var(--text-dark);
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  transform: translateX(100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 50;
-}
+  /* ✅ Footer Responsive */
+  footer .links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  @media (min-width: 640px) {
+    footer .links { flex-direction: row; justify-content: center; }
+  }
 
-#cart-panel.active {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-
+  /* ✅ Hero text scaling */
+  .hero-title { font-size: 2rem; }
+  @media (min-width: 640px) {
+    .hero-title { font-size: 3rem; }
+  }
+  @media (min-width: 1024px) {
+    .hero-title { font-size: 4rem; }
+  }
 </style>
+
 
 
 <!-- Hero -->
