@@ -520,16 +520,25 @@ html {
     }
 
     /* ✅ Hamburger Menu: dropdown (scrolls with sticky nav) */
-    function toggleMenu() {
+function toggleMenu() {
   const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('active');
+  const open = !menu.classList.contains('active');
 
-  if (menu.classList.contains('active')) {
-    document.body.style.overflow = 'hidden'; // lock scroll
+  if (open) {
+    // scroll to the top where the navbar is
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // delay a bit so scroll happens, then open menu
+    setTimeout(() => {
+      menu.classList.add('active');
+      document.body.style.overflow = 'hidden'; // lock scroll
+    }, 300);
   } else {
-    document.body.style.overflow = '';       // unlock scroll
+    menu.classList.remove('active');
+    document.body.style.overflow = ''; // unlock scroll
   }
 }
+
 
 
     // 🎨 Init AOS
