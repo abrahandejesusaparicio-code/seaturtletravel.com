@@ -13,6 +13,16 @@
 
   <style>
 
+    /* ✅ Lightbox fade animation */
+#lightbox {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#lightbox:not(.hidden) {
+  opacity: 1;
+}
+
   /* ✅ kill horizontal white strip on mobile */
 html, body { max-width: 100%; overflow-x: hidden; }
 
@@ -531,6 +541,7 @@ html {
   <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl font-bold">✖</button>
 </div>
 
+
   <!-- ✅ Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
@@ -638,12 +649,14 @@ function openLightbox(src) {
   const lightbox = document.getElementById('lightbox');
   const img = document.getElementById('lightbox-img');
   img.src = src;
-  lightbox.classList.add('active');
+  lightbox.classList.remove('hidden'); // ✅ show
 }
 
 function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
+  const lightbox = document.getElementById('lightbox');
+  lightbox.classList.add('hidden'); // ✅ hide
 }
+
 
 // Close on click outside image
 document.getElementById('lightbox').addEventListener('click', (e) => {
