@@ -14,6 +14,15 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
+
+    /* ✅ Lightbox styling */
+#lightbox {
+  display: none; /* hidden by default */
+}
+#lightbox.active {
+  display: flex; /* show when active */
+}
+
   /* ✅ kill horizontal white strip on mobile */
 html, body { max-width: 100%; overflow-x: hidden; }
 
@@ -628,14 +637,33 @@ function toggleMenu() {
     document.body.style.overflow = ''; // unlock scroll
   }
 }
-
-
-
-    // 🎨 Init AOS
+  // 🎨 Init AOS
     AOS.init({
       duration: 800,
       once: true
     });
+    // ✅ Lightbox logic
+function openLightbox(src) {
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  img.src = src;
+  lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+// Close on click outside image
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'lightbox') closeLightbox();
+});
+
+// Close with ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
   </script>
 </body>
 </html>
