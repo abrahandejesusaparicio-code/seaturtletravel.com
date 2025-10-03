@@ -159,6 +159,36 @@
     @media (min-width: 1024px) {
       .hero-title { font-size: 4rem; }
     }
+
+    /* ✅ FIX: prevent white space overflow on mobile */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ✅ FIX: Fullscreen Mobile Menu */
+#mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,31,63,0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.5rem;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  z-index: 9998;
+}
+
+#mobile-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
   </style>
 </head>
 
@@ -223,15 +253,15 @@
     </div>
   </div>
 
-  <!-- Mobile Menu (hidden by default) -->
-  <div id="mobile-menu" class="sm:hidden hidden flex-col space-y-4 px-6 pb-4 bg-[#001f3f] text-white">
-    <a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a>
-    <a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a>
-    <a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a>
-    <a href="#books" class="hover:text-[var(--blue)]">Books</a>
-    <a href="about.html" class="hover:text-[var(--coral)]">About Me</a>
-  </div>
-</nav>
+  <!-- Mobile Menu (fullscreen overlay now) -->
+<div id="mobile-menu" class="sm:hidden">
+  <a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a>
+  <a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a>
+  <a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a>
+  <a href="#books" class="hover:text-[var(--blue)]">Books</a>
+  <a href="about.html" class="hover:text-[var(--coral)]">About Me</a>
+</div>
+
 
 
   <!-- Gallery Sections -->
@@ -466,9 +496,10 @@
       if (countEl) countEl.textContent = cart.length;
     }
 
-    function toggleMenu() {
-  document.getElementById('mobile-menu').classList.toggle('hidden');
+  function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('active');
 }
+
 
 
     // 🎨 Init AOS
