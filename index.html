@@ -172,37 +172,40 @@
     @media (min-width: 1024px) {
       .hero-title-legacy { font-size: 4rem; }
     }
+    /* ✅ Gallery titles (piece names) */
+    .scroll-item h3 {
+      color: var(--text-dark);  /* use your root text-dark (#2e2e2e) */
+      font-weight: 600;
+    }
 
-    /* ✅ Fullscreen Mobile Menu: top→bottom layout + animation */
-  #mobile-menu {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,31,63,0.95);
+/* Mobile Menu: scrolls with user under the nav */
+#mobile-menu {
+  position: absolute;      /* instead of fixed */
+  top: 100%;               /* right below navbar */
+  left: 0;
+  width: 100%;
+  background: #001f3f;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: stretch;
-  padding-top: 4.25rem;
-  height: 100vh;
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.4s ease, opacity 0.3s ease;
-  z-index: 99999; /* bumped up */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 9999;
+}
+#mobile-menu.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+#mobile-menu a {
+  color: white;
+  padding: 1rem 1.25rem;
+  font-size: 1.125rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-    #mobile-menu.active {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: auto;
-    }
-    #mobile-menu a {
-      display: block;
-      padding: 1rem 1.25rem;
-      text-align: left;
-      font-size: 1.125rem;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
     /* close button */
     #mobile-menu .mobile-close {
       position: absolute;
