@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- prevent pinch-zoom + keep scale -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>SeaTurtleTravels Gallery</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,6 +12,9 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
+    /* ✅ kill horizontal white strip on mobile */
+    html, body { max-width: 100%; overflow-x: hidden; }
+
     /* 🌟 Smooth Page Entry */
     body {
       opacity: 0;
@@ -104,6 +108,15 @@
 
     h1, h2, h3 { font-family: "Georgia", serif; }
 
+    /* ✅ hero heading: safe size + wrap so it doesn't cut off */
+    .hero-title {
+      font-size: clamp(28px, 8vw, 48px);
+      line-height: 1.1;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      padding: 0 0.5rem;
+    }
+
     .btn-add {
       display: block;
       width: 100%;
@@ -151,44 +164,55 @@
       footer .links { flex-direction: row; justify-content: center; }
     }
 
-    /* ✅ Hero text scaling */
-    .hero-title { font-size: 2rem; }
+    /* ✅ Hero text scaling (kept for other uses) */
+    .hero-title-legacy { font-size: 2rem; }
     @media (min-width: 640px) {
-      .hero-title { font-size: 3rem; }
+      .hero-title-legacy { font-size: 3rem; }
     }
     @media (min-width: 1024px) {
-      .hero-title { font-size: 4rem; }
+      .hero-title-legacy { font-size: 4rem; }
     }
 
-    /* ✅ FIX: prevent white space overflow on mobile */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* ✅ FIX: Fullscreen Mobile Menu */
-#mobile-menu {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,31,63,0.95);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  font-size: 1.5rem;
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.4s ease, opacity 0.3s ease;
-  z-index: 9998;
-}
-
-#mobile-menu.active {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
+    /* ✅ Fullscreen Mobile Menu: top→bottom layout + animation */
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,31,63,0.95);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;  /* start at top */
+      align-items: stretch;
+      padding-top: 4.25rem;         /* clear sticky nav (~68px) */
+      height: 100vh;
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.4s ease, opacity 0.3s ease;
+      z-index: 9998;
+    }
+    #mobile-menu.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    #mobile-menu a {
+      display: block;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 1.125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    /* close button */
+    #mobile-menu .mobile-close {
+      position: absolute;
+      top: 0.9rem;
+      right: 0.9rem;
+      font-size: 1.75rem;
+      line-height: 1;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      background: rgba(255,255,255,0.1);
+    }
   </style>
 </head>
 
@@ -201,7 +225,7 @@ html, body {
       Your browser does not support the video tag.
     </video>
     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center text-center px-6">
-      <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white"
+      <h1 class="hero-title text-white font-bold mb-4"
           data-en="Welcome to SeaTurtleTravels Art Gallery"
           data-es="Bienvenidos a SeaTurtleTravels Galería de Arte">
           Welcome to SeaTurtleTravels
@@ -214,55 +238,55 @@ html, body {
     </div>
   </section>
 
- <!-- Navigation -->
-<nav class="sticky top-0 z-50 bg-[#001f3f] text-white shadow">
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-[#001f3f] text-white shadow">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
-    <!-- Logo -->
-    <a href="#" class="text-lg font-bold">SeaTurtleTravels</a>
+      <!-- Logo -->
+      <a href="#" class="text-lg font-bold">SeaTurtleTravels</a>
 
-    <!-- Desktop Menu -->
-    <ul class="hidden sm:flex space-x-8 text-lg font-medium">
-      <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
-      <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
-      <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
-      <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
-      <li><a href="about.html" class="hover:text-[var(--coral)]">About Me</a></li>
-    </ul>
+      <!-- Desktop Menu -->
+      <ul class="hidden sm:flex space-x-8 text-lg font-medium">
+        <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
+        <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
+        <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
+        <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
+        <li><a href="about.html" class="hover:text-[var(--coral)]">About Me</a></li>
+      </ul>
 
-    <!-- Right Section (Lang + Cart + Hamburger) -->
-    <div class="flex items-center space-x-4">
-      <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
-      <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
-      <button onclick="toggleCart()" class="relative" aria-label="Toggle cart">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
-            11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
-        </svg>
-        <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
-      </button>
+      <!-- Right Section (Lang + Cart + Hamburger) -->
+      <div class="flex items-center space-x-4">
+        <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
+        <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
+        <button onclick="toggleCart()" class="relative" aria-label="Toggle cart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
+              11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+          </svg>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
+        </button>
 
-      <!-- Hamburger Button (mobile only) -->
-      <button onclick="toggleMenu()" class="sm:hidden focus:outline-none">
-        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+        <!-- Hamburger Button (mobile only) -->
+        <button onclick="toggleMenu()" class="sm:hidden focus:outline-none" aria-label="Open menu">
+          <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Mobile Menu (fullscreen overlay now) -->
-<div id="mobile-menu" class="sm:hidden">
-  <a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a>
-  <a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a>
-  <a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a>
-  <a href="#books" class="hover:text-[var(--blue)]">Books</a>
-  <a href="about.html" class="hover:text-[var(--coral)]">About Me</a>
-</div>
-
-
+    <!-- Mobile Menu (fullscreen overlay, top→bottom) -->
+    <div id="mobile-menu" class="sm:hidden">
+      <button class="mobile-close" aria-label="Close menu" onclick="toggleMenu()">✖</button>
+      <a href="#paintings" class="hover:text-[var(--lavender)]" onclick="toggleMenu()">Paintings</a>
+      <a href="#ceramics" class="hover:text-[var(--mint)]" onclick="toggleMenu()">Ceramics</a>
+      <a href="#jewelry" class="hover:text-[var(--coral)]" onclick="toggleMenu()">Jewelry</a>
+      <a href="#books" class="hover:text-[var(--blue)]" onclick="toggleMenu()">Books</a>
+      <a href="about.html" class="hover:text-[var(--coral)]" onclick="toggleMenu()">About Me</a>
+    </div>
+  </nav>
 
   <!-- Gallery Sections -->
   <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
@@ -405,7 +429,7 @@ html, body {
     </section>
   </main>
 
-  <!-- Cart Panel (✅ cleaned classes, ID styles control layout) -->
+  <!-- Cart Panel -->
   <div id="cart-panel" class="z-50 p-4 border-l bg-white" role="dialog" aria-hidden="true">
     <div class="flex justify-between items-center border-b pb-2 mb-2">
       <h2 class="text-lg font-bold">Your Cart</h2>
@@ -496,11 +520,22 @@ html, body {
       if (countEl) countEl.textContent = cart.length;
     }
 
-  function toggleMenu() {
-  document.getElementById('mobile-menu').classList.toggle('active');
-}
+    /* ✅ Hamburger menu: fullscreen overlay + body scroll lock */
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('active');
+      const open = menu.classList.contains('active');
+      // lock page scroll when menu is open
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
 
-
+    // close overlay on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const menu = document.getElementById('mobile-menu');
+        if (menu.classList.contains('active')) toggleMenu();
+      }
+    });
 
     // 🎨 Init AOS
     AOS.init({
