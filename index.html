@@ -75,13 +75,13 @@
       background: #fff;
       border-radius: 0.75rem;
       box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-      min-width: 80%;   /* ✅ mobile friendly */
+      min-width: 80%;
       transition: transform 0.2s;
       scroll-snap-align: start;
     }
 
     @media (min-width: 640px) {
-      .scroll-item { min-width: 250px; } /* ✅ keep desktop */
+      .scroll-item { min-width: 250px; }
     }
 
     .scroll-item:hover {
@@ -131,11 +131,11 @@
 
     /* 🧺 Cart Panel (hidden by default) */
     #cart-panel {
-      position: fixed;           /* ✅ sticks while scrolling */
+      position: fixed;
       top: 4rem;                 /* sits below the navbar */
       right: 0;
-      width: 20rem;              /* ~ w-80 */
-      height: calc(100% - 4rem); /* fill the screen under nav */
+      width: 20rem;
+      height: calc(100% - 4rem);
       background: #fff;
       color: var(--text-dark);
       box-shadow: -4px 0 12px rgba(0,0,0,0.1);
@@ -143,8 +143,8 @@
       opacity: 0;
       pointer-events: none;
       transition: transform 0.3s ease, opacity 0.3s ease;
-      z-index: 9999;             /* above everything */
-      overflow-y: auto;          /* ✅ scroll contents if long */
+      z-index: 9999;
+      overflow-y: auto;
     }
 
     /* ✅ When active, slide in & enable interaction */
@@ -164,58 +164,26 @@
       footer .links { flex-direction: row; justify-content: center; }
     }
 
-    /* ✅ Hero text scaling (kept for other uses) */
-    .hero-title-legacy { font-size: 2rem; }
-    @media (min-width: 640px) {
-      .hero-title-legacy { font-size: 3rem; }
-    }
-    @media (min-width: 1024px) {
-      .hero-title-legacy { font-size: 4rem; }
-    }
     /* ✅ Gallery titles (piece names) */
     .scroll-item h3 {
-      color: var(--text-dark);  /* use your root text-dark (#2e2e2e) */
+      color: var(--text-dark);
       font-weight: 600;
     }
 
-/* Mobile Menu: scrolls with user under the nav */
-#mobile-menu {
-  position: absolute;      /* instead of fixed */
-  top: 100%;               /* right below navbar */
-  left: 0;
-  width: 100%;
-  background: #001f3f;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  transform: translateY(-100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 9999;
-}
-#mobile-menu.active {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
-}
-#mobile-menu a {
-  color: white;
-  padding: 1rem 1.25rem;
-  font-size: 1.125rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-    /* close button */
-    #mobile-menu .mobile-close {
-      position: absolute;
-      top: 0.9rem;
-      right: 0.9rem;
-      font-size: 1.75rem;
-      line-height: 1;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.5rem;
-      background: rgba(255,255,255,0.1);
+    /* ✅ Mobile Menu: dropdown under navbar (scrolls with page) */
+    #mobile-menu {
+      display: none;             /* hidden by default */
+      flex-direction: column;
+      background: #001f3f;
+      width: 100%;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    #mobile-menu.active { display: flex; }
+    #mobile-menu a {
+      color: white;
+      padding: 1rem 1.25rem;
+      font-size: 1.125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
   </style>
 </head>
@@ -281,18 +249,15 @@
       </div>
     </div>
 
-<!-- Mobile Menu (fullscreen overlay, top→bottom) -->
-<div id="mobile-menu" class="sm:hidden">
-  <button class="mobile-close text-white" aria-label="Close menu" onclick="toggleMenu()">✖</button>
-  <a href="#paintings" onclick="toggleMenu()">Paintings</a>
-  <a href="#ceramics" onclick="toggleMenu()">Ceramics</a>
-  <a href="#jewelry" onclick="toggleMenu()">Jewelry</a>
-  <a href="#books" onclick="toggleMenu()">Books</a>
-  <a href="about.html" onclick="toggleMenu()">About Me</a>
-</div>
-
-
-
+    <!-- Mobile Menu (dropdown) -->
+    <div id="mobile-menu" class="sm:hidden">
+      <a href="#paintings" onclick="toggleMenu()">Paintings</a>
+      <a href="#ceramics" onclick="toggleMenu()">Ceramics</a>
+      <a href="#jewelry" onclick="toggleMenu()">Jewelry</a>
+      <a href="#books" onclick="toggleMenu()">Books</a>
+      <a href="about.html" onclick="toggleMenu()">About Me</a>
+    </div>
+  </nav>
 
   <!-- Gallery Sections -->
   <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
@@ -467,9 +432,8 @@
     </div>
   </footer>
 
-  <!-- ✅ s -->
+  <!-- ✅ Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
   <script>
     // 🌍 Language Switch
     function setLang(lang) {
@@ -492,7 +456,7 @@
       cart.push({ name, price });
       updateCart();
       const panel = document.getElementById('cart-panel');
-      panel.classList.add('active');              // ✅ open cart on add
+      panel.classList.add('active');              // open cart on add
       panel.setAttribute('aria-hidden', 'false');
     }
 
@@ -527,28 +491,16 @@
       if (countEl) countEl.textContent = cart.length;
     }
 
-   /* ✅ Hamburger menu: fullscreen overlay + body scroll lock */
-function toggleMenu() {
-  const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('active');
-  const open = menu.classList.contains('active');
+    /* ✅ Hamburger Menu: dropdown (scrolls with sticky nav) */
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('active');
 
-  // lock page scroll when menu is open
-  document.body.style.overflow = open ? 'hidden' : '';
-
-  // ✅ scroll back to the top so nav + links are always visible
-  if (open) {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-}
-
-// close overlay on ESC
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    const menu = document.getElementById('mobile-menu');
-    if (menu.classList.contains('active')) toggleMenu();
-  }
-});
+      // Optional: always scroll to top so the dropdown is visible when opened
+      if (menu.classList.contains('active')) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
 
     // 🎨 Init AOS
     AOS.init({
