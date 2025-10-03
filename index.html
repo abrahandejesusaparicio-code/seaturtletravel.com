@@ -1,422 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SeaTurtleTravels Gallery</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <!-- ✅ AOS CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-<style>
-  /* 🌟 Smooth Page Entry */
-  body {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s ease-out forwards;
-    background: var(--bg-light);
-    color: var(--text-dark);
-    font-family: "Helvetica Neue", Arial, sans-serif;
-  }
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  <style>
+    /* 🌟 Smooth Page Entry */
+    body {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease-out forwards;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      font-family: "Helvetica Neue", Arial, sans-serif;
+    }
 
-  /* Section Title Styling */
-  .section-title {
-    display: inline-block;
-    padding: 0.5rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    color: #2e2e2e;
-    margin-bottom: 1.5rem;
-  }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-  /* Specific colors per section */
-  #paintings .section-title { background: var(--lavender); }
-  #ceramics .section-title { background: var(--mint); }
-  #jewelry .section-title { background: var(--coral); }
-  #books .section-title { background: #fa8072; color: black; }
+    /* Section Title Styling */
+    .section-title {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      color: #2e2e2e;
+      margin-bottom: 1.5rem;
+    }
 
-  nav {
-    background: #001f3f !important;
-    color: white;
-  }
-  nav a { color: white; transition: color 0.3s; font-size: 0.9rem; }
-  nav a:hover { color: var(--lavender); }
+    /* Specific colors per section */
+    #paintings .section-title { background: var(--lavender); }
+    #ceramics .section-title { background: var(--mint); }
+    #jewelry .section-title { background: var(--coral); }
+    #books .section-title { background: #fa8072; color: black; }
 
-  /* 🛒 Cart Icon */
-  nav svg { stroke: white; }
-  #cart-count {
-    background: var(--yellow);
-    color: black;
-    font-weight: bold;
-  }
+    nav {
+      background: #001f3f !important;
+      color: white;
+    }
+    nav a { color: white; transition: color 0.3s; font-size: 0.9rem; }
+    nav a:hover { color: var(--lavender); }
 
-  /* 🎨 Card Hover Effect + Carousel Snap */
-  .scroll-container {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 1rem;
-  }
+    /* 🛒 Cart Icon */
+    nav svg { stroke: white; }
+    #cart-count {
+      background: var(--yellow);
+      color: black;
+      font-weight: bold;
+    }
 
-  .scroll-item {
-    background: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-    min-width: 80%;   /* ✅ mobile friendly */
-    transition: transform 0.2s;
-    scroll-snap-align: start;
-  }
+    /* 🎨 Card Hover Effect + Carousel Snap */
+    .scroll-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
+    }
 
-  @media (min-width: 640px) {
-    .scroll-item { min-width: 250px; } /* ✅ keep desktop */
-  }
+    .scroll-item {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      min-width: 80%;   /* ✅ mobile friendly */
+      transition: transform 0.2s;
+      scroll-snap-align: start;
+    }
 
-  .scroll-item:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  }
+    @media (min-width: 640px) {
+      .scroll-item { min-width: 250px; } /* ✅ keep desktop */
+    }
 
-  .section-bg {
-    background: var(--blue);
-    border-radius: 0.75rem;
-    padding: 2rem 1rem;
-  }
+    .scroll-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
 
-  :root {
-    --lavender: #e4c1f9;
-    --blue: #a9def9;
-    --mint: #d0f4de;
-    --yellow: #fcf6bd;
-    --coral: #ffb5a7;
-    --text-dark: #2e2e2e;
-    --bg-light: #fdfcf7;
-  }
+    .section-bg {
+      background: var(--blue);
+      border-radius: 0.75rem;
+      padding: 2rem 1rem;
+    }
 
-  h1, h2, h3 { font-family: "Georgia", serif; }
+    :root {
+      --lavender: #e4c1f9;
+      --blue: #a9def9;
+      --mint: #d0f4de;
+      --yellow: #fcf6bd;
+      --coral: #ffb5a7;
+      --text-dark: #2e2e2e;
+      --bg-light: #fdfcf7;
+      --muted: #6b7280; /* ✅ used by footer */
+    }
 
-  .btn-add {
-    display: block;
-    width: 100%;
-    background: var(--mint);
-    color: var(--text-dark);
-    font-weight: 600;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: background 0.3s, transform 0.2s;
-  }
-  .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
+    h1, h2, h3 { font-family: "Georgia", serif; }
 
-  /* Cart Panel */
- #cart-panel {
-  position: fixed;       /* ✅ stays with user when scrolling */
-  top: 4rem;             /* so it doesn’t overlap the navbar */
-  right: 0;
-  width: 20rem;
-  height: calc(100% - 4rem); /* fill screen under nav */
-  background: #fff;
-  color: var(--text-dark);
-  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-  transform: translateX(100%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  z-index: 9999; /* always above content */
-}
+    .btn-add {
+      display: block;
+      width: 100%;
+      background: var(--mint);
+      color: var(--text-dark);
+      font-weight: 600;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
+    /* 🧺 Cart Panel (hidden by default) */
+    #cart-panel {
+      position: fixed;           /* ✅ sticks while scrolling */
+      top: 4rem;                 /* sits below the navbar */
+      right: 0;
+      width: 20rem;              /* ~ w-80 */
+      height: calc(100% - 4rem); /* fill the screen under nav */
+      background: #fff;
+      color: var(--text-dark);
+      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+      transform: translateX(100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      z-index: 9999;             /* above everything */
+      overflow-y: auto;          /* ✅ scroll contents if long */
+    }
 
-  /* ✅ Footer Responsive */
-  footer .links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-  @media (min-width: 640px) {
-    footer .links { flex-direction: row; justify-content: center; }
-  }
+    /* ✅ When active, slide in & enable interaction */
+    #cart-panel.active {
+      transform: translateX(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-  /* ✅ Hero text scaling */
-  .hero-title { font-size: 2rem; }
-  @media (min-width: 640px) {
-    .hero-title { font-size: 3rem; }
-  }
-  @media (min-width: 1024px) {
-    .hero-title { font-size: 4rem; }
-  }
-</style>
+    /* ✅ Footer Responsive */
+    footer .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      footer .links { flex-direction: row; justify-content: center; }
+    }
 
+    /* ✅ Hero text scaling */
+    .hero-title { font-size: 2rem; }
+    @media (min-width: 640px) {
+      .hero-title { font-size: 3rem; }
+    }
+    @media (min-width: 1024px) {
+      .hero-title { font-size: 4rem; }
+    }
+  </style>
+</head>
 
+<body>
 
-<!-- Hero -->
-<section class="relative w-full h-screen">
-  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
-    <source src="hero video/gallery_sample_vid.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center text-center px-6">
-    <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white"
-        data-en="Welcome to SeaTurtleTravels Art Gallery"
-        data-es="Bienvenidos a SeaTurtleTravels Galería de Arte">
-        Welcome to SeaTurtleTravels
-    </h1>
-    <p class="text-lg md:text-2xl text-gray-100"
-       data-en="Discover Art, Ceramics, Jewelry & Books"
-       data-es="Descubre Arte, Cerámica, Joyería y Libros">
-       Discover Art, Ceramics, Jewelry & Books
-    </p>
-  </div>
-</section>
-
-<!-- Navigation -->
-<nav class="sticky top-0 z-50 bg-white/90 shadow">
-  <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
-    <ul class="flex space-x-8 py-4 text-lg font-medium">
-      <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
-      <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
-      <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
-      <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
-      <li><a href="about.html" class="hover:text-[var(--coral)]">About Me</a></li>
-    </ul>
-
-    <div class="flex items-center space-x-4">
-      <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
-      <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
-      <button onclick="toggleCart()" class="relative">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
-            11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
-        </svg>
-        <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Gallery Sections -->
-<main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
-
-<!-- Paintings -->
-<section id="paintings" class="section-bg" data-aos="fade-up">
-  <h2 class="section-title text-3xl" data-aos="zoom-in">Paintings</h2>
-  <div class="relative" data-aos="fade-up" data-aos-delay="150">
-    <div id="paintings-scroll" class="scroll-container">
-
-      <!-- Kahuna Tuna -->
-      <div class="scroll-item" data-aos="zoom-in" data-aos-delay="200">
-        <img src="pictures_paintings/kahuna_tuna.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Kahuna Tuna</h3><p class="text-sm text-[var(--coral)]">$500</p>
-          <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button></div>
-      </div>
-
-      <!-- Mermaid in Sand -->
-      <div class="scroll-item" data-aos="zoom-in" data-aos-delay="220">
-        <img src="pictures_paintings/mermaid_in_sand.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Mermaid in Sand</h3><p class="text-sm text-[var(--coral)]">$550</p>
-          <button onclick="addToCart('Mermaid in Sand',550)" class="btn-add">Add to Cart</button></div>
-      </div>
-
-      <!-- Panga -->
-      <div class="scroll-item" data-aos="zoom-in" data-aos-delay="240">
-        <img src="pictures_paintings/panga.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Panga</h3><p class="text-sm text-[var(--coral)]">$600</p>
-          <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button></div>
-      </div>
-
-      <!-- Pears and Blooms -->
-      <div class="scroll-item" data-aos="zoom-in" data-aos-delay="260">
-        <img src="pictures_paintings/pears_and_blooms.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Pears and Blooms</h3><p class="text-sm text-[var(--coral)]">$450</p>
-          <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button></div>
-      </div>
-
-      <!-- Potted Plants -->
-      <div class="scroll-item" data-aos="zoom-in" data-aos-delay="280">
-        <img src="pictures_paintings/potted_plants.jpg" class="w-full h-64 object-cover rounded-t-lg">
-        <div class="p-4"><h3>Potted Plants</h3><p class="text-sm text-[var(--coral)]">$400</p>
-          <button onclick="addToCart('Potted Plants',400)" class="btn-add">Add to Cart</button></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-  <!-- Ceramics -->
-  <section id="ceramics" class="section-bg" data-aos="fade-right">
-    <h2 class="section-title text-3xl" data-aos="zoom-in">Ceramics</h2>
-    <div class="relative" data-aos="fade-right" data-aos-delay="150">
-      <div id="ceramics-scroll" class="scroll-container">
-        <div class="scroll-item" data-aos="flip-left" data-aos-delay="200">
-          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-          <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
-            <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
-        </div>
-        <div class="scroll-item" data-aos="flip-left" data-aos-delay="250">
-          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-          <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
-            <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
-        </div>
-      </div>
+  <!-- Hero -->
+  <section class="relative w-full h-screen">
+    <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" poster="cover.jpg">
+      <source src="hero video/gallery_sample_vid.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex flex-col items-center justify-center text-center px-6">
+      <h1 class="text-5xl md:text-6xl font-bold mb-4 text-white"
+          data-en="Welcome to SeaTurtleTravels Art Gallery"
+          data-es="Bienvenidos a SeaTurtleTravels Galería de Arte">
+          Welcome to SeaTurtleTravels
+      </h1>
+      <p class="text-lg md:text-2xl text-gray-100"
+         data-en="Discover Art, Ceramics, Jewelry & Books"
+         data-es="Descubre Arte, Cerámica, Joyería y Libros">
+         Discover Art, Ceramics, Jewelry & Books
+      </p>
     </div>
   </section>
 
-  <!-- Jewelry -->
-  <section id="jewelry" class="section-bg" data-aos="fade-left">
-    <h2 class="section-title text-3xl" data-aos="zoom-in">Jewelry</h2>
-    <div class="relative" data-aos="fade-left" data-aos-delay="150">
-      <div id="jewelry-scroll" class="scroll-container">
-        <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="200">
-          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-          <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
-            <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
-        </div>
-        <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="250">
-          <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg">
-          <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
-            <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
-        </div>
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-white/90 shadow">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6">
+      <ul class="flex space-x-8 py-4 text-lg font-medium">
+        <li><a href="#paintings" class="hover:text-[var(--lavender)]">Paintings</a></li>
+        <li><a href="#ceramics" class="hover:text-[var(--mint)]">Ceramics</a></li>
+        <li><a href="#jewelry" class="hover:text-[var(--coral)]">Jewelry</a></li>
+        <li><a href="#books" class="hover:text-[var(--blue)]">Books</a></li>
+        <li><a href="about.html" class="hover:text-[var(--coral)]">About Me</a></li>
+      </ul>
+
+      <div class="flex items-center space-x-4">
+        <button onclick="setLang('en')" class="hover:scale-110">🇬🇧</button>
+        <button onclick="setLang('es')" class="hover:scale-110">🇪🇸</button>
+        <button onclick="toggleCart()" class="relative" aria-label="Toggle cart">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.2 6h12.4M7 13l4-8h6M9 21a1 1 0 
+              11-2 0 1 1 0 012 0zm10 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+          </svg>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-[var(--yellow)] text-xs px-1 rounded-full">0</span>
+        </button>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- Books -->
-  <section id="books" class="section-bg" data-aos="fade-up">
-    <h2 class="section-title text-3xl" data-aos="zoom-in">Books</h2>
-    <div class="relative" data-aos="fade-up" data-aos-delay="150">
-      <div id="books-scroll" class="scroll-container">
-        <div class="scroll-item" data-aos="flip-up" data-aos-delay="200">
-          <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl">
-          <div class="p-4 space-y-2 text-center">
-            <h3 class="font-semibold">More Than a Moose</h3>
-            <p class="text-[var(--coral)] font-bold">$9.95</p>
-            <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
-               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+  <!-- Gallery Sections -->
+  <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+
+    <!-- Paintings -->
+    <section id="paintings" class="section-bg" data-aos="fade-up">
+      <h2 class="section-title text-3xl" data-aos="zoom-in">Paintings</h2>
+      <div class="relative" data-aos="fade-up" data-aos-delay="150">
+        <div id="paintings-scroll" class="scroll-container">
+
+          <!-- Kahuna Tuna -->
+          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="200">
+            <img src="pictures_paintings/kahuna_tuna.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Kahuna Tuna painting">
+            <div class="p-4">
+              <h3>Kahuna Tuna</h3>
+              <p class="text-sm text-[var(--coral)]">$500</p>
+              <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button>
+            </div>
           </div>
-        </div>
-        <div class="scroll-item" data-aos="flip-up" data-aos-delay="250">
-          <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl">
-          <div class="p-4 space-y-2 text-center">
-            <h3 class="font-semibold">TIMOTHY and TONYA</h3>
-            <p class="text-[var(--coral)] font-bold">$9.95</p>
-            <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
-               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+
+          <!-- Mermaid in Sand -->
+          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="220">
+            <img src="pictures_paintings/mermaid_in_sand.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Mermaid in Sand painting">
+            <div class="p-4">
+              <h3>Mermaid in Sand</h3>
+              <p class="text-sm text-[var(--coral)]">$550</p>
+              <button onclick="addToCart('Mermaid in Sand',550)" class="btn-add">Add to Cart</button>
+            </div>
           </div>
+
+          <!-- Panga -->
+          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="240">
+            <img src="pictures_paintings/panga.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Panga painting">
+            <div class="p-4">
+              <h3>Panga</h3>
+              <p class="text-sm text-[var(--coral)]">$600</p>
+              <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Pears and Blooms -->
+          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="260">
+            <img src="pictures_paintings/pears_and_blooms.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Pears and Blooms painting">
+            <div class="p-4">
+              <h3>Pears and Blooms</h3>
+              <p class="text-sm text-[var(--coral)]">$450</p>
+              <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+
+          <!-- Potted Plants -->
+          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="280">
+            <img src="pictures_paintings/potted_plants.jpg" class="w-full h-64 object-cover rounded-t-lg" alt="Potted Plants painting">
+            <div class="p-4">
+              <h3>Potted Plants</h3>
+              <p class="text-sm text-[var(--coral)]">$400</p>
+              <button onclick="addToCart('Potted Plants',400)" class="btn-add">Add to Cart</button>
+            </div>
+          </div>
+
         </div>
-        <div class="scroll-item" data-aos="flip-up" data-aos-delay="300">
-          <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl">
-          <div class="p-4 space-y-2 text-center">
-            <h3 class="font-semibold">The Iguana from Tijuana</h3>
-            <p class="text-[var(--coral)] font-bold">$9.95</p>
-            <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
-               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+      </div>
+    </section>
+
+    <!-- Ceramics -->
+    <section id="ceramics" class="section-bg" data-aos="fade-right">
+      <h2 class="section-title text-3xl" data-aos="zoom-in">Ceramics</h2>
+      <div class="relative" data-aos="fade-right" data-aos-delay="150">
+        <div id="ceramics-scroll" class="scroll-container">
+          <div class="scroll-item" data-aos="flip-left" data-aos-delay="200">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Ceramic Vase">
+            <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
+              <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
+          </div>
+          <div class="scroll-item" data-aos="flip-left" data-aos-delay="250">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Ceramic Bowl">
+            <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
+              <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- Jewelry -->
+    <section id="jewelry" class="section-bg" data-aos="fade-left">
+      <h2 class="section-title text-3xl" data-aos="zoom-in">Jewelry</h2>
+      <div class="relative" data-aos="fade-left" data-aos-delay="150">
+        <div id="jewelry-scroll" class="scroll-container">
+          <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="200">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Silver Necklace">
+            <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
+              <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
+          </div>
+          <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="250">
+            <img src="https://via.placeholder.com/400x500" class="w-full h-64 object-cover rounded-t-lg" alt="Gold Ring">
+            <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
+              <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Books -->
+    <section id="books" class="section-bg" data-aos="fade-up">
+      <h2 class="section-title text-3xl" data-aos="zoom-in">Books</h2>
+      <div class="relative" data-aos="fade-up" data-aos-delay="150">
+        <div id="books-scroll" class="scroll-container">
+          <div class="scroll-item" data-aos="flip-up" data-aos-delay="200">
+            <img src="pictures books/more_than_a_moose.jpg" class="w-full h-64 object-cover rounded-t-xl" alt="More Than a Moose book cover">
+            <div class="p-4 space-y-2 text-center">
+              <h3 class="font-semibold">More Than a Moose</h3>
+              <p class="text-[var(--coral)] font-bold">$9.95</p>
+              <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
+                 class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                        hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+            </div>
+          </div>
+          <div class="scroll-item" data-aos="flip-up" data-aos-delay="250">
+            <img src="pictures books/timothy_and_tonya.jpg" class="w-full h-64 object-cover rounded-t-xl" alt="Timothy and Tonya book cover">
+            <div class="p-4 space-y-2 text-center">
+              <h3 class="font-semibold">TIMOTHY and TONYA</h3>
+              <p class="text-[var(--coral)] font-bold">$9.95</p>
+              <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
+                 class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                        hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+            </div>
+          </div>
+          <div class="scroll-item" data-aos="flip-up" data-aos-delay="300">
+            <img src="pictures books/the_iguana_from_tijuana.jpg" class="w-full h-64 object-cover rounded-t-xl" alt="The Iguana from Tijuana book cover">
+            <div class="p-4 space-y-2 text-center">
+              <h3 class="font-semibold">The Iguana from Tijuana</h3>
+              <p class="text-[var(--coral)] font-bold">$9.95</p>
+              <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
+                 class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                        hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Panel (✅ cleaned classes, ID styles control layout) -->
+  <div id="cart-panel" class="z-50 p-4 border-l bg-white" role="dialog" aria-hidden="true">
+    <div class="flex justify-between items-center border-b pb-2 mb-2">
+      <h2 class="text-lg font-bold">Your Cart</h2>
+      <button onclick="toggleCart()" aria-label="Close cart">✖</button>
     </div>
-  </section>
-</main>
-
-
-<!-- Cart Panel -->
-<div id="cart-panel" class="fixed top-0 right-0 w-80 h-full z-50 p-4 border-l bg-white">
-  <div class="flex justify-between items-center border-b pb-2 mb-2">
-    <h2 class="text-lg font-bold">Your Cart</h2>
-    <button onclick="toggleCart()">✖</button>
+    <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
+    <div class="border-t pt-2">
+      <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+        <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="amount" id="paypal-total" value="0.00">
+        <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
+          Checkout with PayPal
+        </button>
+      </form>
+      <div class="mt-3 text-xs text-gray-500 text-center">Other payment methods coming soon…</div>
+    </div>
   </div>
-  <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
-  <div class="border-t pt-2">
-    <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-      <input type="hidden" name="cmd" value="_xclick">
-      <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
-      <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
-      <input type="hidden" name="currency_code" value="USD">
-      <input type="hidden" name="amount" id="paypal-total" value="0.00">
-      <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
-        Checkout with PayPal
-      </button>
-    </form>
-    <div class="mt-3 text-xs text-gray-500 text-center">Other payment methods coming soon…</div>
-  </div>
-</div>
 
-<!-- Footer -->
-<footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
-  <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
-  <div class="mt-4 flex justify-center space-x-6">
-    <a href="mailto:Megetsten@gmail.com" class="hover:text-[var(--coral)]">📧 Megetsten@gmail.com</a>
-    <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-[var(--blue)]">📸 Instagram</a>
-  </div>
-</footer>
+  <!-- Footer -->
+  <footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
+    <p>© 2025 SeaTurtleTravels Studio. All rights reserved.</p>
+    <div class="mt-4 flex justify-center space-x-6">
+      <a href="mailto:Megetsten@gmail.com" class="hover:text-[var(--coral)]">📧 Megetsten@gmail.com</a>
+      <a href="https://www.instagram.com/seaturtletravels" target="_blank" class="hover:text-[var(--blue)]">📸 Instagram</a>
+    </div>
+  </footer>
 
-<!-- ✅ Scripts -->
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-  // 🌍 Language Switch
-  function setLang(lang) {
-    document.querySelectorAll('[data-en]').forEach(el => {
-      el.textContent = el.getAttribute(`data-${lang}`);
+  <!-- ✅ Scripts -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // 🌍 Language Switch
+    function setLang(lang) {
+      document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
+
+    // 🛒 Cart Logic
+    let cart = [];
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cart-panel');
+      cartPanel.classList.toggle('active');
+      const isOpen = cartPanel.classList.contains('active');
+      cartPanel.setAttribute('aria-hidden', String(!isOpen));
+    }
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+      const panel = document.getElementById('cart-panel');
+      panel.classList.add('active');              // ✅ open cart on add
+      panel.setAttribute('aria-hidden', 'false');
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function updateCart() {
+      const itemsDiv = document.getElementById('cart-items');
+      const totalSpan = document.getElementById('cart-total');
+      const paypalTotal = document.getElementById('paypal-total');
+      const countEl = document.getElementById('cart-count');
+
+      itemsDiv.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        itemsDiv.innerHTML += `
+          <div class="flex justify-between items-center">
+            <span>${item.name}</span>
+            <div class="flex items-center space-x-2">
+              <span>$${item.price.toFixed(2)}</span>
+              <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-400" aria-label="Remove item">✖</button>
+            </div>
+          </div>`;
+        total += item.price;
+      });
+
+      totalSpan.textContent = total.toFixed(2);
+      if (paypalTotal) paypalTotal.value = total.toFixed(2);
+      if (countEl) countEl.textContent = cart.length;
+    }
+
+    // 🎨 Init AOS
+    AOS.init({
+      duration: 800,
+      once: true
     });
-  }
-
-  // 🛒 Cart Logic (✅ final clean version, no duplicates!)
-  let cart = [];
-
-  function toggleCart() {
-    document.getElementById('cart-panel').classList.toggle('active');
-  }
-
-  function addToCart(name, price) {
-    cart.push({ name, price });
-    updateCart();
-    document.getElementById('cart-panel').classList.add('active'); // open cart
-  }
-
-  function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCart();
-  }
-
-  function updateCart() {
-    const itemsDiv = document.getElementById('cart-items');
-    const totalSpan = document.getElementById('cart-total');
-    const paypalTotal = document.getElementById('paypal-total');
-    const countEl = document.getElementById('cart-count');
-
-    itemsDiv.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-      itemsDiv.innerHTML += `
-        <div class="flex justify-between items-center">
-          <span>${item.name}</span>
-          <div class="flex items-center space-x-2">
-            <span>$${item.price.toFixed(2)}</span>
-            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-400">✖</button>
-          </div>
-        </div>`;
-      total += item.price;
-    });
-
-    totalSpan.textContent = total.toFixed(2);
-    if (paypalTotal) paypalTotal.value = total.toFixed(2);
-    if (countEl) countEl.textContent = cart.length;
-  }
-
-  // 🎨 Init AOS
-  AOS.init({
-    duration: 800,
-    once: true
-  });
-</script>
+  </script>
 </body>
 </html>
