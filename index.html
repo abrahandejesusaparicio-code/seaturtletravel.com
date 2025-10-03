@@ -524,18 +524,16 @@ html {
   panel.classList.add('active');  
   panel.setAttribute('aria-hidden', 'false');
 
-  // ✅ ensure newest item is visible inside the cart
+  // ✅ scroll the cart contents so newest item is visible
   const itemsDiv = document.getElementById('cart-items');
   setTimeout(() => {
     itemsDiv.scrollTop = itemsDiv.scrollHeight;
   }, 100);
 
-  // ✅ scroll the page to bring the cart into view
-  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // ✅ scroll the page to the very top so the cart is visible
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-
-    function removeFromCart(index) {
+ function removeFromCart(index) {
       cart.splice(index, 1);
       updateCart();
     }
