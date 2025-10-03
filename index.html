@@ -136,22 +136,25 @@ html {
     .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
     /* 🧺 Cart Panel (hidden by default) */
-    #cart-panel {
-      position: fixed;
-      top: 4rem;                 /* sits below the navbar */
-      right: 0;
-      width: 20rem;
-      height: calc(100% - 4rem);
-      background: #fff;
-      color: var(--text-dark);
-      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-      transform: translateX(100%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      z-index: 9999;
-      overflow-y: auto;
-    }
+  #cart-panel {
+  position: fixed;
+  top: 0;              /* always top of viewport */
+  right: 0;
+  width: 20rem;
+  height: 100%;        /* full screen height */
+  background: #fff;
+  color: var(--text-dark);
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 9999;
+  overflow-y: auto;    /* scroll cart if too long */
+  display: flex;
+  flex-direction: column;
+}
+
 
     /* ✅ When active, slide in & enable interaction */
     #cart-panel.active {
