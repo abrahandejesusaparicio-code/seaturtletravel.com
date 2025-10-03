@@ -114,27 +114,22 @@
   .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
   /* Cart Panel */
-  #cart-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;          /* ✅ full width mobile */
-    max-width: 20rem;     /* ✅ sidebar on desktop */
-    height: 100%;
-    background: #fff;
-    color: var(--text-dark);
-    box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-    transform: translateX(100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    z-index: 50;
-  }
-  #cart-panel.active {
-    transform: translateX(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
+ #cart-panel {
+  position: fixed;       /* ✅ stays with user when scrolling */
+  top: 4rem;             /* so it doesn’t overlap the navbar */
+  right: 0;
+  width: 20rem;
+  height: calc(100% - 4rem); /* fill screen under nav */
+  background: #fff;
+  color: var(--text-dark);
+  box-shadow: -4px 0 12px rgba(0,0,0,0.1);
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 9999; /* always above content */
+}
+
 
   /* ✅ Footer Responsive */
   footer .links {
