@@ -176,32 +176,38 @@ html {
       font-weight: 600;
     }
 
-/* ✅ Mobile Menu: dropdown attached to navbar */
+/* ✅ Mobile Menu: fullscreen overlay under navbar */
 #mobile-menu {
-  position: absolute;       /* sits under nav */
-  top: 100%;                /* directly below the navbar */
+  position: fixed;           
+  top: 4rem;                 /* directly below your sticky nav (adjust if needed) */
   left: 0;
   width: 100%;
-  background: #001f3f;
+  height: calc(100% - 4rem); /* fill screen minus navbar */
+  background: rgba(0,31,63,0.97);
+  display: flex;
   flex-direction: column;
-  overflow: hidden;
-  max-height: 0;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 2rem;
+  transform: translateY(-100%);
   opacity: 0;
-  transform: translateY(-10px);
-  transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
-  z-index: 9999;            /* above content */
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  z-index: 9998;
 }
 
 #mobile-menu.active {
-  max-height: 500px;
-  opacity: 1;
   transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #mobile-menu a {
   color: white;
-  padding: 1rem 1.25rem;
-  font-size: 1.125rem;
+  padding: 1rem;
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
@@ -270,14 +276,15 @@ html {
       </div>
     </div>
 
-    <!-- Mobile Menu (dropdown) -->
-    <div id="mobile-menu" class="sm:hidden">
-      <a href="#paintings" onclick="toggleMenu()">Paintings</a>
-      <a href="#ceramics" onclick="toggleMenu()">Ceramics</a>
-      <a href="#jewelry" onclick="toggleMenu()">Jewelry</a>
-      <a href="#books" onclick="toggleMenu()">Books</a>
-      <a href="about.html" onclick="toggleMenu()">About Me</a>
-    </div>
+   <!-- Mobile Menu (fullscreen overlay) -->
+<div id="mobile-menu" class="sm:hidden">
+  <a href="#paintings" onclick="toggleMenu()">Paintings</a>
+  <a href="#ceramics" onclick="toggleMenu()">Ceramics</a>
+  <a href="#jewelry" onclick="toggleMenu()">Jewelry</a>
+  <a href="#books" onclick="toggleMenu()">Books</a>
+  <a href="about.html" onclick="toggleMenu()">About Me</a>
+</div>
+
   </nav>
 
   <!-- Gallery Sections -->
@@ -514,14 +521,16 @@ html {
 
     /* ✅ Hamburger Menu: dropdown (scrolls with sticky nav) */
     function toggleMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('active');
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('active');
 
-      // Optional: always scroll to top so the dropdown is visible when opened
-      if (menu.classList.contains('active')) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
+  if (menu.classList.contains('active')) {
+    document.body.style.overflow = 'hidden'; // lock scroll
+  } else {
+    document.body.style.overflow = '';       // unlock scroll
+  }
+}
+
 
     // 🎨 Init AOS
     AOS.init({
