@@ -276,14 +276,16 @@ html {
       </div>
     </div>
 
-   <!-- Mobile Menu (fullscreen overlay) -->
+ <!-- Mobile Menu (overlay dropdown) -->
 <div id="mobile-menu" class="sm:hidden">
+  <button class="absolute top-4 right-6 text-white text-2xl" aria-label="Close menu" onclick="toggleMenu()">✖</button>
   <a href="#paintings" onclick="toggleMenu()">Paintings</a>
   <a href="#ceramics" onclick="toggleMenu()">Ceramics</a>
   <a href="#jewelry" onclick="toggleMenu()">Jewelry</a>
   <a href="#books" onclick="toggleMenu()">Books</a>
   <a href="about.html" onclick="toggleMenu()">About Me</a>
 </div>
+
 
   </nav>
 
