@@ -12,15 +12,13 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
-
-    /* ✅ Lightbox fade animation */
-#lightbox {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+/* ✅ Animation For Picture In */
+.section-lightbox {
+  animation: fadeIn 0.3s ease;
 }
-
-#lightbox:not(.hidden) {
-  opacity: 1;
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
   /* ✅ kill horizontal white strip on mobile */
@@ -319,182 +317,211 @@ html {
 
   </nav>
 
- <!-- Gallery Sections -->
-  <main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
+<!-- Gallery Sections -->
+<main class="max-w-7xl mx-auto px-6 py-12 space-y-24">
 
-    <!-- Paintings -->
-    <section id="paintings" class="section-bg" data-aos="fade-up">
-      <h2 class="section-title text-3xl" data-aos="zoom-in">Paintings</h2>
-      <div class="relative" data-aos="fade-up" data-aos-delay="150">
-        <div id="paintings-scroll" class="scroll-container">
+  <!-- Paintings -->
+  <section id="paintings" class="section-bg" data-aos="fade-up">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Paintings</h2>
+    <div class="relative" data-aos="fade-up" data-aos-delay="150">
+      <div id="paintings-scroll" class="scroll-container">
 
-          <!-- Kahuna Tuna -->
-          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="200">
-            <img src="pictures_paintings/kahuna_tuna.jpg" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Kahuna Tuna painting"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4">
-              <h3>Kahuna Tuna</h3>
-              <p class="text-sm text-[var(--coral)]">$500</p>
-              <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-
-          <!-- Mermaid in Sand -->
-          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="220">
-            <img src="pictures_paintings/mermaid_in_sand.jpg" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Mermaid in Sand painting"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4">
-              <h3>Mermaid in Sand</h3>
-              <p class="text-sm text-[var(--coral)]">$550</p>
-              <button onclick="addToCart('Mermaid in Sand',550)" class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-
-          <!-- Panga -->
-          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="240">
-            <img src="pictures_paintings/panga.jpg" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Panga painting"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4">
-              <h3>Panga</h3>
-              <p class="text-sm text-[var(--coral)]">$600</p>
-              <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-
-          <!-- Pears and Blooms -->
-          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="260">
-            <img src="pictures_paintings/pears_and_blooms.jpg" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Pears and Blooms painting"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4">
-              <h3>Pears and Blooms</h3>
-              <p class="text-sm text-[var(--coral)]">$450</p>
-              <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-
-          <!-- Potted Plants -->
-          <div class="scroll-item" data-aos="zoom-in" data-aos-delay="280">
-            <img src="pictures_paintings/potted_plants.jpg" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Potted Plants painting"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4">
-              <h3>Potted Plants</h3>
-              <p class="text-sm text-[var(--coral)]">$400</p>
-              <button onclick="addToCart('Potted Plants',400)" class="btn-add">Add to Cart</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Ceramics -->
-    <section id="ceramics" class="section-bg" data-aos="fade-right">
-      <h2 class="section-title text-3xl" data-aos="zoom-in">Ceramics</h2>
-      <div class="relative" data-aos="fade-right" data-aos-delay="150">
-        <div id="ceramics-scroll" class="scroll-container">
-          <div class="scroll-item" data-aos="flip-left" data-aos-delay="200">
-            <img src="https://via.placeholder.com/400x500" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Ceramic Vase"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4"><h3>Ceramic Vase</h3><p class="text-sm text-[var(--mint)]">$120</p>
-              <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button></div>
-          </div>
-          <div class="scroll-item" data-aos="flip-left" data-aos-delay="250">
-            <img src="https://via.placeholder.com/400x500" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Ceramic Bowl"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4"><h3>Ceramic Bowl</h3><p class="text-sm text-[var(--mint)]">$80</p>
-              <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button></div>
+        <!-- Kahuna Tuna -->
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="200">
+          <img src="pictures_paintings/kahuna_tuna.jpg" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Kahuna Tuna painting"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Kahuna Tuna</h3>
+            <p class="text-sm text-[var(--coral)]">$500</p>
+            <button onclick="addToCart('Kahuna Tuna',500)" class="btn-add">Add to Cart</button>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Jewelry -->
-    <section id="jewelry" class="section-bg" data-aos="fade-left">
-      <h2 class="section-title text-3xl" data-aos="zoom-in">Jewelry</h2>
-      <div class="relative" data-aos="fade-left" data-aos-delay="150">
-        <div id="jewelry-scroll" class="scroll-container">
-          <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="200">
-            <img src="https://via.placeholder.com/400x500" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Silver Necklace"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4"><h3>Silver Necklace</h3><p class="text-sm text-[var(--blue)]">$200</p>
-              <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button></div>
-          </div>
-          <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="250">
-            <img src="https://via.placeholder.com/400x500" 
-                 class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
-                 alt="Gold Ring"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4"><h3>Gold Ring</h3><p class="text-sm text-[var(--blue)]">$350</p>
-              <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button></div>
+        <!-- Mermaid in Sand -->
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="220">
+          <img src="pictures_paintings/mermaid_in_sand.jpg" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Mermaid in Sand painting"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Mermaid in Sand</h3>
+            <p class="text-sm text-[var(--coral)]">$550</p>
+            <button onclick="addToCart('Mermaid in Sand',550)" class="btn-add">Add to Cart</button>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Books -->
-    <section id="books" class="section-bg" data-aos="fade-up">
-      <h2 class="section-title text-3xl" data-aos="zoom-in">Books</h2>
-      <div class="relative" data-aos="fade-up" data-aos-delay="150">
-        <div id="books-scroll" class="scroll-container">
-          <div class="scroll-item" data-aos="flip-up" data-aos-delay="200">
-            <img src="pictures books/more_than_a_moose.jpg" 
-                 class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
-                 alt="More Than a Moose book cover"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4 space-y-2 text-center">
-              <h3 class="font-semibold">More Than a Moose</h3>
-              <p class="text-[var(--coral)] font-bold">$9.95</p>
-              <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
-                 class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                        hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
-            </div>
-          </div>
-          <div class="scroll-item" data-aos="flip-up" data-aos-delay="250">
-            <img src="pictures books/timothy_and_tonya.jpg" 
-                 class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
-                 alt="Timothy and Tonya book cover"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4 space-y-2 text-center">
-              <h3 class="font-semibold">TIMOTHY and TONYA</h3>
-              <p class="text-[var(--coral)] font-bold">$9.95</p>
-              <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
-                 class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                        hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
-            </div>
-          </div>
-          <div class="scroll-item" data-aos="flip-up" data-aos-delay="300">
-            <img src="pictures books/the_iguana_from_tijuana.jpg" 
-                 class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
-                 alt="The Iguana from Tijuana book cover"
-                 onclick="openLightbox(this.src)">
-            <div class="p-4 space-y-2 text-center">
-              <h3 class="font-semibold">The Iguana from Tijuana</h3>
-              <p class="text-[var(--coral)] font-bold">$9.95</p>
-              <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
-                 class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
-                        hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
-            </div>
+        <!-- Panga -->
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="240">
+          <img src="pictures_paintings/panga.jpg" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Panga painting"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Panga</h3>
+            <p class="text-sm text-[var(--coral)]">$600</p>
+            <button onclick="addToCart('Panga',600)" class="btn-add">Add to Cart</button>
           </div>
         </div>
+
+        <!-- Pears and Blooms -->
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="260">
+          <img src="pictures_paintings/pears_and_blooms.jpg" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Pears and Blooms painting"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Pears and Blooms</h3>
+            <p class="text-sm text-[var(--coral)]">$450</p>
+            <button onclick="addToCart('Pears and Blooms',450)" class="btn-add">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Potted Plants -->
+        <div class="scroll-item" data-aos="zoom-in" data-aos-delay="280">
+          <img src="pictures_paintings/potted_plants.jpg" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Potted Plants painting"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Potted Plants</h3>
+            <p class="text-sm text-[var(--coral)]">$400</p>
+            <button onclick="addToCart('Potted Plants',400)" class="btn-add">Add to Cart</button>
+          </div>
+        </div>
+
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+
+  <!-- Ceramics -->
+  <section id="ceramics" class="section-bg" data-aos="fade-right">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Ceramics</h2>
+    <div class="relative" data-aos="fade-right" data-aos-delay="150">
+      <div id="ceramics-scroll" class="scroll-container">
+
+        <!-- Ceramic Vase -->
+        <div class="scroll-item" data-aos="flip-left" data-aos-delay="200">
+          <img src="https://via.placeholder.com/400x500" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Ceramic Vase"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Ceramic Vase</h3>
+            <p class="text-sm text-[var(--mint)]">$120</p>
+            <button onclick="addToCart('Ceramic Vase',120)" class="btn-add">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Ceramic Bowl -->
+        <div class="scroll-item" data-aos="flip-left" data-aos-delay="250">
+          <img src="https://via.placeholder.com/400x500" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Ceramic Bowl"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Ceramic Bowl</h3>
+            <p class="text-sm text-[var(--mint)]">$80</p>
+            <button onclick="addToCart('Ceramic Bowl',80)" class="btn-add">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Jewelry -->
+  <section id="jewelry" class="section-bg" data-aos="fade-left">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Jewelry</h2>
+    <div class="relative" data-aos="fade-left" data-aos-delay="150">
+      <div id="jewelry-scroll" class="scroll-container">
+
+        <!-- Silver Necklace -->
+        <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="200">
+          <img src="https://via.placeholder.com/400x500" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Silver Necklace"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Silver Necklace</h3>
+            <p class="text-sm text-[var(--blue)]">$200</p>
+            <button onclick="addToCart('Silver Necklace',200)" class="btn-add">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Gold Ring -->
+        <div class="scroll-item" data-aos="zoom-in-up" data-aos-delay="250">
+          <img src="https://via.placeholder.com/400x500" 
+               class="w-full h-64 object-cover rounded-t-lg cursor-pointer" 
+               alt="Gold Ring"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4">
+            <h3>Gold Ring</h3>
+            <p class="text-sm text-[var(--blue)]">$350</p>
+            <button onclick="addToCart('Gold Ring',350)" class="btn-add">Add to Cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Books -->
+  <section id="books" class="section-bg" data-aos="fade-up">
+    <h2 class="section-title text-3xl" data-aos="zoom-in">Books</h2>
+    <div class="relative" data-aos="fade-up" data-aos-delay="150">
+      <div id="books-scroll" class="scroll-container">
+
+        <!-- More Than a Moose -->
+        <div class="scroll-item" data-aos="flip-up" data-aos-delay="200">
+          <img src="pictures books/more_than_a_moose.jpg" 
+               class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
+               alt="More Than a Moose book cover"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4 space-y-2 text-center">
+            <h3 class="font-semibold">More Than a Moose</h3>
+            <p class="text-[var(--coral)] font-bold">$9.95</p>
+            <a href="https://www.amazon.com/More-Than-Moose-Meg-Emerson/dp/B0FK3SN5LN" target="_blank"
+               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+          </div>
+        </div>
+
+        <!-- Timothy and Tonya -->
+        <div class="scroll-item" data-aos="flip-up" data-aos-delay="250">
+          <img src="pictures books/timothy_and_tonya.jpg" 
+               class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
+               alt="Timothy and Tonya book cover"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4 space-y-2 text-center">
+            <h3 class="font-semibold">TIMOTHY and TONYA</h3>
+            <p class="text-[var(--coral)] font-bold">$9.95</p>
+            <a href="https://www.amazon.com/TIMOTHY-TONYA-Tale-Two-Turtles-ebook/dp/B0884ZN1HT" target="_blank"
+               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+          </div>
+        </div>
+
+        <!-- The Iguana from Tijuana -->
+        <div class="scroll-item" data-aos="flip-up" data-aos-delay="300">
+          <img src="pictures books/the_iguana_from_tijuana.jpg" 
+               class="w-full h-64 object-cover rounded-t-xl cursor-pointer" 
+               alt="The Iguana from Tijuana book cover"
+               onclick="openLightbox(this.src, this)">
+          <div class="p-4 space-y-2 text-center">
+            <h3 class="font-semibold">The Iguana from Tijuana</h3>
+            <p class="text-[var(--coral)] font-bold">$9.95</p>
+            <a href="https://www.amazon.com/Iguana-Tijuana-Meg-Emerson/dp/B0FHWPB961" target="_blank"
+               class="block text-center mt-2 px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold 
+                      hover:bg-amber-300 transition transform hover:scale-105">Buy</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
 
 
  <!-- Cart Panel -->
@@ -535,12 +562,6 @@ html {
     </div>
   </footer>
   
-<!-- ✅ Lightbox Overlay -->
-<div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[10000]">
-  <img id="lightbox-img" src="" class="max-w-[90%] max-h-[90%] rounded-lg shadow-lg" alt="Expanded image">
-  <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white text-3xl font-bold">✖</button>
-</div>
-
 
   <!-- ✅ Scripts -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
@@ -645,29 +666,28 @@ function toggleMenu() {
       once: true
     });
     // ✅ Lightbox logic
-function openLightbox(src) {
-  const lightbox = document.getElementById('lightbox');
-  const img = document.getElementById('lightbox-img');
-  img.src = src;
-  lightbox.classList.remove('hidden'); // ✅ show
+function openLightbox(src, element) {
+  // Find the parent section
+  const section = element.closest("section");
+
+  // If there's already a lightbox in this section, remove it
+  const existing = section.querySelector(".section-lightbox");
+  if (existing) existing.remove();
+
+  // Create a new lightbox overlay inside this section
+  const lightbox = document.createElement("div");
+  lightbox.className = "section-lightbox absolute inset-0 bg-black/80 flex items-center justify-center z-50";
+  lightbox.innerHTML = `
+    <img src="${src}" class="max-w-[70%] max-h-[70%] rounded-lg shadow-lg">
+    <button class="absolute top-6 right-6 text-white text-3xl font-bold">✖</button>
+  `;
+
+  // Close on click outside or button
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox || e.target.tagName === "BUTTON") {
+      lightbox.remove();
+    }
+  });
+
+  section.appendChild(lightbox);
 }
-
-function closeLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  lightbox.classList.add('hidden'); // ✅ hide
-}
-
-
-// Close on click outside image
-document.getElementById('lightbox').addEventListener('click', (e) => {
-  if (e.target.id === 'lightbox') closeLightbox();
-});
-
-// Close with ESC key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeLightbox();
-});
-
-  </script>
-</body>
-</html>
