@@ -485,7 +485,7 @@ html {
       cartPanel.setAttribute('aria-hidden', String(!isOpen));
     }
 
-   function addToCart(name, price) {
+  function addToCart(name, price) {
   cart.push({ name, price });
   updateCart();
 
@@ -493,8 +493,11 @@ html {
   panel.classList.add('active');  
   panel.setAttribute('aria-hidden', 'false');
 
-  // ✅ Make sure user sees it
-  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // ✅ scroll the cart contents so the latest item is visible
+  const itemsDiv = document.getElementById('cart-items');
+  setTimeout(() => {
+    itemsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 300);
 }
 
 
