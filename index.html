@@ -174,22 +174,23 @@
     }
 
     /* ✅ Fullscreen Mobile Menu: top→bottom layout + animation */
-    #mobile-menu {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,31,63,0.95);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;  /* start at top */
-      align-items: stretch;
-      padding-top: 4.25rem;         /* clear sticky nav (~68px) */
-      height: 100vh;
-      transform: translateY(-100%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.4s ease, opacity 0.3s ease;
-      z-index: 9998;
-    }
+  #mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,31,63,0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-top: 4.25rem;
+  height: 100vh;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+  z-index: 99999; /* bumped up */
+}
+
     #mobile-menu.active {
       transform: translateY(0);
       opacity: 1;
@@ -279,16 +280,14 @@
 
 <!-- Mobile Menu (fullscreen overlay, top→bottom) -->
 <div id="mobile-menu" class="sm:hidden">
-  <button class="absolute top-4 right-6 text-white text-2xl" aria-label="Close menu" onclick="toggleMenu()">✖</button>
-  <nav class="flex flex-col items-center justify-center h-full space-y-6 text-white text-2xl">
-    <a href="#paintings" class="hover:text-[var(--lavender)]" onclick="toggleMenu()">Paintings</a>
-    <a href="#ceramics" class="hover:text-[var(--mint)]" onclick="toggleMenu()">Ceramics</a>
-    <a href="#jewelry" class="hover:text-[var(--coral)]" onclick="toggleMenu()">Jewelry</a>
-    <a href="#books" class="hover:text-[var(--blue)]" onclick="toggleMenu()">Books</a>
-    <a href="about.html" class="hover:text-[var(--coral)]" onclick="toggleMenu()">About Me</a>
-  </nav>
+  <button class="mobile-close text-white" aria-label="Close menu" onclick="toggleMenu()">✖</button>
+  <a href="#paintings" onclick="toggleMenu()">Paintings</a>
+  <a href="#ceramics" onclick="toggleMenu()">Ceramics</a>
+  <a href="#jewelry" onclick="toggleMenu()">Jewelry</a>
+  <a href="#books" onclick="toggleMenu()">Books</a>
+  <a href="about.html" onclick="toggleMenu()">About Me</a>
 </div>
-</nav>
+
 
 
 
@@ -466,7 +465,8 @@
   </footer>
 
   <!-- ✅ s -->
-  < src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
   <script>
     // 🌍 Language Switch
     function setLang(lang) {
