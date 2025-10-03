@@ -135,6 +135,14 @@ html {
     }
     .btn-add:hover { background: var(--blue); transform: translateY(-2px); }
 
+/* ✅ Cart active state */
+#cart-panel.active {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 🛒 Cart Panel (hidden by default) */
 #cart-panel {
   position: fixed;
   top: 0;              /* always top of viewport */
@@ -163,6 +171,7 @@ html {
 #cart-panel .border-t {
   margin-top: auto;        /* push footer down neatly */
 }
+
 
 
 
@@ -437,31 +446,34 @@ html {
     </section>
   </main>
 
-  <!-- Cart Panel -->
-  <<div class="flex justify-between items-center border-b pb-2 mb-2">
-  <h2 class="text-lg font-bold">Your Cart</h2>
-  <div class="flex space-x-3">
-    <button onclick="clearCart()" class="text-sm text-red-500 hover:text-red-400">Remove All</button>
-    <button onclick="toggleCart()" aria-label="Close cart">✖</button>
+ <!-- Cart Panel -->
+<div id="cart-panel" class="z-50 p-4 border-l bg-white" role="dialog" aria-hidden="true">
+  <div class="flex justify-between items-center border-b pb-2 mb-2">
+    <h2 class="text-lg font-bold">Your Cart</h2>
+    <div class="flex space-x-3">
+      <button onclick="clearCart()" class="text-sm text-red-500 hover:text-red-400">Remove All</button>
+      <button onclick="toggleCart()" aria-label="Close cart">✖</button>
+    </div>
+  </div>
+
+  <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
+
+  <div class="border-t pt-2">
+    <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+      <input type="hidden" name="cmd" value="_xclick">
+      <input type="hidden" name="business" value="megetsten@gmail.com">
+      <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
+      <input type="hidden" name="currency_code" value="USD">
+      <input type="hidden" name="amount" id="paypal-total" value="0.00">
+      <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
+        Checkout with PayPal
+      </button>
+    </form>
+    <div class="mt-3 text-xs text-gray-500 text-center">Other payment methods coming soon…</div>
   </div>
 </div>
 
-    <div id="cart-items" class="space-y-2 text-sm mb-4"></div>
-    <div class="border-t pt-2">
-      <p class="mb-2 font-semibold">Total: $<span id="cart-total">0</span></p>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-        <input type="hidden" name="cmd" value="_xclick">
-        <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
-        <input type="hidden" name="item_name" value="SeaTurtleTravels Order">
-        <input type="hidden" name="currency_code" value="USD">
-        <input type="hidden" name="amount" id="paypal-total" value="0.00">
-        <button type="submit" class="mt-2 w-full bg-[var(--coral)] text-white font-semibold py-2 rounded-lg hover:bg-[var(--lavender)] transition">
-          Checkout with PayPal
-        </button>
-      </form>
-      <div class="mt-3 text-xs text-gray-500 text-center">Other payment methods coming soon…</div>
-    </div>
-  </div>
 
   <!-- Footer -->
   <footer class="bg-white border-t py-6 text-center text-sm text-[var(--muted)]">
