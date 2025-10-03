@@ -461,8 +461,8 @@
     </div>
   </footer>
 
-  <!-- ✅ Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <!-- ✅ s -->
+  < src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     // 🌍 Language Switch
     function setLang(lang) {
@@ -520,22 +520,28 @@
       if (countEl) countEl.textContent = cart.length;
     }
 
-    /* ✅ Hamburger menu: fullscreen overlay + body scroll lock */
-    function toggleMenu() {
-      const menu = document.getElementById('mobile-menu');
-      menu.classList.toggle('active');
-      const open = menu.classList.contains('active');
-      // lock page scroll when menu is open
-      document.body.style.overflow = open ? 'hidden' : '';
-    }
+   /* ✅ Hamburger menu: fullscreen overlay + body scroll lock */
+function toggleMenu() {
+  const menu = document.getElementById('mobile-menu');
+  menu.classList.toggle('active');
+  const open = menu.classList.contains('active');
 
-    // close overlay on ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        const menu = document.getElementById('mobile-menu');
-        if (menu.classList.contains('active')) toggleMenu();
-      }
-    });
+  // lock page scroll when menu is open
+  document.body.style.overflow = open ? 'hidden' : '';
+
+  // ✅ scroll back to the top so nav + links are always visible
+  if (open) {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// close overlay on ESC
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const menu = document.getElementById('mobile-menu');
+    if (menu.classList.contains('active')) toggleMenu();
+  }
+});
 
     // 🎨 Init AOS
     AOS.init({
