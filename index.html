@@ -142,13 +142,13 @@ html {
   pointer-events: auto;
 }
 
-/* 🛒 Cart Panel (hidden by default) */
+/* 🛒 Cart Panel (smaller + compact) */
 #cart-panel {
   position: fixed;
-  top: 0;              /* always top of viewport */
+  top: 0;
   right: 0;
-  width: 20rem;
-  height: 100%;        /* full screen height */
+  width: 16rem;   /* was 20rem */
+  height: 100%;
   background: #fff;
   color: var(--text-dark);
   box-shadow: -4px 0 12px rgba(0,0,0,0.1);
@@ -159,21 +159,19 @@ html {
   z-index: 9999;
 
   display: flex;
-  flex-direction: column;  /* stack header, items, footer */
+  flex-direction: column;
+  font-size: 0.875rem; /* text-sm */
 }
 
 #cart-items {
-  flex: 1;                 /* take available space */
-  overflow-y: auto;        /* scroll only this part */
-  padding: 0.5rem;         /* reduce white space */
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.25rem 0.5rem; /* tighter spacing */
 }
 
 #cart-panel .border-t {
-  margin-top: auto;        /* push footer down neatly */
+  margin-top: auto;
 }
-
-
-
 
     /* ✅ Footer Responsive */
     footer .links {
@@ -497,12 +495,18 @@ html {
     // 🛒 Cart Logic
     let cart = [];
 
-    function toggleCart() {
-      const cartPanel = document.getElementById('cart-panel');
-      cartPanel.classList.toggle('active');
-      const isOpen = cartPanel.classList.contains('active');
-      cartPanel.setAttribute('aria-hidden', String(!isOpen));
-    }
+   function toggleCart() {
+  const cartPanel = document.getElementById('cart-panel');
+  cartPanel.classList.toggle('active');
+  const isOpen = cartPanel.classList.contains('active');
+  cartPanel.setAttribute('aria-hidden', String(!isOpen));
+
+  if (isOpen) {
+    // Scroll smoothly to cart when opened
+    cartPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+
 
   function addToCart(name, price) {
   cart.push({ name, price });
