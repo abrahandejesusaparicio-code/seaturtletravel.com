@@ -12,14 +12,16 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
 
   <style>
-/* ✅ Animation For Picture In */
-.section-lightbox {
-  animation: fadeIn 0.3s ease;
-}
+    
+/* Fade-in animation for lightbox */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease;
+}
+
 
   /* ✅ kill horizontal white strip on mobile */
 html, body { max-width: 100%; overflow-x: hidden; }
@@ -665,7 +667,7 @@ function toggleMenu() {
       duration: 800,
       once: true
     });
-    // ✅ Lightbox logic
+   // ✅ Lightbox logic
 function openLightbox(src, element) {
   // Find the parent section
   const section = element.closest("section");
@@ -676,18 +678,24 @@ function openLightbox(src, element) {
 
   // Create a new lightbox overlay inside this section
   const lightbox = document.createElement("div");
-  lightbox.className = "section-lightbox absolute inset-0 bg-black/80 flex items-center justify-center z-50";
+  lightbox.className =
+    "section-lightbox absolute inset-0 bg-black/80 flex items-center justify-center z-[9999] animate-fadeIn";
   lightbox.innerHTML = `
     <img src="${src}" class="max-w-[70%] max-h-[70%] rounded-lg shadow-lg">
     <button class="absolute top-6 right-6 text-white text-3xl font-bold">✖</button>
   `;
 
+  // Lock scroll while open
+  document.body.style.overflow = "hidden";
+
   // Close on click outside or button
   lightbox.addEventListener("click", (e) => {
     if (e.target === lightbox || e.target.tagName === "BUTTON") {
       lightbox.remove();
+      document.body.style.overflow = ""; // unlock scroll
     }
   });
 
   section.appendChild(lightbox);
 }
+
