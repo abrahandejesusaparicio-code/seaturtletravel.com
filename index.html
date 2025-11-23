@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sea Turtles Travel</title>
 
 <style>
 /* =========================================================
-   COLOR PALETTE (from your uploaded image)
+   COLOR PALETTE
    ========================================================= */
 :root {
-  --c1: #395F83;  /* deep blue */
-  --c2: #6B3C32;  /* brown-red */
-  --c3: #BC5C32;  /* orange rust */
-  --c4: #578DB1;  /* soft blue */
-  --c5: #112C49;  /* very dark blue */
-  --c6: #BF986F;  /* sand light gold */
+  --c1: #395F83;
+  --c2: #6B3C32;
+  --c3: #BC5C32;
+  --c4: #578DB1;
+  --c5: #112C49;
+  --c6: #BF986F;
 }
 
 /* =========================================================
@@ -35,7 +35,7 @@ body {
 }
 
 /* =========================================================
-   NAVIGATION BAR
+   NAVBAR
    ========================================================= */
 .navbar {
   width: 100%;
@@ -89,22 +89,16 @@ body {
   z-index: 1;
 }
 
-/* overlay dark tint */
 .hero-overlay {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(17, 44, 73, 0.55); /* from --c5 */
+  background: rgba(17, 44, 73, 0.55);
   z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-.hero-content {
-  z-index: 3;
-  animation: fadeIn 2s ease;
 }
 
 .hero-content h2 {
@@ -120,15 +114,18 @@ body {
 }
 
 /* =========================================================
-   INTRO SECTION (Scroll Reveal)
+   INTRO SECTION WITH IMAGE (LIKE LOIS LOWRY)
    ========================================================= */
 .intro {
-  max-width: 900px;
+  max-width: 1100px;
   background: var(--c1);
   border-left: 8px solid var(--c3);
   margin: 80px auto;
   padding: 40px;
   color: var(--c6);
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
   opacity: 0;
   transform: translateY(50px);
   transition: 1s ease;
@@ -139,6 +136,10 @@ body {
   transform: translateY(0px);
 }
 
+.intro-text {
+  flex: 2;
+}
+
 .intro h3 {
   font-size: 2.5rem;
   margin-bottom: 15px;
@@ -146,6 +147,17 @@ body {
 
 .intro p {
   line-height: 1.6rem;
+}
+
+.intro-img {
+  flex: 1;
+}
+
+.intro-img img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 /* =========================================================
@@ -169,14 +181,20 @@ footer {
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE
    ========================================================= */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .intro {
+    flex-direction: column;
+    text-align: center;
+  }
+  .intro-img img {
+    width: 90%;
+    margin: auto;
+  }
   .hero-content h2 { font-size: 2.5rem; }
-  .intro { margin: 40px 20px; }
 }
 </style>
-
 </head>
 <body>
 
@@ -199,9 +217,8 @@ footer {
    ========================================================= -->
 <section class="hero-video-container">
   <video class="hero-video" autoplay muted loop playsinline>
-    <source src= "hero video/gallery_sample_vid.mp4" type="video/mp4">
+    <source src="hero video/gallery_sample_vid.mp4" type="video/mp4" />
   </video>
-
   <div class="hero-overlay">
     <div class="hero-content">
       <h2>Explore. Protect. Discover.</h2>
@@ -211,15 +228,20 @@ footer {
 </section>
 
 <!-- =========================================================
-   INTRO
+   INTRO WITH SIDE IMAGE
    ========================================================= -->
 <section class="intro scroll-reveal">
-  <h3>Welcome</h3>
-  <p>
-    Just like the currents of the deep sea, this space carries stories, colors, and moments inspired 
-    by nature’s flow. Dive into our journey and discover beauty through art, travel, and mindful 
-    exploration. Let the ocean guide your senses and remind you of the world beneath the surface.
-  </p>
+  <div class="intro-text">
+    <h3>Welcome</h3>
+    <p>
+      Just like the currents of the deep sea, this space carries stories, colors, and moments inspired
+      by nature’s flow. Dive into our journey and discover beauty through art, travel, and mindful
+      exploration.
+    </p>
+  </div>
+  <div class="intro-img">
+    <img src="meg/Meg.jpg" alt="Meg Image" />
+  </div>
 </section>
 
 <!-- =========================================================
@@ -247,6 +269,5 @@ function revealOnScroll() {
 window.addEventListener('scroll', revealOnScroll);
 window.addEventListener('load', revealOnScroll);
 </script>
-
 </body>
 </html>
