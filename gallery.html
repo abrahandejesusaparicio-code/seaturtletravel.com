@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gallery • Sea Turtles Travel</title>
+
+<style>
+:root {
+  --c1: #395F83;
+  --c2: #6B3C32;
+  --c3: #BC5C32;
+  --c4: #578DB1;
+  --c5: #112C49;
+  --c6: #BF986F;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "Georgia", serif;
+  background: var(--c5);
+  color: #ffffff;
+}
+
+/* MAIN NAVBAR */
+.navbar {
+  width: 100%;
+  background: var(--c1);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  z-index: 30;
+}
+
+.logo { color: #ffffff; font-size: 1.5rem; font-weight: bold; }
+.navbar nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-left: 25px;
+  font-size: 1.1rem;
+  transition: 0.3s;
+}
+.navbar nav a:hover { color: var(--c3); }
+
+
+/* SECOND NAVBAR - BOOKMARKS */
+.subnav {
+  margin-top: 70px;
+  width: 100%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 25px 0;
+}
+
+.bookmark {
+  background: var(--c1);
+  color: white;
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  transition: 0.3s;
+}
+
+.bookmark:hover { background: var(--c3); }
+
+.bookmark::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: var(--c1);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+/* GALLERY GRID */
+.gallery-section {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 40px;
+  background: var(--c1);
+  border-left: 8px solid var(--c3);
+  border-radius: 6px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* FOOTER */
+footer {
+  margin-top: 100px;
+  background: var(--c2);
+  text-align: center;
+  padding: 20px;
+  color: #ffffff;
+}
+
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <h1 class="logo">Sea Turtles Travel</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="store.html">Store</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- SECOND NAVBAR / BOOKMARKS -->
+<div class="subnav">
+  <a class="bookmark" href="books.html">Books</a>
+  <a class="bookmark" href="paintings.html">Paintings</a>
+  <a class="bookmark" href="ceramics.html">Ceramics</a>
+</div>
+
+<!-- GALLERY LAYOUT -->
+<section class="gallery-section">
+  <h2 style="font-size:2.4rem;">Gallery</h2>
+  <p>
+    Here you will see my work — pieces created from curiosity, emotion, and the quiet inspiration of the
+    ocean. Each book, painting, and ceramic holds a story of its own, shaped by patience, passion, and a
+    deep love for crafting something meaningful. This gallery is a glimpse into that journey.
+  </p>
+
+  <div class="gallery-grid">
+    <!-- EXAMPLE PLACEHOLDERS — YOU WILL REPLACE WITH REAL IMAGES -->
+    <img src="meg/Meg.jpg" alt="placeholder" />
+    <img src="meg/Meg.jpg" alt="placeholder" />
+    <img src="meg/Meg.jpg" alt="placeholder" />
+    <img src="meg/Meg.jpg" alt="placeholder" />
+  </div>
+</section>
+
+<footer>
+  © 2025 Sea Turtles Travel — Designed with love and colors of the ocean.
+</footer>
+
+</body>
+</html>
 
