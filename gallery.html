@@ -145,14 +145,60 @@ footer {
     deep love for crafting something meaningful. This gallery is a glimpse into that journey.
   </p>
 
-  <div class="gallery-grid">
-    <!-- EXAMPLE PLACEHOLDERS — YOU WILL REPLACE WITH REAL IMAGES -->
-    <img src="meg/Meg.jpg" alt="placeholder" />
-    <img src="meg/Meg.jpg" alt="placeholder" />
-    <img src="meg/Meg.jpg" alt="placeholder" />
-    <img src="meg/Meg.jpg" alt="placeholder" />
+  <div class="carousel-container scroll-reveal">
+    <div class="carousel-track">
+      <img src="pictures books/more_than_a_moose.jpg">
+      <img src="pictures books/the_iguana_from_tijuana.jpg">
+      <img src="pictures books/timothy_and_tonya.jpg">
+
+      <img src="pictures_paintings/Painting (10).jpg">
+      <img src="pictures_paintings/Painting (11).jpg">
+      <img src="pictures_paintings/Painting (2).jpg">
+      <img src="pictures_paintings/Painting (3).jpg">
+      <img src="pictures_paintings/Painting (4).jpg">
+      <img src="pictures_paintings/Painting (5).jpg">
+      <img src="pictures_paintings/Painting (6).jpg">
+      <img src="pictures_paintings/Painting (7).jpg">
+      <img src="pictures_paintings/Painting (8).jpg">
+      <img src="pictures_paintings/Painting (9).jpg">
+      <img src="pictures_paintings/Painting.jpg">
+      <img src="pictures_paintings/kahuna_tuna.jpg">
+      <img src="pictures_paintings/mermaid_in_sand.jpg">
+      <img src="pictures_paintings/pears_and_blooms.jpg">
+      <img src="pictures_paintings/potted_plants.jpg">
+
+      <img src="pictures ceramic/Ceramic (2).jpg">
+      <img src="pictures ceramic/Ceramic (3).jpg">
+      <img src="pictures ceramic/Ceramic (4).jpg">
+      <img src="pictures ceramic/Ceramic (5).jpg">
+      <img src="pictures ceramic/Ceramic.jpg">
+    </div>
   </div>
+
+  <div class="cta-store">Like them? Want them? <a href="store.html">Get them here!</a></div>
 </section>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.scroll-reveal');
+function revealOnScroll(){
+  for(let box of reveals){
+    const top = box.getBoundingClientRect().top;
+    if(top < window.innerHeight - 100){ box.classList.add('visible'); }
+  }
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// Carousel auto-scroll
+const track = document.querySelector('.carousel-track');
+let offset = 0;
+setInterval(()=>{
+  offset -= 300;
+  if(Math.abs(offset) >= track.scrollWidth/1.5) offset = 0;
+  track.style.transform = `translateX(${offset}px)`;
+}, 2000);
+</script>
 
 <footer>
   © 2025 Sea Turtles Travel — Designed with love and colors of the ocean.
@@ -160,4 +206,3 @@ footer {
 
 </body>
 </html>
-
