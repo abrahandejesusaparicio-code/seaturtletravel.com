@@ -7,148 +7,39 @@
 
 <style>
 :root {
-  --c1: #395F83;
-  --c2: #6B3C32;
-  --c3: #BC5C32;
-  --c4: #578DB1;
-  --c5: #112C49;
-  --c6: #BF986F;
+  --c1:#395F83; --c2:#6B3C32; --c3:#BC5C32; --c4:#578DB1; --c5:#112C49; --c6:#BF986F;
 }
+*{margin:0; padding:0; box-sizing:border-box;}
+body{font-family:Georgia,serif; background:var(--c5); color:white;}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: "Georgia", serif;
-  background: var(--c5);
-  color: #ffffff;
-}
+.navbar{width:100%; background:white; padding:15px 40px; display:flex; justify-content:space-between; position:fixed; top:0; z-index:50;}
+.logo{color:var(--c1); font-size:1.5rem; font-weight:bold;}
+.navbar nav a{color:var(--c1); text-decoration:none; margin-left:20px; font-size:1.1rem;}
 
-/* NAVBAR */
-.navbar {
-  width: 100%;
-  background: #ffffff;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 50;
-}
-.logo { color: var(--c1); font-size: 1.5rem; font-weight: bold; }
-.navbar nav a {
-  color: var(--c1);
-  text-decoration: none;
-  margin-left: 25px;
-  font-size: 1.1rem;
-  transition: 0.3s;
-}
-.navbar nav a:hover { color: var(--c3); }
+.subnav{margin-top:70px; display:flex; justify-content:center; gap:25px; padding:20px 0;}
+.bookmark{background:var(--c1); padding:12px 22px; border-radius:4px 4px 0 0; color:white; position:relative; font-weight:bold;}
+.bookmark::after{content:''; position:absolute; bottom:-15px; left:0; width:100%; height:15px; background:var(--c1); clip-path:polygon(0 0,50% 100%,100% 0);} 
 
-/* SUBNAV */
-.subnav {
-  margin-top: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 25px 0;
-}
-.bookmark {
-  background: var(--c1);
-  color: white;
-  padding: 15px 25px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 4px 4px 0 0;
-  position: relative;
-  transition: 0.3s;
-}
-.bookmark:hover { background: var(--c3); }
-.bookmark::after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
-  left: 0;
-  height: 15px;
-  width: 100%;
-  background: var(--c1);
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-}
+.section{max-width:1200px; margin:40px auto; padding:40px; background:var(--c1); border-left:8px solid var(--c3); border-radius:6px;}
+.section h2{font-size:2.4rem; margin-bottom:10px;}
+.section p{margin-bottom:25px;}
 
-/* SECTION */
-.paintings-section {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 40px 20px;
-  background: var(--c1);
-  border-left: 8px solid var(--c3);
-  border-radius: 6px;
-}
-.paintings-section h2 {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
-}
-.paintings-section p {
-  margin-bottom: 25px;
-  line-height: 1.5rem;
-}
+.mosaic{column-count:4; column-gap:15px;}
+.mosaic-item{break-inside:avoid; margin-bottom:15px; position:relative; overflow:hidden; border-radius:8px; cursor:pointer;}
+.mosaic-item img{width:100%; border-radius:8px; transition:.3s;}
+.mosaic-item:hover img{transform:scale(1.05); filter:brightness(1.12);} 
 
-/* MOSAIC GRID */
-.mosaic {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 15px;
-}
-.mosaic-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.mosaic-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.3s;
-}
-.mosaic-item:hover img {
-  transform: scale(1.08);
-  filter: brightness(1.15);
-}
+.modal-bg{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.85); justify-content:center; align-items:center; z-index:100;} 
+.modal-bg.active{display:flex;} 
+.modal-img{max-width:80vw; max-height:80vh; border-radius:10px;} 
+.arrow{position:absolute; top:50%; transform:translateY(-50%); font-size:3rem; color:white; cursor:pointer; user-select:none;} 
+#modalPrev{left:30px;} 
+#modalNext{right:30px;} 
 
-/* MODAL */
-.modal-bg {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85);
-  z-index: 200;
-  justify-content: center;
-  align-items: center;
-}
-.modal-bg.active {
-  display: flex;
-}
-.modal-img {
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 10px;
-  box-shadow: 0 0 25px black;
-}
-
-footer {
-  margin-top: 100px;
-  background: var(--c2);
-  padding: 20px;
-  text-align: center;
-}
+footer{margin-top:100px; background:var(--c2); padding:20px; text-align:center;}
 </style>
 </head>
 <body>
-
 <header class="navbar">
   <h1 class="logo">Sea Turtles Travel</h1>
   <nav>
@@ -166,101 +57,53 @@ footer {
   <a class="bookmark" href="ceramics.html">Ceramics</a>
 </div>
 
-<section class="paintings-section">
-  <h2>Paintings</h2>
-  <p>Brushstrokes, color, motion — each painting captures a story, a feeling, a moment shaped by imagination and the ocean's rhythm.</p>
+<section class="section">
+<h2>Paintings</h2>
+<p>A curated gallery inspired by the aesthetic and flow of Lois Lowry’s mosaic layout — clean, balanced, intimate.</p>
 
-  <div class="mosaic">
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/kahuna_tuna.jpg')">
-      <img src="pictures_paintings/kahuna_tuna.jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/mermaid_in_sand.jpg')">
-      <img src="pictures_paintings/mermaid_in_sand.jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/panga.jpg')">
-      <img src="pictures_paintings/panga.jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/pears_and_blooms.jpg')">
-      <img src="pictures_paintings/pears_and_blooms.jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/potted_plants.jpg')">
-      <img src="pictures_paintings/potted_plants.jpg" />
-        <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (2).jpg')">
-      <img src="pictures_paintings/Painting (2).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (3).jpg')">
-      <img src="pictures_paintings/Painting (3).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (4).jpg')">
-      <img src="pictures_paintings/Painting (4).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (5).jpg')">
-      <img src="pictures_paintings/Painting (5).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (6).jpg')">
-      <img src="pictures_paintings/Painting (6).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (7).jpg')">
-      <img src="pictures_paintings/Painting (7).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (8).jpg')">
-      <img src="pictures_paintings/Painting (8).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (9).jpg')">
-      <img src="pictures_paintings/Painting (9).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (10).jpg')">
-      <img src="pictures_paintings/Painting (10).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting (11).jpg')">
-      <img src="pictures_paintings/Painting (11).jpg" />
-    </div>
-    <div class="mosaic-item" onclick="openModal('pictures_paintings/Painting.jpg')">
-      <img src="pictures_paintings/Painting.jpg" />
-    </div>
-  </div>
-
-  <div style="margin-top:40px; text-align:center;">
-    <a href="store.html" style="display:inline-block; background:linear-gradient(135deg, var(--c3), var(--c2)); padding:14px 24px; border-radius:14px; color:white; font-weight:bold; text-decoration:none; font-size:1rem; box-shadow:0 4px 12px rgba(0,0,0,0.6); backdrop-filter:blur(8px); border:2px solid rgba(255,255,255,0.4); transition:0.25s;">Visit the Store</a>
-  </div>
+<div class="mosaic" id="gallery">
+  <!-- AUTO INSERTED IMAGES -->
+  <div class="mosaic-item"><img src="pictures_paintings/kahuna_tuna.jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/mermaid_in_sand.jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/panga.jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/pears_and_blooms.jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/potted_plants.jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (2).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (3).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (4).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (5).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (6).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (7).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (8).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (9).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (10).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting (11).jpg"></div>
+  <div class="mosaic-item"><img src="pictures_paintings/Painting.jpg"></div>
+</div>
 </section>
 
 <div class="modal-bg" id="modalBg">
-  <span id="modalPrev" style="position:absolute; left:30px; font-size:3rem; color:white; cursor:pointer; user-select:none;">&#10094;</span>
+  <span class="arrow" id="modalPrev">&#10094;</span>
   <img id="modalImg" class="modal-img" src="" />
-  <span id="modalNext" style="position:absolute; right:30px; font-size:3rem; color:white; cursor:pointer; user-select:none;">&#10095;</span>
+  <span class="arrow" id="modalNext">&#10095;</span>
 </div>
 
-<footer>
-  © 2025 Sea Turtles Travel — Painted with ocean colors.
-</footer>
+<footer>© 2025 Sea Turtles Travel — Painted with ocean colors.</footer>
 
 <script>
-let images = Array.from(document.querySelectorAll('.mosaic-item img')).map(i => i.src);
-let currentIndex = 0;
+let gallery = Array.from(document.querySelectorAll('.mosaic-item img')).map(i=>i.src);
+let index = 0;
 
-function openModal(src){
-  currentIndex = images.indexOf(src);
-  document.getElementById('modalImg').src = src;
-  document.getElementById('modalBg').classList.add('active');
-}
-
-document.getElementById('modalBg').addEventListener('click', (e)=>{
-  if(e.target.id === 'modalBg'){
-    document.getElementById('modalBg').classList.remove('active');
-  }
+document.querySelectorAll('.mosaic-item img').forEach((img,i)=>{
+  img.onclick = ()=>{
+    index = i;
+    modalImg.src = img.src;
+    modalBg.classList.add('active');
+  };
 });
-
-document.getElementById('modalPrev').onclick = ()=>{
-  currentIndex = (currentIndex - 1 + images.length) % images.length;
-  document.getElementById('modalImg').src = images[currentIndex];
-};
-
-document.getElementById('modalNext').onclick = ()=>{
-  currentIndex = (currentIndex + 1) % images.length;
-  document.getElementById('modalImg').src = images[currentIndex];
-};
+modalPrev.onclick = ()=>{ index=(index-1+gallery.length)%gallery.length; modalImg.src=gallery[index]; };
+modalNext.onclick = ()=>{ index=(index+1)%gallery.length; modalImg.src=gallery[index]; };
+modalBg.onclick = e=>{ if(e.target===modalBg) modalBg.classList.remove('active'); };
 </script>
-
 </body>
 </html>
