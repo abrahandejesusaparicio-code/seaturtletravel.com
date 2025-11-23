@@ -123,15 +123,12 @@ body {
    INTRO SECTION (Scroll Reveal)
    ========================================================= */
 .intro {
-  max-width: 1100px;
+  max-width: 900px;
   background: var(--c1);
   border-left: 8px solid var(--c3);
   margin: 80px auto;
   padding: 40px;
   color: var(--c6);
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
   opacity: 0;
   transform: translateY(50px);
   transition: 1s ease;
@@ -142,10 +139,6 @@ body {
   transform: translateY(0px);
 }
 
-.intro-text {
-  flex: 2;
-}
-
 .intro h3 {
   font-size: 2.5rem;
   margin-bottom: 15px;
@@ -154,13 +147,6 @@ body {
 .intro p {
   line-height: 1.6rem;
 }
-
-.intro-img img {
-  width: 320px;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-}
-
 
 /* =========================================================
    FOOTER
@@ -227,21 +213,14 @@ footer {
 <!-- =========================================================
    INTRO
    ========================================================= -->
-<section class="intro">
-  <div class="intro-text">
-    <h3>Welcome</h3>
-    <p>
-      Just like the currents of the deep sea, this space carries stories, colors, 
-      and moments inspired by nature’s flow. Dive into our journey and discover 
-      beauty through art, travel, and mindful exploration.
-    </p>
-  </div>
-
-  <div class="intro-img">
-    <img src="meg/Meg.jpg" alt="Meg Image">
-  </div>
+<section class="intro scroll-reveal">
+  <h3>Welcome</h3>
+  <p>
+    Just like the currents of the deep sea, this space carries stories, colors, and moments inspired 
+    by nature’s flow. Dive into our journey and discover beauty through art, travel, and mindful 
+    exploration. Let the ocean guide your senses and remind you of the world beneath the surface.
+  </p>
 </section>
-
 
 <!-- =========================================================
    FOOTER
@@ -271,4 +250,3 @@ window.addEventListener('load', revealOnScroll);
 
 </body>
 </html>
-
