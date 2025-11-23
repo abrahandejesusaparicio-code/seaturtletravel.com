@@ -226,7 +226,9 @@ footer {
 </section>
 
 <div class="modal-bg" id="modalBg">
+  <span id="modalPrev" style="position:absolute; left:30px; font-size:3rem; color:white; cursor:pointer; user-select:none;">&#10094;</span>
   <img id="modalImg" class="modal-img" src="" />
+  <span id="modalNext" style="position:absolute; right:30px; font-size:3rem; color:white; cursor:pointer; user-select:none;">&#10095;</span>
 </div>
 
 <footer>
@@ -234,15 +236,31 @@ footer {
 </footer>
 
 <script>
+let images = Array.from(document.querySelectorAll('.mosaic-item img')).map(i => i.src);
+let currentIndex = 0;
+
 function openModal(src){
+  currentIndex = images.indexOf(src);
   document.getElementById('modalImg').src = src;
   document.getElementById('modalBg').classList.add('active');
 }
-document.getElementById('modalBg').addEventListener('click', ()=>{
-  document.getElementById('modalBg').classList.remove('active');
+
+document.getElementById('modalBg').addEventListener('click', (e)=>{
+  if(e.target.id === 'modalBg'){
+    document.getElementById('modalBg').classList.remove('active');
+  }
 });
+
+document.getElementById('modalPrev').onclick = ()=>{
+  currentIndex = (currentIndex - 1 + images.length) % images.length;
+  document.getElementById('modalImg').src = images[currentIndex];
+};
+
+document.getElementById('modalNext').onclick = ()=>{
+  currentIndex = (currentIndex + 1) % images.length;
+  document.getElementById('modalImg').src = images[currentIndex];
+};
 </script>
 
 </body>
 </html>
-
