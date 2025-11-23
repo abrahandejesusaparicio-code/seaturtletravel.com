@@ -1,268 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Books • Sea Turtles Travel</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Books • Sea Turtles Travel</title>
 
-<!-- Swiper -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <style>
+    :root {
+      --c1: #395F83;
+      --c2: #6B3C32;
+      --c3: #BC5C32;
+      --c4: #578DB1;
+      --c5: #112C49;
+      --c6: #BF986F;
+    }
 
-<style>
-:root {
-  --c1: #395F83;
-  --c2: #6B3C32;
-  --c3: #BC5C32;
-  --c4: #578DB1;
-  --c5: #112C49;
-  --c6: #BF986F;
-}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Georgia", serif;
+      background: var(--c5);
+      color: #ffffff;
+    }
 
-/* RESET */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+    /* NAVBAR */
+    .navbar {
+      width: 100%;
+      background: #ffffff; /* white nav bar as you said */
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      z-index: 50;
+    }
+    .logo { color: var(--c1); font-size: 1.5rem; font-weight: bold; }
+    .navbar nav a {
+      color: var(--c1);
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 1.1rem;
+      transition: 0.3s;
+    }
+    .navbar nav a:hover { color: var(--c3); }
 
-body {
-  font-family: "Georgia", serif;
-  background: var(--c5);
-  color: #ffffff;
-}
+    /* HEADER / HERO for Books Page */
+    .hero {
+      margin-top: 70px;
+      padding: 60px 20px;
+      text-align: center;
+      background: var(--c4);
+      color: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 10px; }
+    .hero p { font-size: 1.2rem; max-width: 600px; margin: auto; }
 
-/* MAIN NAVBAR — ALWAYS WHITE */
-.navbar {
-  width: 100%;
-  background: #ffffff;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 50;
-}
-.logo { color: var(--c1); font-size: 1.5rem; font-weight: bold; }
-.navbar nav a {
-  color: var(--c1);
-  text-decoration: none;
-  margin-left: 25px;
-  font-size: 1.1rem;
-  transition: 0.3s;
-}
-.navbar nav a:hover { color: var(--c3); }
+    /* Mosaic / Grid Gallery */
+    .mosaic-grid {
+      max-width: 1200px;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-auto-rows: 200px;
+      gap: 15px;
+    }
+    .mosaic-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .mosaic-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .mosaic-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
 
-/* SECOND NAVBAR (BOOKMARKS) */
-.subnav {
-  margin-top: 70px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 25px 0;
-}
-.bookmark {
-  background: var(--c1);
-  color: white;
-  padding: 15px 25px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 4px 4px 0 0;
-  position: relative;
-  transition: 0.3s;
-}
-.bookmark:hover { background: var(--c3); }
-.bookmark::after {
-  content: "";
-  position: absolute;
-  bottom: -15px;
-  left: 0;
-  height: 15px;
-  width: 100%;
-  background: var(--c1);
-  clip-path: polygon(0 0, 50% 100%, 100% 0);
-}
+    /* Lightbox / Modal */
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 6px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    }
+    .lightbox:target {
+      display: flex;
+    }
 
-/* SECTION BOX LAYOUT */
-.books-section {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 40px 20px;
-  background: var(--c1);
-  border-left: 8px solid var(--c3);
-  border-radius: 6px;
-}
-.books-section h2 {
-  font-size: 2.4rem;
-  margin-bottom: 10px;
-}
-.books-section p {
-  margin-bottom: 25px;
-  line-height: 1.5rem;
-}
+    /* CAPTION / CLOSE BUTTON */
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 2rem;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
 
-/* SWIPER CAROUSEL */
-.swiper {
-  width: 100%;
-  padding: 20px 0 40px;
-}
-.swiper-slide {
-  background: var(--c5);
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.swiper-slide:hover {
-  transform: scale(1.05);
-}
-.swiper-slide img {
-  width: auto;
-  height: 180px;
-  border-radius: 6px;
-  object-fit: cover;
-}
-
-/* MODAL FULL-VIEW */
-.modal-bg {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.85);
-  z-index: 100;
-  justify-content: center;
-  align-items: center;
-}
-.modal-bg.active { display: flex; }
-.modal-img {
-  max-height: 90vh;
-  max-width: 90vw;
-  border-radius: 10px;
-  box-shadow: 0 0 20px black;
-}
-
-/* SCROLL REVEAL */
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 0.8s ease;
-}
-.scroll-reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* FOOTER */
-footer {
-  margin-top: 100px;
-  background: var(--c2);
-  text-align: center;
-  padding: 20px;
-}
-</style>
+    /* FOOTER */
+    footer {
+      margin-top: 80px;
+      background: var(--c2);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
-<header class="navbar">
-  <h1 class="logo">Sea Turtles Travel</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="store.html">Store</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+  <header class="navbar">
+    <h1 class="logo">Sea Turtles Travel</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="store.html">Store</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-<div class="subnav">
-  <a class="bookmark" href="books.html">Books</a>
-  <a class="bookmark" href="paintings.html">Paintings</a>
-  <a class="bookmark" href="ceramics.html">Ceramics</a>
-</div>
+  <section class="hero">
+    <h1>Books</h1>
+    <p>My written journey: stories that take shape in words, pages, and imagination.</p>
+  </section>
 
-<section class="books-section scroll-reveal">
-  <h2>Books</h2>
-  <p>
-    Each book is a doorway into a story shaped by imagination, emotion, and a love for 
-    sharing experiences. Click any book to view it in full.
-  </p>
-
-  <!-- Swiper -->
-  <div class="swiper">
-    <div class="swiper-wrapper">
-
-      <!-- BOOKS -->
-      <div class="swiper-slide">
-        <img src="pictures books/more_than_a_moose.jpg" alt="Book 1">
-      </div>
-
-      <div class="swiper-slide">
-        <img src="pictures books/the_iguana_from_tijuana.jpg" alt="Book 2">
-      </div>
-
-      <div class="swiper-slide">
-        <img src="pictures books/timothy_and_tonya.jpg" alt="Book 3">
-      </div>
-
+  <section class="mosaic-grid">
+    <!-- Book items -->
+    <div class="mosaic-item" onclick="openLightbox('book1')">
+      <img src="books/more_than_a_moose.jpg" alt="More Than a Moose">
     </div>
+    <div class="mosaic-item" onclick="openLightbox('book2')">
+      <img src="books/the_iguana_from_tijuana.jpg" alt="The Iguana from Tijuana">
+    </div>
+    <div class="mosaic-item" onclick="openLightbox('book3')">
+      <img src="books/timothy_and_tonya.jpg" alt="Timothy and Tonya">
+    </div>
+  </section>
+
+  <!-- Lightboxes -->
+  <div id="book1" class="lightbox" onclick="closeLightbox('book1')">
+    <button class="close">&times;</button>
+    <img src="books/more_than_a_moose.jpg" alt="More Than a Moose Full">
+  </div>
+  <div id="book2" class="lightbox" onclick="closeLightbox('book2')">
+    <button class="close">&times;</button>
+    <img src="books/the_iguana_from_tijuana.jpg" alt="The Iguana from Tijuana Full">
+  </div>
+  <div id="book3" class="lightbox" onclick="closeLightbox('book3')">
+    <button class="close">&times;</button>
+    <img src="books/timothy_and_tonya.jpg" alt="Timothy and Tonya Full">
   </div>
 
-</section>
+  <footer>
+    © 2025 Sea Turtles Travel — Designed with love and colors of the ocean.
+  </footer>
 
-<!-- MODAL -->
-<div class="modal-bg" id="modalBg">
-  <img id="modalImg" class="modal-img" src="">
-</div>
-
-<footer>
-  © 2025 Sea Turtles Travel — Crafted with creativity and ocean colors.
-</footer>
-
-<!-- Swiper & Scripts -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script>
-// Swiper
-const swiper = new Swiper('.swiper', {
-  slidesPerView: 3,
-  spaceBetween: 20,
-  loop: true,
-  autoplay: { delay: 2500 },
-  breakpoints: {
-    768: { slidesPerView: 2 },
-    1024: { slidesPerView: 3 }
-  }
-});
-
-// Modal logic
-const modalBg = document.getElementById("modalBg");
-const modalImg = document.getElementById("modalImg");
-
-document.querySelectorAll(".swiper-slide img").forEach(img => {
-  img.addEventListener("click", () => {
-    modalImg.src = img.src;
-    modalBg.classList.add("active");
-  });
-});
-
-modalBg.addEventListener("click", () => {
-  modalBg.classList.remove("active");
-});
-
-// Scroll reveal
-const reveals = document.querySelectorAll('.scroll-reveal');
-function revealOnScroll(){
-  for(let r of reveals){
-    const top = r.getBoundingClientRect().top;
-    if(top < window.innerHeight - 100) r.classList.add("visible");
-  }
-}
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
-</script>
+  <script>
+    function openLightbox(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeLightbox(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
 
 </body>
 </html>
-
