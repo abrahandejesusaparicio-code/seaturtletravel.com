@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About — Sea Turtles Travel</title>
 
 <style>
-/* ===========================================
-   COLOR PALETTE (same as index)
-   =========================================== */
+/* =========================================================
+   COLOR PALETTE
+   ========================================================= */
 :root {
   --c1: #395F83;
   --c2: #6B3C32;
@@ -18,9 +18,9 @@
   --c6: #BF986F;
 }
 
-/* ===========================================
+/* =========================================================
    GLOBAL
-   =========================================== */
+   ========================================================= */
 * {
   margin: 0;
   padding: 0;
@@ -34,9 +34,9 @@ body {
   overflow-x: hidden;
 }
 
-/* ===========================================
-   NAVBAR (copied from homepage)
-   =========================================== */
+/* =========================================================
+   NAVBAR
+   ========================================================= */
 .navbar {
   width: 100%;
   background: var(--c1);
@@ -50,13 +50,13 @@ body {
 }
 
 .logo {
-  color: #ffffff;
+  color: var(--c6);
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .navbar nav a {
-  color: #ffffff;
+  color: var(--c6);
   text-decoration: none;
   margin-left: 25px;
   font-size: 1.1rem;
@@ -67,93 +67,86 @@ body {
   color: var(--c3);
 }
 
-/* ===========================================
-   PAGE HEADER
-   =========================================== */
-.page-header {
-  margin-top: 90px;
+/* =========================================================
+   ABOUT HEADER
+   ========================================================= */
+.about-header {
+  margin-top: 120px;
   text-align: center;
-  padding: 50px 20px;
+  padding: 40px 20px;
 }
 
-.page-header h2 {
+.about-header h1 {
   font-size: 3rem;
-  color: var(--c6);
-}
-
-.page-header p {
-  max-width: 750px;
-  margin: 20px auto 0 auto;
-  line-height: 1.7rem;
-  font-size: 1.2rem;
+  font-weight: bold;
   color: #ffffff;
 }
 
-/* ===========================================
+.about-header p {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: var(--c6);
+}
+
+/* =========================================================
    ABOUT CONTENT SECTION
-   =========================================== */
-.about-section {
+   ========================================================= */
+.about-container {
   max-width: 1100px;
   margin: 60px auto;
+  padding: 40px;
   background: var(--c1);
   border-left: 8px solid var(--c3);
-  padding: 40px;
+  border-radius: 4px;
   display: flex;
   gap: 40px;
-  align-items: flex-start;
   opacity: 0;
   transform: translateY(40px);
   transition: 1s ease;
 }
 
-.about-section.visible {
+.about-container.visible {
   opacity: 1;
-  transform: translateY(0px);
+  transform: translateY(0);
 }
 
-.about-text {
-  flex: 2;
+/* IMAGE */
+.about-img img {
+  width: 340px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
-.about-text h3 {
-  font-size: 2rem;
-  margin-bottom: 10px;
+/* TEXT */
+.about-text h2 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
   color: #ffffff;
 }
 
 .about-text p {
   line-height: 1.7rem;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #ffffff;
 }
 
-.about-img {
-  flex: 1;
-}
-
-.about-img img {
-  width: 100%;
-  max-width: 330px;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-}
-
-/* ===========================================
+/* =========================================================
    FOOTER
-   =========================================== */
+   ========================================================= */
 footer {
   background: var(--c2);
   text-align: center;
   padding: 20px;
+  margin-top: 100px;
   color: var(--c6);
-  margin-top: 80px;
+  font-size: 1.1rem;
 }
 
-/* ===========================================
+/* =========================================================
    RESPONSIVE
-   =========================================== */
+   ========================================================= */
 @media (max-width: 900px) {
-  .about-section {
+  .about-container {
     flex-direction: column;
     text-align: center;
   }
@@ -163,11 +156,13 @@ footer {
   }
 }
 </style>
-
 </head>
+
 <body>
 
-<!-- NAVBAR -->
+<!-- =========================================================
+   NAVBAR
+   ========================================================= -->
 <header class="navbar">
   <h1 class="logo">Sea Turtles Travel</h1>
   <nav>
@@ -179,46 +174,53 @@ footer {
   </nav>
 </header>
 
-<!-- PAGE HEADER -->
-<section class="page-header">
-  <h2>About Sea Turtles Travel</h2>
-  <p>
-    This space was created to honor the beauty of the ocean, the creatures that call it home,
-    and the calm it brings to our world. Here you’ll find stories, inspiration, and pieces of
-    the journey that shaped this project.
-  </p>
+<!-- =========================================================
+   ABOUT HEADER
+   ========================================================= -->
+<section class="about-header">
+  <h1>About Me</h1>
+  <p>Stories, journeys, and the deep sea that inspires them.</p>
 </section>
 
-<!-- ABOUT SECTION -->
-<section class="about-section scroll-reveal">
-  <div class="about-text">
-    <h3>Our Story</h3>
-    <p>
-      Sea Turtles Travel started as a simple idea—a place to collect memories, stories, and
-      artwork inspired by the sea. Over time, it grew into a creative project filled with
-      emotion, inspiration, and deep appreciation for the ocean’s mysteries.
-    </p>
-    <p>
-      Whether it's the quiet strength of a sea turtle or the rolling rhythm of the tide,
-      everything here is connected to the natural world and the serenity it carries.
-    </p>
-    <p>
-      Through art, writing, exploration, and reflection, we hope to bring a little piece of
-      the ocean’s calm into your day.
-    </p>
-  </div>
-
+<!-- =========================================================
+   ABOUT CONTENT
+   ========================================================= -->
+<section class="about-container scroll-reveal">
   <div class="about-img">
     <img src="meg/Meg.jpg" alt="About Image">
   </div>
+
+  <div class="about-text">
+    <h2>The Journey Behind the Waves</h2>
+    <p>
+      Welcome to Sea Turtles Travel — a space shaped by curiosity, creativity, and the quiet
+      strength of the ocean. Just like the sea turtles that roam our blue planet, this project
+      moves with purpose and heart.
+    </p>
+
+    <p>
+      My work is inspired by the calmness of deep waters, the beauty of nature’s colors, and the
+      stories that unfold when we slow down and observe. Here you’ll find reflections, art,
+      photography, and pieces of my world — shared with the hope of inspiring others.
+    </p>
+
+    <p>
+      Every journey begins with a small step, a single wave, a spark of wonder. This is mine.
+      Thank you for being part of it.
+    </p>
+  </div>
 </section>
 
-<!-- FOOTER -->
+<!-- =========================================================
+   FOOTER
+   ========================================================= -->
 <footer>
-  © 2025 Sea Turtles Travel — Crafted with inspiration from the sea.
+  © 2025 Sea Turtles Travel — Designed with love and colors of the ocean.
 </footer>
 
-<!-- SCROLL REVEAL JS -->
+<!-- =========================================================
+   SCROLL REVEAL JS
+   ========================================================= -->
 <script>
 const reveals = document.querySelectorAll('.scroll-reveal');
 
@@ -237,4 +239,3 @@ window.addEventListener('load', revealOnScroll);
 
 </body>
 </html>
-
