@@ -1,281 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sea Turtles Travel</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artist Portfolio</title>
 
-<style>
-/* =========================================================
-   COLOR PALETTE
-   ========================================================= */
-:root {
-  --c1: #395F83;
-  --c2: #6B3C32;
-  --c3: #BC5C32;
-  --c4: #578DB1;
-  --c5: #112C49;
-  --c6: #BF986F;
-}
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
-/* =========================================================
-   GLOBAL
-   ========================================================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <style>
+    :root {
+      --color-1: #15161A;
+      --color-2: #385E82;
+      --color-3: #2D315E;
+      --color-4: #C9C8CD;
+      --color-5: #6B3C32;
+      --color-6: #BB5B31;
 
-body {
-  font-family: "Georgia", serif;
-  background: var(--c5);
-  color: #ffffff!important;
-  overflow-x: hidden;
-}
+      --tintshade-7: #5a5e6f;
+      --tintshade-8: #253f57;
+      --tintshade-9: #4879a8;
+      --tintshade-10: #585faf;
+      --tintshade-11: #26294e;
+      --tintshade-12: #b46e5f;
+      --tintshade-13: #d0734a;
+      --tintshade-14: #d98f6e;
+    }
 
-/* =========================================================
-   NAVBAR
-   ========================================================= */
-.navbar {
-  width: 100%;
-  background: var(--c1);
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  z-index: 20;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-.logo {
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+    body {
+      background: var(--color-1);
+      color: var(--color-4);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+    }
 
-.navbar nav a {
-  color: #ffffff;
-  text-decoration: none;
-  margin-left: 25px;
-  font-size: 1.1rem;
-  transition: 0.3s ease;
-}
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(180deg, var(--color-1), var(--color-3));
+    }
 
-.navbar nav a:hover {
-  color: var(--c3);
-}
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      margin-bottom: 1rem;
+    }
 
-/* =========================================================
-   HERO VIDEO
-   ========================================================= */
-.hero-video-container {
-  margin-top: 70px;
-  position: relative;
-  width: 100%;
-  height: 80vh;
-  overflow: hidden;
-}
+    .tagline {
+      font-weight: 300;
+      color: var(--tintshade-7);
+    }
 
-.hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  z-index: 1;
-}
+    /* ABOUT */
+    .about {
+      max-width: 800px;
+      margin: 6rem auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
 
-.hero-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(17, 44, 73, 0.55);
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+    /* COLLECTIONS */
+    .collections {
+      padding: 4rem 1.5rem;
+    }
 
-.hero-content h2 {
-  font-size: 4rem;
-  color: #ffffff;
-  text-shadow: 0 0 20px black;
-}
+    .collection-block {
+      margin-bottom: 6rem;
+    }
 
-.hero-content p {
-  font-size: 1.3rem;
-  margin-top: 15px;
-  color: #ffffff;
-}
+    .collection-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
 
-/* =========================================================
-   INTRO SECTION WITH IMAGE (LIKE LOIS LOWRY)
-   ========================================================= */
-.intro {
-  max-width: 1100px;
-  background: var(--c1);
-  border-left: 8px solid var(--c3);
-  margin: 80px auto;
-  padding: 40px;
-  color: #ffffff;
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: 1s ease;
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
 
-.intro.visible {
-  opacity: 1;
-  transform: translateY(0px);
-}
+    .grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 6px;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
 
-.intro-text {
-  flex: 2;
-}
+    .grid img:hover {
+      transform: scale(1.04);
+      opacity: 0.9;
+    }
 
-.intro h3 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
+    /* CTA */
+    .cta {
+      text-align: center;
+      margin: 6rem 0;
+    }
 
-.intro p {
-  line-height: 1.6rem;
-  color: #ffffff!important;
-}
+    .cta-btn {
+      display: inline-block;
+      padding: 0.8rem 2.5rem;
+      border: 1px solid var(--tintshade-7);
+      color: var(--color-4);
+      text-decoration: none;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
 
-.intro-img {
-  flex: 1;
-}
+    .cta-btn:hover {
+      background: var(--color-4);
+      color: var(--color-1);
+    }
 
-.intro-img img {
-  width: 100%;
-  max-width: 320px;
-  border-radius: 6px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
+    /* FOOTER */
+    footer {
+      padding: 3rem 1.5rem;
+      text-align: center;
+      border-top: 1px solid var(--tintshade-11);
+    }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
-footer {
-  background: var(--c2);
-  text-align: center;
-  padding: 20px;
-  margin-top: 100px;
-  color: #ffffff;
-  font-size: 1.1rem;
-}
+    .socials {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--tintshade-7);
+    }
 
-/* =========================================================
-   ANIMATIONS
-   ========================================================= */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+    /* ANIMATIONS */
+    .fade-in,
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+    }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-@media (max-width: 900px) {
-  .intro {
-    flex-direction: column;
-    text-align: center;
-  }
-  .intro-img img {
-    width: 90%;
-    margin: auto;
-  }
-  .hero-content h2 { font-size: 2.5rem; }
-}
-</style>
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+  </style>
 </head>
 <body>
 
-<!-- =========================================================
-   NAVIGATION
-   ========================================================= -->
-<header class="navbar">
-  <h1 class="logo">Sea Turtles Travel</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="store.html">Store</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
-
-<!-- =========================================================
-   HERO VIDEO
-   ========================================================= -->
-<section class="hero-video-container">
-  <video class="hero-video" autoplay muted loop playsinline>
-    <source src="hero video/gallery_sample_vid.mp4" type="video/mp4" />
-  </video>
-  <div class="hero-overlay">
-    <div class="hero-content">
-      <h2>Explore. Protect. Discover.</h2>
-      <p>Welcome to a journey inspired by the ocean’s calm and its mysteries.</p>
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content fade-in">
+      <h1>Artist Name</h1>
+      <p class="tagline">Where color, memory, and quiet stories meet.</p>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- =========================================================
-   INTRO WITH SIDE IMAGE
-   ========================================================= -->
-<section class="intro scroll-reveal">
-  <div class="intro-text">
-    <h3 style="color:#ffffff;">Welcome</h3>
+  <!-- ABOUT -->
+  <section class="about fade-in">
     <p>
-      Just like the currents of the deep sea, this space carries stories, colors, and moments inspired
-      by nature’s flow. Dive into our journey and discover beauty through art, travel, and mindful
-      exploration.
-      <br><br>
-      Here we celebrate the wonders of the ocean, the serenity it brings, and the stories waiting
-      beneath every tide. Whether you're here to learn, explore, or simply enjoy, the sea welcomes
-      you with open arms and endless depth.
-      <br><br>
-      Each wave carries a memory, each ripple a secret. This is where curiosity meets calm—where
-      adventure begins.
+      This body of work explores texture, movement, and narrative through
+      paintings, ceramics, and illustrated stories. Each piece is an invitation
+      to slow down and look closer.
     </p>
-  </div>
-  <div class="intro-img">
-    <img src="meg/Meg.jpg" alt="Meg Image" />
-  </div>
-</section>
+  </section>
 
-<!-- =========================================================
-   FOOTER
-   ========================================================= -->
-<footer>
-  © 2025 Sea Turtles Travel — Designed with love and colors of the ocean.
-</footer>
+  <!-- COLLECTIONS -->
+  <section class="collections">
 
-<!-- =========================================================
-   SCROLL REVEAL JS
-   ========================================================= -->
-<script>
-const reveals = document.querySelectorAll('.scroll-reveal');
+    <!-- PAINTINGS -->
+    <div class="collection-block fade-up">
+      <h2>Paintings</h2>
+      <div class="grid">
+        <img src="pictures_paintings/potted_plants.jpg">
+        <img src="pictures_paintings/pears_and_blooms.jpg">
+        <img src="pictures_paintings/panga.jpg">
+        <img src="pictures_paintings/mermaid_in_sand.jpg">
+        <img src="pictures_paintings/kahuna_tuna.jpg">
+      </div>
+    </div>
 
-function revealOnScroll() {
-  for (let box of reveals) {
-    const top = box.getBoundingClientRect().top;
-    if (top < window.innerHeight - 100) {
-      box.classList.add('visible');
-    }
-  }
-}
+    <!-- BOOKS -->
+    <div class="collection-block fade-up">
+      <h2>Books</h2>
+      <div class="grid">
+        <a href="https://a.co/d/6RtuuIK" target="_blank">
+          <img src="pictures books/more_than_a_moose.jpg">
+        </a>
+        <a href="https://a.co/d/6FrfoJb" target="_blank">
+          <img src="pictures books/the_iguana_from_tijuana.jpg">
+        </a>
+        <a href="https://a.co/d/0TCZ4qY" target="_blank">
+          <img src="pictures books/timothy_and_tonya.jpg">
+        </a>
+      </div>
+    </div>
 
-window.addEventListener('scroll', revealOnScroll);
-window.addEventListener('load', revealOnScroll);
-</script>
+    <!-- CERAMICS -->
+    <div class="collection-block fade-up">
+      <h2>Ceramics</h2>
+      <div class="grid">
+        <img src="pictures ceramic/Ceramic.jpg">
+        <img src="pictures ceramic/Ceramic (2).jpg">
+        <img src="pictures ceramic/Ceramic (3).jpg">
+        <img src="pictures ceramic/Ceramic (4).jpg">
+        <img src="pictures ceramic/Ceramic (5).jpg">
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CTA -->
+  <section class="cta fade-in">
+    <a href="#" class="cta-btn">Explore the Collection</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© Artist Name</p>
+    <div class="socials">
+      <span>Instagram</span>
+      <span>Twitter</span>
+      <span>Email</span>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    document.querySelectorAll('.fade-in, .fade-up').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
 </body>
 </html>
