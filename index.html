@@ -1,333 +1,454 @@
-import React, { useState, useEffect, useRef } from 'react';
-
-const SeaTurtlesGallery = () => {
-  const [language, setLanguage] = useState('EN');
-  const [selectedArt, setSelectedArt] = useState(null);
-  const containerRef = useRef(null);
-  const [visibleItems, setVisibleItems] = useState(new Set());
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setVisibleItems((prev) => new Set([...prev, entry.target.dataset.index]));
-          }
-        });
-      },
-      { threshold: 0.2, rootMargin: '50px' }
-    );
-
-    const elements = document.querySelectorAll('[data-index]');
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
-  const translations = {
-    EN: {
-      title: 'SeaTurtles Travel Art Gallery',
-      subtitle: 'A journey through color, form, and story',
-      discover: 'Discover',
-      explore: 'Explore the Collection',
-      books: 'Published Stories',
-      ceramics: 'Sculptural Forms',
-      paintings: 'Canvas & Light'
-    },
-    ES: {
-      title: 'Galería de Arte SeaTurtles Travel',
-      subtitle: 'Un viaje a través del color, la forma y la historia',
-      discover: 'Descubrir',
-      explore: 'Explorar la Colección',
-      books: 'Historias Publicadas',
-      ceramics: 'Formas Escultóricas',
-      paintings: 'Lienzo y Luz'
-    }
-  };
-
-  const t = translations[language];
-
-  const artworks = [
-    // Opening statement
-    { type: 'text', content: t.subtitle, size: 'hero' },
-    
-    // Paintings flow
-    { type: 'image', src: 'pictures_paintings/potted_plants.jpg', title: 'Potted Plants', category: 'painting', size: 'large' },
-    { type: 'image', src: 'pictures_paintings/pears_and_blooms.jpg', title: 'Pears and Blooms', category: 'painting', size: 'medium' },
-    { type: 'text', content: t.paintings, size: 'section' },
-    { type: 'image', src: 'pictures_paintings/kahuna_tuna.jpg', title: 'Kahuna Tuna', category: 'painting', size: 'large' },
-    { type: 'image', src: 'pictures_paintings/mermaid_in_sand.jpg', title: 'Mermaid in Sand', category: 'painting', size: 'medium' },
-    { type: 'image', src: 'pictures_paintings/panga.jpg', title: 'Panga', category: 'painting', size: 'small' },
-    
-    // Ceramics introduction
-    { type: 'text', content: t.ceramics, size: 'section' },
-    { type: 'image', src: 'pictures ceramic/Ceramic.jpg', title: 'Ceramic 1', category: 'ceramic', size: 'medium' },
-    { type: 'image', src: 'pictures ceramic/Ceramic (2).jpg', title: 'Ceramic 2', category: 'ceramic', size: 'large' },
-    { type: 'image', src: 'pictures ceramic/Ceramic (3).jpg', title: 'Ceramic 3', category: 'ceramic', size: 'small' },
-    
-    // More paintings
-    { type: 'image', src: 'pictures_paintings/Painting.jpg', title: 'Painting', category: 'painting', size: 'large' },
-    { type: 'image', src: 'pictures_paintings/Painting (2).jpg', title: 'Painting 2', category: 'painting', size: 'medium' },
-    { type: 'image', src: 'pictures_paintings/Painting (3).jpg', title: 'Painting 3', category: 'painting', size: 'small' },
-    
-    // Books section
-    { type: 'text', content: t.books, size: 'section' },
-    { type: 'image', src: 'pictures books/more_than_a_moose.jpg', title: 'More Than a Moose', category: 'book', size: 'book', link: 'https://a.co/d/6RtuuIK' },
-    { type: 'image', src: 'pictures books/the_iguana_from_tijuana.jpg', title: 'The Iguana from Tijuana', category: 'book', size: 'book', link: 'https://a.co/d/6FrfoJb' },
-    { type: 'image', src: 'pictures books/timothy_and_tonya.jpg', title: 'TIMOTHY and TONYA', category: 'book', size: 'book', link: 'https://a.co/d/0TCZ4qY' },
-    
-    // More ceramics
-    { type: 'image', src: 'pictures ceramic/Ceramic (4).jpg', title: 'Ceramic 4', category: 'ceramic', size: 'medium' },
-    { type: 'image', src: 'pictures ceramic/Ceramic (5).jpg', title: 'Ceramic 5', category: 'ceramic', size: 'large' },
-    
-    // Remaining paintings
-    { type: 'image', src: 'pictures_paintings/Painting (4).jpg', title: 'Painting 4', category: 'painting', size: 'medium' },
-    { type: 'image', src: 'pictures_paintings/Painting (5).jpg', title: 'Painting 5', category: 'painting', size: 'large' },
-    { type: 'image', src: 'pictures_paintings/Painting (6).jpg', title: 'Painting 6', category: 'painting', size: 'small' },
-    { type: 'image', src: 'pictures_paintings/Painting (7).jpg', title: 'Painting 7', category: 'painting', size: 'medium' },
-    { type: 'image', src: 'pictures_paintings/Painting (8).jpg', title: 'Painting 8', category: 'painting', size: 'large' },
-    { type: 'image', src: 'pictures_paintings/Painting (9).jpg', title: 'Painting 9', category: 'painting', size: 'small' },
-    { type: 'image', src: 'pictures_paintings/Painting (10).jpg', title: 'Painting 10', category: 'painting', size: 'medium' },
-    { type: 'image', src: 'pictures_paintings/Painting (11).jpg', title: 'Painting 11', category: 'painting', size: 'large' }
-  ];
-
-  const getItemStyle = (size, index) => {
-    const layouts = {
-      large: 'col-span-2 row-span-2',
-      medium: 'col-span-1 row-span-1',
-      small: 'col-span-1 row-span-1',
-      book: 'col-span-1 row-span-1'
-    };
-    return layouts[size] || layouts.medium;
-  };
-
-  return (
-    <div className="bg-white min-h-screen overflow-x-hidden" ref={containerRef}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
-        
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeaTurtles Travel Art Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
         :root {
-          --color-1: #15161A;
-          --color-2: #385E82;
-          --color-3: #2D315E;
-          --color-4: #C9C8CD;
-          --color-5: #6B3C32;
-          --color-6: #BB5B31;
-          --tintshade-7: #5a5e6f;
-          --tintshade-8: #253f57;
-          --tintshade-9: #4879a8;
-          --tintshade-10: #585faf;
-          --tintshade-11: #26294e;
-          --tintshade-12: #b46e5f;
-          --tintshade-13: #d0734a;
-          --tintshade-14: #d98f6e;
+            --color-1: #15161A;
+            --color-2: #385E82;
+            --color-3: #2D315E;
+            --color-4: #C9C8CD;
+            --color-5: #6B3C32;
+            --color-6: #BB5B31;
+            --tintshade-7: #5a5e6f;
+            --tintshade-8: #253f57;
+            --tintshade-9: #4879a8;
+            --tintshade-10: #585faf;
+            --tintshade-11: #26294e;
+            --tintshade-12: #b46e5f;
+            --tintshade-13: #d0734a;
+            --tintshade-14: #d98f6e;
         }
         
         * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-          font-family: 'Playfair Display', serif;
-          background: linear-gradient(to bottom, #ffffff 0%, #FFF5F0 100%);
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(to bottom, #ffffff 0%, #FFF5F0 100%);
+            overflow-x: hidden;
         }
         
         .sans {
-          font-family: 'Inter', sans-serif;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-6);
+        }
+        
+        .lang-toggle {
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.15em;
+            color: var(--tintshade-13);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .lang-toggle:hover {
+            opacity: 0.6;
+        }
+        
+        /* Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--color-6) 0%, var(--tintshade-13) 50%, var(--tintshade-14) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 300;
+            color: var(--tintshade-7);
+        }
+        
+        /* Gallery */
+        .gallery {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem 8rem;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: start;
         }
         
         .art-item {
-          opacity: 0;
-          transform: translateY(80px) scale(0.95);
-          transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(80px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .art-item.visible {
-          opacity: 1;
-          transform: translateY(0) scale(1);
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
         
-        .art-image {
-          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .art-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
         }
         
-        .art-image:hover {
-          transform: scale(1.05);
+        .art-item.book {
+            max-width: 400px;
         }
         
+        .art-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            background: var(--color-4);
+            cursor: pointer;
+            transition: box-shadow 0.5s;
+        }
+        
+        .art-wrapper:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .art-wrapper img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .art-wrapper:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Text Items */
         .text-item {
-          opacity: 0;
-          transform: translateY(40px);
-          transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+            grid-column: 1 / -1;
         }
         
         .text-item.visible {
-          opacity: 1;
-          transform: translateY(0);
+            opacity: 1;
+            transform: translateY(0);
         }
         
+        .text-item.hero-text {
+            padding: 8rem 0;
+            text-align: center;
+        }
+        
+        .text-item.hero-text h2 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--color-6) 0%, var(--tintshade-13) 50%, var(--tintshade-14) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .text-item.section-text {
+            padding: 5rem 0 2rem;
+        }
+        
+        .text-item.section-text h3 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 300;
+            color: var(--color-6);
+        }
+        
+        /* Overlay */
         .overlay {
-          backdrop-filter: blur(20px);
-          animation: fadeIn 0.3s ease-out;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .overlay.active {
+            display: flex;
+        }
+        
+        .overlay img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.2);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            font-size: 3rem;
+            color: var(--color-6);
+            cursor: pointer;
+            transition: opacity 0.3s;
+            line-height: 1;
+        }
+        
+        .close-btn:hover {
+            opacity: 0.6;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--color-4);
+            text-align: center;
+        }
+        
+        footer p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: var(--tintshade-7);
         }
         
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
-        .hero-text {
-          background: linear-gradient(135deg, var(--color-6) 0%, var(--tintshade-13) 50%, var(--tintshade-14) 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        
-        .section-text {
-          color: var(--color-6);
-        }
-        
-        img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      `}</style>
-
-      {/* Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-        <div className="max-w-screen-2xl mx-auto px-8 py-6 flex justify-between items-center">
-          <h1 className="text-2xl font-semibold" style={{ color: 'var(--color-6)' }}>
-            Meg
-          </h1>
-          <button
-            onClick={() => setLanguage(language === 'EN' ? 'ES' : 'EN')}
-            className="sans text-sm tracking-widest hover:opacity-60 transition-opacity"
-            style={{ color: 'var(--tintshade-13)' }}
-          >
-            {language === 'EN' ? 'ES' : 'EN'}
-          </button>
-        </div>
-      </nav>
-
-      {/* Hero */}
-      <section className="relative h-screen flex items-center justify-center px-8">
-        <div className="text-center max-w-5xl">
-          <h2 className="text-7xl md:text-9xl font-bold mb-8 hero-text leading-tight">
-            {t.title}
-          </h2>
-          <p className="text-2xl md:text-3xl font-light" style={{ color: 'var(--tintshade-7)' }}>
-            {t.discover}
-          </p>
-        </div>
-      </section>
-
-      {/* Flowing Gallery */}
-      <section className="max-w-screen-2xl mx-auto px-8 pb-32">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-fr">
-          {artworks.map((item, index) => {
-            const isVisible = visibleItems.has(String(index));
-            
-            if (item.type === 'text') {
-              if (item.size === 'hero') {
-                return (
-                  <div
-                    key={index}
-                    data-index={index}
-                    className={`col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center py-32 text-item ${isVisible ? 'visible' : ''}`}
-                  >
-                    <h3 className="text-5xl md:text-7xl font-light text-center max-w-4xl hero-text px-8">
-                      {item.content}
-                    </h3>
-                  </div>
-                );
-              }
-              return (
-                <div
-                  key={index}
-                  data-index={index}
-                  className={`col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-start py-20 text-item ${isVisible ? 'visible' : ''}`}
-                >
-                  <h3 className="text-4xl md:text-6xl font-light section-text">
-                    {item.content}
-                  </h3>
-                </div>
-              );
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
             }
-
-            const itemClass = getItemStyle(item.size, index);
             
-            return (
-              <div
-                key={index}
-                data-index={index}
-                className={`${itemClass} art-item ${isVisible ? 'visible' : ''}`}
-                style={{ 
-                  transitionDelay: `${(index % 4) * 0.1}s`,
-                  minHeight: item.size === 'large' ? '500px' : item.size === 'book' ? '400px' : '300px'
-                }}
-              >
-                {item.link ? (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
-                    style={{ backgroundColor: 'var(--color-4)' }}
-                  >
-                    <img src={item.src} alt={item.title} className="art-image" />
-                  </a>
-                ) : (
-                  <button
-                    onClick={() => setSelectedArt(item)}
-                    className="w-full h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
-                    style={{ backgroundColor: 'var(--color-4)' }}
-                  >
-                    <img src={item.src} alt={item.title} className="art-image" />
-                  </button>
-                )}
-              </div>
-            );
-          })}
+            .art-item.large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">Meg</div>
+            <button class="lang-toggle" onclick="toggleLanguage()">
+                <span id="lang-btn">ES</span>
+            </button>
         </div>
-      </section>
+    </nav>
 
-      {/* Fullscreen Overlay */}
-      {selectedArt && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-8 overlay"
-          style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
-          onClick={() => setSelectedArt(null)}
-        >
-          <div className="max-w-6xl max-h-full">
-            <img
-              src={selectedArt.src}
-              alt={selectedArt.title}
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-            />
-          </div>
-          <button
-            className="absolute top-8 right-8 text-4xl hover:opacity-60 transition-opacity"
-            style={{ color: 'var(--color-6)' }}
-          >
-            ×
-          </button>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title" id="hero-title">SeaTurtles Travel Art Gallery</h1>
+            <p class="hero-subtitle" id="hero-subtitle">A journey through color, form, and story</p>
         </div>
-      )}
+    </section>
 
-      {/* Footer */}
-      <footer className="py-16 px-8 border-t" style={{ borderColor: 'var(--color-4)' }}>
-        <div className="max-w-screen-2xl mx-auto text-center">
-          <p className="sans text-sm" style={{ color: 'var(--tintshade-7)' }}>
-            © 2025 Meg • SeaTurtlesTravelArtGallery
-          </p>
+    <!-- Gallery -->
+    <section class="gallery">
+        <div class="gallery-grid" id="gallery-grid">
+            <!-- Content will be generated by JavaScript -->
         </div>
-      </footer>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Meg • SeaTurtlesTravelArtGallery</p>
+    </footer>
+
+    <!-- Fullscreen Overlay -->
+    <div class="overlay" id="overlay" onclick="closeOverlay()">
+        <button class="close-btn">×</button>
+        <img id="overlay-img" src="" alt="">
     </div>
-  );
-};
 
-export default SeaTurtlesGallery;
+    <script>
+        let currentLang = 'EN';
+        
+        const translations = {
+            EN: {
+                title: 'SeaTurtles Travel Art Gallery',
+                subtitle: 'A journey through color, form, and story',
+                introText: 'Every piece begins with a moment of stillness',
+                paintings: 'Canvas & Light',
+                books: 'Published Stories',
+                ceramics: 'Sculptural Forms'
+            },
+            ES: {
+                title: 'Galería de Arte SeaTurtles Travel',
+                subtitle: 'Un viaje a través del color, la forma y la historia',
+                introText: 'Cada pieza comienza con un momento de quietud',
+                paintings: 'Lienzo y Luz',
+                books: 'Historias Publicadas',
+                ceramics: 'Formas Escultóricas'
+            }
+        };
+        
+        const artworks = [
+            { type: 'text', content: 'introText', size: 'hero-text' },
+            { type: 'image', src: 'pictures_paintings/potted_plants.jpg', title: 'Potted Plants', size: 'large' },
+            { type: 'image', src: 'pictures_paintings/pears_and_blooms.jpg', title: 'Pears and Blooms', size: '' },
+            { type: 'text', content: 'paintings', size: 'section-text' },
+            { type: 'image', src: 'pictures_paintings/kahuna_tuna.jpg', title: 'Kahuna Tuna', size: 'large' },
+            { type: 'image', src: 'pictures_paintings/mermaid_in_sand.jpg', title: 'Mermaid in Sand', size: '' },
+            { type: 'image', src: 'pictures_paintings/panga.jpg', title: 'Panga', size: '' },
+            { type: 'text', content: 'ceramics', size: 'section-text' },
+            { type: 'image', src: 'pictures ceramic/Ceramic.jpg', title: 'Ceramic 1', size: '' },
+            { type: 'image', src: 'pictures ceramic/Ceramic (2).jpg', title: 'Ceramic 2', size: 'large' },
+            { type: 'image', src: 'pictures ceramic/Ceramic (3).jpg', title: 'Ceramic 3', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting.jpg', title: 'Painting', size: 'large' },
+            { type: 'image', src: 'pictures_paintings/Painting (2).jpg', title: 'Painting 2', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting (3).jpg', title: 'Painting 3', size: '' },
+            { type: 'text', content: 'books', size: 'section-text' },
+            { type: 'image', src: 'pictures books/more_than_a_moose.jpg', title: 'More Than a Moose', size: 'book', link: 'https://a.co/d/6RtuuIK' },
+            { type: 'image', src: 'pictures books/the_iguana_from_tijuana.jpg', title: 'The Iguana from Tijuana', size: 'book', link: 'https://a.co/d/6FrfoJb' },
+            { type: 'image', src: 'pictures books/timothy_and_tonya.jpg', title: 'TIMOTHY and TONYA', size: 'book', link: 'https://a.co/d/0TCZ4qY' },
+            { type: 'image', src: 'pictures ceramic/Ceramic (4).jpg', title: 'Ceramic 4', size: '' },
+            { type: 'image', src: 'pictures ceramic/Ceramic (5).jpg', title: 'Ceramic 5', size: 'large' },
+            { type: 'image', src: 'pictures_paintings/Painting (4).jpg', title: 'Painting 4', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting (5).jpg', title: 'Painting 5', size: 'large' },
+            { type: 'image', src: 'pictures_paintings/Painting (6).jpg', title: 'Painting 6', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting (7).jpg', title: 'Painting 7', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting (8).jpg', title: 'Painting 8', size: 'large' },
+            { type: 'image', src: 'pictures_paintings/Painting (9).jpg', title: 'Painting 9', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting (10).jpg', title: 'Painting 10', size: '' },
+            { type: 'image', src: 'pictures_paintings/Painting (11).jpg', title: 'Painting 11', size: 'large' }
+        ];
+        
+        function generateGallery() {
+            const grid = document.getElementById('gallery-grid');
+            grid.innerHTML = '';
+            
+            artworks.forEach((item, index) => {
+                if (item.type === 'text') {
+                    const textDiv = document.createElement('div');
+                    textDiv.className = `text-item ${item.size}`;
+                    textDiv.dataset.index = index;
+                    
+                    const tag = item.size === 'hero-text' ? 'h2' : 'h3';
+                    textDiv.innerHTML = `<${tag}>${translations[currentLang][item.content]}</${tag}>`;
+                    
+                    grid.appendChild(textDiv);
+                } else {
+                    const artDiv = document.createElement('div');
+                    artDiv.className = `art-item ${item.size}`;
+                    artDiv.dataset.index = index;
+                    
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'art-wrapper';
+                    
+                    if (item.link) {
+                        const link = document.createElement('a');
+                        link.href = item.link;
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                        link.innerHTML = `<img src="${item.src}" alt="${item.title}">`;
+                        wrapper.appendChild(link);
+                    } else {
+                        wrapper.innerHTML = `<img src="${item.src}" alt="${item.title}" onclick="openOverlay('${item.src}')">`;
+                    }
+                    
+                    artDiv.appendChild(wrapper);
+                    grid.appendChild(artDiv);
+                }
+            });
+            
+            observeItems();
+        }
+        
+        function observeItems() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: '50px' });
+            
+            document.querySelectorAll('[data-index]').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'EN' ? 'ES' : 'EN';
+            document.getElementById('lang-btn').textContent = currentLang === 'EN' ? 'ES' : 'EN';
+            document.getElementById('hero-title').textContent = translations[currentLang].title;
+            document.getElementById('hero-subtitle').textContent = translations[currentLang].subtitle;
+            generateGallery();
+        }
+        
+        function openOverlay(src) {
+            document.getElementById('overlay-img').src = src;
+            document.getElementById('overlay').classList.add('active');
+        }
+        
+        function closeOverlay() {
+            document.getElementById('overlay').classList.remove('active');
+        }
+        
+        // Initialize
+        generateGallery();
+    </script>
+</body>
+</html>
