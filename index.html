@@ -39,7 +39,7 @@
       background: var(--color-1);
       color: var(--color-4);
       font-family: 'Inter', sans-serif;
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
     /* HERO */
@@ -54,42 +54,55 @@
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 6vw, 5rem);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
       margin-bottom: 1rem;
     }
 
     .tagline {
       font-weight: 300;
       color: var(--tintshade-7);
+      max-width: 520px;
+      margin: 0 auto;
     }
 
     /* ABOUT */
     .about {
-      max-width: 800px;
-      margin: 6rem auto;
+      max-width: 720px;
+      margin: 7rem auto;
       padding: 0 1.5rem;
       text-align: center;
+      color: var(--tintshade-7);
     }
 
     /* COLLECTIONS */
     .collections {
-      padding: 4rem 1.5rem;
+      padding: 6rem clamp(2rem, 8vw, 10rem);
     }
 
     .collection-block {
-      margin-bottom: 6rem;
+      margin-bottom: 9rem;
     }
 
     .collection-block h2 {
       font-family: 'Playfair Display', serif;
       font-size: 2rem;
       margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .collection-block h2::after {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 2px;
+      margin-top: 0.6rem;
+      background: linear-gradient(90deg, var(--tintshade-13), transparent);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 2.5rem;
     }
 
     .grid img {
@@ -97,18 +110,18 @@
       height: 100%;
       object-fit: cover;
       border-radius: 6px;
-      transition: transform 0.6s ease, opacity 0.6s ease;
+      transition: transform 0.8s ease, filter 0.8s ease;
     }
 
     .grid img:hover {
-      transform: scale(1.04);
-      opacity: 0.9;
+      transform: translateY(-6px);
+      filter: brightness(1.05);
     }
 
     /* CTA */
     .cta {
       text-align: center;
-      margin: 6rem 0;
+      margin: 7rem 0;
     }
 
     .cta-btn {
@@ -117,19 +130,21 @@
       border: 1px solid var(--tintshade-7);
       color: var(--color-4);
       text-decoration: none;
-      transition: background 0.4s ease, color 0.4s ease;
+      transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
     }
 
     .cta-btn:hover {
-      background: var(--color-4);
+      background: var(--tintshade-14);
       color: var(--color-1);
+      box-shadow: 0 10px 40px rgba(216, 143, 110, 0.25);
     }
 
     /* FOOTER */
     footer {
-      padding: 3rem 1.5rem;
+      padding: 3.5rem 1.5rem;
       text-align: center;
       border-top: 1px solid var(--tintshade-11);
+      color: var(--tintshade-7);
     }
 
     .socials {
@@ -138,19 +153,31 @@
       gap: 1.5rem;
       justify-content: center;
       font-size: 0.9rem;
-      color: var(--tintshade-7);
     }
 
     /* ANIMATIONS */
     .fade-in,
-    .fade-up {
+    .fade-up,
+    .fade-left,
+    .fade-right {
       opacity: 0;
-      transform: translateY(30px);
+    }
+
+    .fade-up {
+      transform: translateY(40px);
+    }
+
+    .fade-left {
+      transform: translateX(-40px);
+    }
+
+    .fade-right {
+      transform: translateX(40px);
     }
 
     .visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(0, 0);
       transition: opacity 1s ease, transform 1s ease;
     }
   </style>
@@ -178,7 +205,7 @@
   <section class="collections">
 
     <!-- PAINTINGS -->
-    <div class="collection-block fade-up">
+    <div class="collection-block fade-left">
       <h2>Paintings</h2>
       <div class="grid">
         <img src="pictures_paintings/potted_plants.jpg">
@@ -190,7 +217,7 @@
     </div>
 
     <!-- BOOKS -->
-    <div class="collection-block fade-up">
+    <div class="collection-block fade-right">
       <h2>Books</h2>
       <div class="grid">
         <a href="https://a.co/d/6RtuuIK" target="_blank">
@@ -206,7 +233,7 @@
     </div>
 
     <!-- CERAMICS -->
-    <div class="collection-block fade-up">
+    <div class="collection-block fade-left">
       <h2>Ceramics</h2>
       <div class="grid">
         <img src="pictures ceramic/Ceramic.jpg">
@@ -235,20 +262,18 @@
   </footer>
 
   <script>
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = `${i * 0.12}s`;
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
 
-    document.querySelectorAll('.fade-in, .fade-up').forEach(el => {
-      observer.observe(el);
-    });
+    document
+      .querySelectorAll('.fade-in, .fade-up, .fade-left, .fade-right')
+      .forEach(el => observer.observe(el));
   </script>
 
 </body>
