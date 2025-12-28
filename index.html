@@ -189,51 +189,88 @@
             font-weight: 300;
         }
         
-        /* Paintings Grid */
-        .paintings-grid {
-            max-width: 1600px;
+        /* Paintings Carousel */
+        .paintings-carousel-wrapper {
+            max-width: 100%;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .paintings-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 2rem 3rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .paintings-carousel::-webkit-scrollbar {
+            display: none;
         }
         
         .painting-item {
+            flex: 0 0 500px;
+            scroll-snap-align: start;
             opacity: 0;
-            transform: translateY(100px) scale(0.9);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .painting-item.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        
-        .painting-item.large {
-            grid-column: span 2;
-            grid-row: span 2;
+            transform: translateY(0);
         }
         
         .painting-wrapper {
             position: relative;
             width: 100%;
-            height: 100%;
-            min-height: 400px;
-            overflow: hidden;
+            height: 600px;
             border-radius: 1.5rem;
-            cursor: pointer;
+            overflow: hidden;
             background: #000;
+            cursor: pointer;
+            transition: transform 0.6s;
+        }
+        
+        .painting-wrapper:hover {
+            transform: translateY(-10px);
         }
         
         .painting-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        .painting-wrapper:hover img {
-            transform: scale(1.1);
+        .paintings-nav {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .paintings-nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--color-6);
+            background: rgba(187, 91, 49, 0.1);
+            color: var(--color-6);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .paintings-nav-btn:hover {
+            background: var(--color-6);
+            color: #000;
         }
         
         /* Books Carousel */
@@ -435,24 +472,39 @@
                 padding: 4rem 1.5rem;
             }
             
-            .paintings-grid,
-            .ceramics-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .paintings-carousel,
+            .books-carousel {
+                padding: 2rem 1.5rem;
             }
             
-            .painting-item.large {
-                grid-column: span 1;
-                grid-row: span 1;
+            .painting-item {
+                flex: 0 0 350px;
+            }
+            
+            .painting-wrapper {
+                height: 450px;
             }
             
             .book-item {
                 flex: 0 0 300px;
             }
             
+            .book-wrapper {
+                height: 450px;
+            }
+            
             .hero-img {
                 width: 250px;
                 height: 350px;
+            }
+            
+            .ceramics-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title {
+                font-size: 3rem;
             }
         }
     </style>
@@ -488,8 +540,14 @@
             <h2 class="section-title" id="paintings-title">Canvas & Light</h2>
             <p class="section-subtitle" id="paintings-subtitle">Explorations in color and coastal memory</p>
         </div>
-        <div class="paintings-grid" id="paintings-grid">
-            <!-- Paintings will be generated -->
+        <div class="paintings-carousel-wrapper">
+            <div class="paintings-carousel" id="paintings-carousel">
+                <!-- Paintings will be generated -->
+            </div>
+            <div class="paintings-nav">
+                <button class="paintings-nav-btn" onclick="scrollPaintings(-1)">‹</button>
+                <button class="paintings-nav-btn" onclick="scrollPaintings(1)">›</button>
+            </div>
         </div>
     </section>
 
@@ -563,22 +621,22 @@
         };
         
         const paintings = [
-            { src: 'pictures_paintings/potted_plants.jpg', large: true },
+            { src: 'pictures_paintings/potted_plants.jpg' },
             { src: 'pictures_paintings/pears_and_blooms.jpg' },
-            { src: 'pictures_paintings/kahuna_tuna.jpg', large: true },
+            { src: 'pictures_paintings/kahuna_tuna.jpg' },
             { src: 'pictures_paintings/mermaid_in_sand.jpg' },
             { src: 'pictures_paintings/panga.jpg' },
-            { src: 'pictures_paintings/Painting.jpg', large: true },
+            { src: 'pictures_paintings/Painting.jpg' },
             { src: 'pictures_paintings/Painting (2).jpg' },
             { src: 'pictures_paintings/Painting (3).jpg' },
             { src: 'pictures_paintings/Painting (4).jpg' },
-            { src: 'pictures_paintings/Painting (5).jpg', large: true },
+            { src: 'pictures_paintings/Painting (5).jpg' },
             { src: 'pictures_paintings/Painting (6).jpg' },
             { src: 'pictures_paintings/Painting (7).jpg' },
-            { src: 'pictures_paintings/Painting (8).jpg', large: true },
+            { src: 'pictures_paintings/Painting (8).jpg' },
             { src: 'pictures_paintings/Painting (9).jpg' },
             { src: 'pictures_paintings/Painting (10).jpg' },
-            { src: 'pictures_paintings/Painting (11).jpg', large: true }
+            { src: 'pictures_paintings/Painting (11).jpg' }
         ];
         
         const books = [
@@ -621,21 +679,31 @@
             carousel.appendChild(track2);
         }
         
-        // Generate Paintings
+        // Generate Paintings Carousel
         function generatePaintings() {
-            const grid = document.getElementById('paintings-grid');
-            grid.innerHTML = '';
+            const carousel = document.getElementById('paintings-carousel');
+            carousel.innerHTML = '';
             
             paintings.forEach((painting, index) => {
                 const div = document.createElement('div');
-                div.className = `painting-item ${painting.large ? 'large' : ''}`;
+                div.className = 'painting-item';
                 div.dataset.index = index;
                 div.innerHTML = `
                     <div class="painting-wrapper" onclick="openOverlay('${painting.src}')">
                         <img src="${painting.src}" alt="Painting ${index + 1}">
                     </div>
                 `;
-                grid.appendChild(div);
+                carousel.appendChild(div);
+            });
+        }
+        
+        // Paintings Carousel Navigation
+        function scrollPaintings(direction) {
+            const carousel = document.getElementById('paintings-carousel');
+            const scrollAmount = 520;
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
             });
         }
         
