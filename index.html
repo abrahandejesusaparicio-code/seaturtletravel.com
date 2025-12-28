@@ -253,7 +253,7 @@
             left: 2rem;
             font-size: 5rem;
             font-weight: 700;
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.1);
             line-height: 1;
             pointer-events: none;
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -261,53 +261,8 @@
         
         .painting-item:hover .item-number,
         .ceramic-item:hover .item-number {
-            color: rgba(187, 91, 49, 0.9);
+            color: rgba(187, 91, 49, 0.3);
             transform: scale(1.1);
-        }
-        
-        /* Typewriter Text */
-        .typewriter-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 600px;
-            text-align: center;
-            z-index: 5;
-            opacity: 0;
-        }
-        
-        .typewriter-text.visible {
-            opacity: 1;
-        }
-        
-        .typewriter-text h3 {
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 400;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.3;
-            margin: 0;
-            overflow: hidden;
-            border-right: 3px solid var(--color-6);
-            white-space: nowrap;
-            animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        
-        @keyframes blink {
-            from, to { border-color: transparent; }
-            50% { border-color: var(--color-6); }
-        }
-        
-        .typewriter-text.typed h3 {
-            animation: none;
-            border-right: none;
-            white-space: normal;
         }
         
         .paintings-nav {
@@ -652,11 +607,7 @@
         </div>
     </section>
 
-    <div class="section-spacer">
-        <div class="typewriter-text" data-index="spacer1">
-            <h3 id="spacer1-text">Where imagination meets canvas</h3>
-        </div>
-    </div>
+    <div class="section-spacer"></div>
 
     <!-- Paintings Section -->
     <section class="gallery-section dark" id="paintings-section">
@@ -675,11 +626,7 @@
         </div>
     </section>
 
-    <div class="section-spacer">
-        <div class="typewriter-text" data-index="spacer2">
-            <h3 id="spacer2-text">Stories bound in wonder</h3>
-        </div>
-    </div>
+    <div class="section-spacer"></div>
 
     <!-- Books Section -->
     <section class="gallery-section light" id="books-section">
@@ -698,11 +645,7 @@
         </div>
     </section>
 
-    <div class="section-spacer">
-        <div class="typewriter-text" data-index="spacer3">
-            <h3 id="spacer3-text">Shaped by hand and heart</h3>
-        </div>
-    </div>
+    <div class="section-spacer"></div>
 
     <!-- Ceramics Section -->
     <section class="gallery-section dark" id="ceramics-section">
@@ -744,10 +687,7 @@
                 booksTitle: 'Published Stories',
                 booksSubtitle: 'Tales that wander between worlds',
                 ceramicsTitle: 'Sculptural Forms',
-                ceramicsSubtitle: 'Born from earth and intention',
-                spacer1: 'Where imagination meets canvas',
-                spacer2: 'Stories bound in wonder',
-                spacer3: 'Shaped by hand and heart'
+                ceramicsSubtitle: 'Born from earth and intention'
             },
             ES: {
                 title: 'Galería de Arte SeaTurtles Travel',
@@ -757,10 +697,7 @@
                 booksTitle: 'Historias Publicadas',
                 booksSubtitle: 'Cuentos que vagan entre mundos',
                 ceramicsTitle: 'Formas Escultóricas',
-                ceramicsSubtitle: 'Nacidas de la tierra y la intención',
-                spacer1: 'Donde la imaginación encuentra el lienzo',
-                spacer2: 'Historias envueltas en maravilla',
-                spacer3: 'Formadas a mano y corazón'
+                ceramicsSubtitle: 'Nacidas de la tierra y la intención'
             }
         };
         
@@ -854,7 +791,7 @@
                 } else {
                     carousel.scrollBy({ left: 520, behavior: 'smooth' });
                 }
-            }, 2000);
+            }, 3000);
         }
         
         function stopPaintingsAutoScroll() {
@@ -870,7 +807,7 @@
                 left: direction * scrollAmount,
                 behavior: 'smooth'
             });
-            setTimeout(startPaintingsAutoScroll, 2000);
+            setTimeout(startPaintingsAutoScroll, 5000);
         }
         
         // Stop auto-scroll on user interaction
@@ -933,7 +870,7 @@
                 } else {
                     carousel.scrollBy({ left: 470, behavior: 'smooth' });
                 }
-            }, 2000);
+            }, 3000);
         }
         
         function stopCeramicsAutoScroll() {
@@ -949,7 +886,7 @@
                 left: direction * scrollAmount,
                 behavior: 'smooth'
             });
-            setTimeout(startCeramicsAutoScroll, 2000);
+            setTimeout(startCeramicsAutoScroll, 5000);
         }
         
         // Intersection Observer
@@ -958,12 +895,6 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Add typed class after animation completes
-                        if (entry.target.classList.contains('typewriter-text')) {
-                            setTimeout(() => {
-                                entry.target.classList.add('typed');
-                            }, 3000);
-                        }
                     }
                 });
             }, { threshold: 0.1, rootMargin: '100px' });
@@ -997,20 +928,6 @@
             document.getElementById('books-subtitle').textContent = t.booksSubtitle;
             document.getElementById('ceramics-title').textContent = t.ceramicsTitle;
             document.getElementById('ceramics-subtitle').textContent = t.ceramicsSubtitle;
-            
-            // Update typewriter texts
-            document.getElementById('spacer1-text').textContent = t.spacer1;
-            document.getElementById('spacer2-text').textContent = t.spacer2;
-            document.getElementById('spacer3-text').textContent = t.spacer3;
-            
-            // Retrigger typewriter animation
-            document.querySelectorAll('.typewriter-text').forEach(el => {
-                el.classList.remove('visible', 'typed');
-                setTimeout(() => {
-                    el.classList.add('visible');
-                    setTimeout(() => el.classList.add('typed'), 3000);
-                }, 100);
-            });
         }
         
         // Overlay
