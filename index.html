@@ -1,317 +1,307 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>SeaTurtlesTravelArtGallery — Meg</title>
+import React, { useState, useEffect, useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-<!-- Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+const SeaTurtlesGallery = () => {
+  const [language, setLanguage] = useState('EN');
+  const [scrollY, setScrollY] = useState(0);
+  const [heroOffset, setHeroOffset] = useState(0);
+  const heroRef = useRef(null);
 
-<style>
-/* =========================
-   PALETTE (LOCKED)
-========================= */
-:root {
-  --color-1: #15161A;
-  --color-2: #385E82;
-  --color-3: #2D315E;
-  --color-4: #C9C8CD;
-  --color-5: #6B3C32;
-  --color-6: #BB5B31;
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  --tintshade-7: #5a5e6f;
-  --tintshade-8: #253f57;
-  --tintshade-9: #4879a8;
-  --tintshade-10: #585faf;
-  --tintshade-11: #26294e;
-  --tintshade-12: #b46e5f;
-  --tintshade-13: #d0734a;
-  --tintshade-14: #d98f6e;
-}
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setHeroOffset(prev => (prev + 0.5) % 1000);
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
 
-/* =========================
-   RESET / BASE
-========================= */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+  const translations = {
+    EN: {
+      lang: 'EN',
+      artistIntro: 'Artist, storyteller, keeper of color and form',
+      philosophy: 'Every piece begins with a moment of stillness—a breath between the sea and the shore, where imagination takes shape.',
+      paintings: 'Paintings',
+      paintingsDesc: 'Explorations in color, light, and coastal memory',
+      books: 'Books',
+      booksDesc: 'Stories that wander between worlds',
+      ceramics: 'Ceramics',
+      ceramicsDesc: 'Forms born from earth and intention',
+      cta: 'Begin your journey',
+      contact: 'Connect',
+      footer: '© 2025 Meg • SeaTurtlesTravelArtGallery'
+    },
+    ES: {
+      lang: 'ES',
+      artistIntro: 'Artista, narradora, guardiana del color y la forma',
+      philosophy: 'Cada pieza comienza con un momento de quietud—un respiro entre el mar y la orilla, donde la imaginación toma forma.',
+      paintings: 'Pinturas',
+      paintingsDesc: 'Exploraciones en color, luz y memoria costera',
+      books: 'Libros',
+      booksDesc: 'Historias que vagan entre mundos',
+      ceramics: 'Cerámicas',
+      ceramicsDesc: 'Formas nacidas de la tierra y la intención',
+      cta: 'Comienza tu viaje',
+      contact: 'Conectar',
+      footer: '© 2025 Meg • SeaTurtlesTravelArtGallery'
+    }
+  };
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #fafafa;
-  color: var(--color-1);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
+  const t = translations[language];
 
-h1, h2 {
-  font-family: 'Playfair Display', serif;
-}
+  const books = [
+    { img: 'pictures_books/more_than_a_moose.jpg', title: 'More Than a Moose', link: 'https://a.co/d/6RtuuIK' },
+    { img: 'pictures_books/the_iguana_from_tijuana.jpg', title: 'The Iguana from Tijuana', link: 'https://a.co/d/6FrfoJb' },
+    { img: 'pictures_books/timothy_and_tonya.jpg', title: 'TIMOTHY and TONYA', link: 'https://a.co/d/0TCZ4qY' }
+  ];
 
-a { color: inherit; text-decoration: none; }
+  const paintings = [
+    'pictures_paintings/potted_plants.jpg',
+    'pictures_paintings/pears_and_blooms.jpg',
+    'pictures_paintings/panga.jpg',
+    'pictures_paintings/mermaid_in_sand.jpg',
+    'pictures_paintings/kahuna_tuna.jpg',
+    'pictures_paintings/Painting.jpg',
+    'pictures_paintings/Painting (2).jpg',
+    'pictures_paintings/Painting (3).jpg',
+    'pictures_paintings/Painting (4).jpg',
+    'pictures_paintings/Painting (5).jpg',
+    'pictures_paintings/Painting (6).jpg',
+    'pictures_paintings/Painting (7).jpg',
+    'pictures_paintings/Painting (8).jpg',
+    'pictures_paintings/Painting (9).jpg',
+    'pictures_paintings/Painting (10).jpg',
+    'pictures_paintings/Painting (11).jpg'
+  ];
 
-/* =========================
-   TOP BAR (LANG)
-========================= */
-.top-bar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  padding: 1.2rem 2rem;
-  z-index: 10;
-}
+  const ceramics = [
+    'pictures_ceramic/Ceramic.jpg',
+    'pictures_ceramic/Ceramic (2).jpg',
+    'pictures_ceramic/Ceramic (3).jpg',
+    'pictures_ceramic/Ceramic (4).jpg',
+    'pictures_ceramic/Ceramic (5).jpg'
+  ];
 
-.lang-btn {
-  margin-left: 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-  color: var(--tintshade-7);
-}
+  const heroTransform = `translateX(-${(heroOffset + scrollY * 0.1) % 100}%)`;
 
-.lang-btn.active {
-  color: var(--color-2);
-  font-weight: 500;
-}
+  return (
+    <div className="bg-white text-gray-900 font-serif">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400&display=swap');
+        
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: 'Cormorant Garamond', serif;
+          overflow-x: hidden;
+        }
+        
+        .sans {
+          font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-carousel {
+          will-change: transform;
+        }
+        
+        .exhibition-img {
+          transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .exhibition-img:hover {
+          transform: scale(1.02);
+        }
+        
+        .fade-in {
+          animation: fadeIn 1.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .scroll-reveal {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+        }
+        
+        .scroll-reveal.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
 
-/* =========================
-   HERO (HYBRID)
-========================= */
-.hero {
-  height: 120vh;
-  padding-top: 6rem;
-  overflow: hidden;
-  background: #fafafa;
-}
+      {/* Utility Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-end items-center">
+          <button
+            onClick={() => setLanguage(language === 'EN' ? 'ES' : 'EN')}
+            className="sans text-sm tracking-wider hover:text-orange-600 transition-colors"
+            style={{ color: '#BB5B31' }}
+          >
+            {language === 'EN' ? 'ES' : 'EN'}
+          </button>
+        </div>
+      </div>
 
-.hero-inner {
-  position: sticky;
-  top: 6rem;
-}
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative h-screen overflow-hidden mt-12" style={{ backgroundColor: '#F8F8F8' }}>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center z-10 px-6 fade-in">
+            <h1 className="text-7xl md:text-9xl font-light tracking-tight mb-6" style={{ color: '#15161A' }}>
+              Meg
+            </h1>
+            <p className="text-xl md:text-2xl font-light tracking-wide" style={{ color: '#385E82' }}>
+              {t.artistIntro}
+            </p>
+          </div>
+        </div>
+        
+        {/* Continuous horizontal movement background */}
+        <div 
+          className="absolute inset-0 hero-carousel flex items-center opacity-10"
+          style={{ transform: heroTransform }}
+        >
+          {[...paintings, ...paintings].map((img, i) => (
+            <div key={i} className="flex-shrink-0 w-96 h-96 mx-8">
+              <div className="w-full h-full bg-gray-200 rounded-lg" />
+            </div>
+          ))}
+        </div>
+      </section>
 
-.hero-title {
-  text-align: center;
-  margin-bottom: 3rem;
-}
+      {/* Intro Section */}
+      <section className="py-32 px-6">
+        <div className="max-w-3xl mx-auto text-center scroll-reveal visible">
+          <p className="text-2xl md:text-3xl font-light leading-relaxed" style={{ color: '#2D315E' }}>
+            {t.philosophy}
+          </p>
+        </div>
+      </section>
 
-.hero-title h1 {
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-}
+      {/* Paintings Exhibition */}
+      <section className="py-32 px-6" style={{ backgroundColor: '#FAFAFA' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-24 scroll-reveal visible">
+            <h2 className="text-6xl md:text-7xl font-light mb-4" style={{ color: '#15161A' }}>
+              {t.paintings}
+            </h2>
+            <p className="text-xl font-light" style={{ color: '#385E82' }}>
+              {t.paintingsDesc}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {paintings.map((img, i) => (
+              <div key={i} className="scroll-reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
+                <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden exhibition-img">
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm sans">
+                    {img.split('/').pop()}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-.hero-title p {
-  max-width: 520px;
-  margin: 1rem auto 0;
-  color: var(--tintshade-7);
-}
+      {/* Books Exhibition */}
+      <section className="py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-24 scroll-reveal">
+            <h2 className="text-6xl md:text-7xl font-light mb-4" style={{ color: '#15161A' }}>
+              {t.books}
+            </h2>
+            <p className="text-xl font-light" style={{ color: '#385E82' }}>
+              {t.booksDesc}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+            {books.map((book, i) => (
+              <a 
+                key={i} 
+                href={book.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="scroll-reveal block group"
+                style={{ transitionDelay: `${i * 0.15}s` }}
+              >
+                <div className="aspect-[3/4] bg-gray-200 rounded-lg overflow-hidden mb-6 exhibition-img">
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm sans">
+                    {book.img.split('/').pop()}
+                  </div>
+                </div>
+                <h3 className="text-2xl font-light group-hover:text-orange-600 transition-colors" style={{ color: '#2D315E' }}>
+                  {book.title}
+                </h3>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
-/* Horizontal track */
-.hero-track {
-  display: flex;
-  gap: 4rem;
-  padding-left: 10vw;
-  will-change: transform;
-}
+      {/* Ceramics Exhibition */}
+      <section className="py-32 px-6" style={{ backgroundColor: '#FAFAFA' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-24 scroll-reveal">
+            <h2 className="text-6xl md:text-7xl font-light mb-4" style={{ color: '#15161A' }}>
+              {t.ceramics}
+            </h2>
+            <p className="text-xl font-light" style={{ color: '#385E82' }}>
+              {t.ceramicsDesc}
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            {ceramics.map((img, i) => (
+              <div key={i} className="scroll-reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
+                <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden exhibition-img">
+                  <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm sans">
+                    {img.split('/').pop()}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-.hero-card {
-  min-width: 360px;
-  height: 480px;
-  background: white;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  color: var(--color-2);
-}
+      {/* CTA */}
+      <section className="py-32 px-6">
+        <div className="max-w-4xl mx-auto text-center scroll-reveal">
+          <button 
+            className="text-2xl md:text-3xl font-light px-12 py-6 border-2 hover:bg-opacity-10 transition-all duration-500"
+            style={{ color: '#BB5B31', borderColor: '#BB5B31' }}
+          >
+            {t.cta}
+          </button>
+        </div>
+      </section>
 
-/* =========================
-   INTRO
-========================= */
-.intro {
-  max-width: 720px;
-  margin: 10rem auto;
-  padding: 0 2rem;
-  text-align: center;
-  color: var(--tintshade-7);
-}
-
-/* =========================
-   EXHIBITION SECTIONS
-========================= */
-.exhibit {
-  min-height: 200vh;
-  position: relative;
-}
-
-.exhibit-inner {
-  position: sticky;
-  top: 15vh;
-  padding: 0 10vw;
-}
-
-.exhibit h2 {
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  margin-bottom: 4rem;
-}
-
-.exhibit-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 3rem;
-}
-
-.exhibit-grid img {
-  width: 100%;
-  border-radius: 10px;
-  transform: translateY(60px);
-  opacity: 0;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-/* =========================
-   CTA / FOOTER
-========================= */
-.cta {
-  text-align: center;
-  margin: 10rem 0 6rem;
-}
-
-.cta a {
-  padding: 1rem 3rem;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--tintshade-13), var(--tintshade-14));
-  color: white;
-  box-shadow: 0 20px 50px rgba(216,143,110,0.35);
-}
-
-footer {
-  padding: 4rem 2rem;
-  text-align: center;
-  color: var(--tintshade-7);
-  border-top: 1px solid #eee;
-}
-</style>
-</head>
-
-<body>
-
-<!-- LANGUAGE -->
-<div class="top-bar">
-  <span class="lang-btn active" data-lang="en">EN</span>
-  <span class="lang-btn" data-lang="es">ES</span>
-</div>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-title">
-      <h1 data-i18n="name">Meg</h1>
-      <p data-i18n="tagline"></p>
+      {/* Footer */}
+      <footer className="py-12 px-6 border-t" style={{ borderColor: '#C9C8CD' }}>
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="sans text-sm" style={{ color: '#5a5e6f' }}>
+            {t.footer}
+          </p>
+        </div>
+      </footer>
     </div>
-
-    <div class="hero-track" id="heroTrack">
-      <div class="hero-card">Paintings</div>
-      <div class="hero-card">Books</div>
-      <div class="hero-card">Ceramics</div>
-      <div class="hero-card">Travel</div>
-    </div>
-  </div>
-</section>
-
-<!-- INTRO -->
-<section class="intro" data-i18n="intro"></section>
-
-<!-- PAINTINGS -->
-<section class="exhibit">
-  <div class="exhibit-inner">
-    <h2 data-i18n="paintings"></h2>
-    <div class="exhibit-grid">
-      <img src="pictures_paintings/potted_plants.jpg">
-      <img src="pictures_paintings/pears_and_blooms.jpg">
-      <img src="pictures_paintings/panga.jpg">
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<div class="cta">
-  <a href="#" data-i18n="cta"></a>
-</div>
-
-<footer data-i18n="footer"></footer>
-
-<script>
-/* =========================
-   TRANSLATIONS
-========================= */
-const i18n = {
-  en: {
-    name: "Meg",
-    tagline: "SeaTurtlesTravelArtGallery — a slow walk through color and memory.",
-    intro: "This gallery is meant to be experienced gradually, like moving through rooms in a museum.",
-    paintings: "Paintings",
-    cta: "Explore the Collection",
-    footer: "© Meg — SeaTurtlesTravelArtGallery"
-  },
-  es: {
-    name: "Meg",
-    tagline: "SeaTurtlesTravelArtGallery — un recorrido lento por el color y la memoria.",
-    intro: "Esta galería está pensada para experimentarse con calma, como caminar por un museo.",
-    paintings: "Pinturas",
-    cta: "Explorar la Colección",
-    footer: "© Meg — SeaTurtlesTravelArtGallery"
-  }
+  );
 };
 
-function setLang(lang) {
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    el.textContent = i18n[lang][el.dataset.i18n];
-  });
-}
-
-document.querySelectorAll(".lang-btn").forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    setLang(btn.dataset.lang);
-  };
-});
-
-setLang("en");
-
-/* =========================
-   HERO HYBRID MOTION
-========================= */
-const track = document.getElementById("heroTrack");
-let autoOffset = 0;
-
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  track.style.transform = `translateX(${autoOffset - scrollY * 0.15}px)`;
-});
-
-function autoMove() {
-  autoOffset -= 0.25;
-  track.style.transform = `translateX(${autoOffset}px)`;
-  requestAnimationFrame(autoMove);
-}
-autoMove();
-
-/* =========================
-   EXHIBIT IMAGE REVEAL
-========================= */
-const imgs = document.querySelectorAll(".exhibit-grid img");
-window.addEventListener("scroll", () => {
-  imgs.forEach(img => {
-    const r = img.getBoundingClientRect();
-    if (r.top < window.innerHeight * 0.8) {
-      img.style.opacity = 1;
-      img.style.transform = "translateY(0)";
-    }
-  });
-});
-</script>
-
-</body>
-</html>
+export default SeaTurtlesGallery;
