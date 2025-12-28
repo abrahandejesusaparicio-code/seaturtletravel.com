@@ -6,7 +6,6 @@
     <title>SeaTurtles Travel Art Gallery</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        
         :root {
             --color-1: #15161A;
             --color-2: #385E82;
@@ -219,6 +218,7 @@
             opacity: 0;
             transform: translateY(100px);
             transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
         
         .painting-item.visible {
@@ -245,6 +245,24 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        .item-number {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.1);
+            line-height: 1;
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .painting-item:hover .item-number,
+        .ceramic-item:hover .item-number {
+            color: rgba(187, 91, 49, 0.3);
+            transform: scale(1.1);
         }
         
         .paintings-nav {
@@ -364,17 +382,34 @@
         
         /* Ceramics Grid */
         .ceramics-grid {
-            max-width: 1600px;
+            max-width: 100%;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ceramics-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 2rem 3rem;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .ceramics-carousel::-webkit-scrollbar {
+            display: none;
         }
         
         .ceramic-item {
+            flex: 0 0 450px;
+            scroll-snap-align: start;
             opacity: 0;
             transform: translateY(100px) scale(0.9);
             transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
         
         .ceramic-item.visible {
@@ -385,11 +420,16 @@
         .ceramic-wrapper {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 550px;
             overflow: hidden;
             border-radius: 1.5rem;
             cursor: pointer;
             background: #000;
+            transition: transform 0.6s;
+        }
+        
+        .ceramic-wrapper:hover {
+            transform: translateY(-10px);
         }
         
         .ceramic-wrapper img {
@@ -401,6 +441,33 @@
         
         .ceramic-wrapper:hover img {
             transform: scale(1.1);
+        }
+        
+        .ceramics-nav {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+        
+        .ceramics-nav-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--color-6);
+            background: rgba(187, 91, 49, 0.1);
+            color: var(--color-6);
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .ceramics-nav-btn:hover {
+            background: var(--color-6);
+            color: #000;
         }
         
         /* Overlay */
@@ -499,9 +566,16 @@
                 height: 350px;
             }
             
-            .ceramics-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .ceramics-carousel {
+                padding: 2rem 1.5rem;
+            }
+            
+            .ceramic-item {
+                flex: 0 0 350px;
+            }
+            
+            .ceramic-wrapper {
+                height: 450px;
             }
             
             .section-title {
@@ -579,8 +653,14 @@
             <h2 class="section-title" id="ceramics-title">Sculptural Forms</h2>
             <p class="section-subtitle" id="ceramics-subtitle">Born from earth and intention</p>
         </div>
-        <div class="ceramics-grid" id="ceramics-grid">
-            <!-- Ceramics will be generated -->
+        <div class="ceramics-grid">
+            <div class="ceramics-carousel" id="ceramics-carousel">
+                <!-- Ceramics will be generated -->
+            </div>
+            <div class="ceramics-nav">
+                <button class="ceramics-nav-btn" onclick="scrollCeramics(-1)">‹</button>
+                <button class="ceramics-nav-btn" onclick="scrollCeramics(1)">›</button>
+            </div>
         </div>
     </section>
 
@@ -693,20 +773,50 @@
                     <div class="painting-wrapper" onclick="openOverlay('${painting.src}')">
                         <img src="${painting.src}" alt="Painting ${index + 1}">
                     </div>
+                    <div class="item-number">${String(index + 1).padStart(2, '0')}</div>
                 `;
                 carousel.appendChild(div);
             });
+        }
+        
+        // Auto-scroll Paintings
+        let paintingsAutoScroll;
+        function startPaintingsAutoScroll() {
+            paintingsAutoScroll = setInterval(() => {
+                const carousel = document.getElementById('paintings-carousel');
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                
+                if (carousel.scrollLeft >= maxScroll) {
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: 520, behavior: 'smooth' });
+                }
+            }, 3000);
+        }
+        
+        function stopPaintingsAutoScroll() {
+            clearInterval(paintingsAutoScroll);
         }
         
         // Paintings Carousel Navigation
         function scrollPaintings(direction) {
             const carousel = document.getElementById('paintings-carousel');
             const scrollAmount = 520;
+            stopPaintingsAutoScroll();
             carousel.scrollBy({
                 left: direction * scrollAmount,
                 behavior: 'smooth'
             });
+            setTimeout(startPaintingsAutoScroll, 5000);
         }
+        
+        // Stop auto-scroll on user interaction
+        document.addEventListener('DOMContentLoaded', () => {
+            const paintingsCarousel = document.getElementById('paintings-carousel');
+            paintingsCarousel.addEventListener('touchstart', stopPaintingsAutoScroll);
+            paintingsCarousel.addEventListener('mousedown', stopPaintingsAutoScroll);
+            paintingsCarousel.addEventListener('wheel', stopPaintingsAutoScroll);
+        });
         
         // Generate Books Carousel
         function generateBooks() {
@@ -731,8 +841,8 @@
         
         // Generate Ceramics
         function generateCeramics() {
-            const grid = document.getElementById('ceramics-grid');
-            grid.innerHTML = '';
+            const carousel = document.getElementById('ceramics-carousel');
+            carousel.innerHTML = '';
             
             ceramics.forEach((ceramic, index) => {
                 const div = document.createElement('div');
@@ -742,9 +852,41 @@
                     <div class="ceramic-wrapper" onclick="openOverlay('${ceramic.src}')">
                         <img src="${ceramic.src}" alt="Ceramic ${index + 1}">
                     </div>
+                    <div class="item-number">${String(index + 1).padStart(2, '0')}</div>
                 `;
-                grid.appendChild(div);
+                carousel.appendChild(div);
             });
+        }
+        
+        // Auto-scroll Ceramics
+        let ceramicsAutoScroll;
+        function startCeramicsAutoScroll() {
+            ceramicsAutoScroll = setInterval(() => {
+                const carousel = document.getElementById('ceramics-carousel');
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                
+                if (carousel.scrollLeft >= maxScroll) {
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    carousel.scrollBy({ left: 470, behavior: 'smooth' });
+                }
+            }, 3000);
+        }
+        
+        function stopCeramicsAutoScroll() {
+            clearInterval(ceramicsAutoScroll);
+        }
+        
+        // Ceramics Carousel Navigation
+        function scrollCeramics(direction) {
+            const carousel = document.getElementById('ceramics-carousel');
+            const scrollAmount = 470;
+            stopCeramicsAutoScroll();
+            carousel.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+            setTimeout(startCeramicsAutoScroll, 5000);
         }
         
         // Intersection Observer
@@ -804,6 +946,18 @@
         generateBooks();
         generateCeramics();
         observeItems();
+        
+        // Start auto-scroll after page load
+        setTimeout(() => {
+            startPaintingsAutoScroll();
+            startCeramicsAutoScroll();
+        }, 1000);
+        
+        // Stop ceramics auto-scroll on user interaction
+        const ceramicsCarousel = document.getElementById('ceramics-carousel');
+        ceramicsCarousel.addEventListener('touchstart', stopCeramicsAutoScroll);
+        ceramicsCarousel.addEventListener('mousedown', stopCeramicsAutoScroll);
+        ceramicsCarousel.addEventListener('wheel', stopCeramicsAutoScroll);
     </script>
 </body>
 </html>
