@@ -13,15 +13,12 @@
   <style>
     :root {
       --color-1: #15161A;
-      --color-2: #385E82;
       --color-3: #2D315E;
       --color-4: #C9C8CD;
 
       --orange-main: #BB5B31;
       --orange-soft: #d98f6e;
       --orange-glow: rgba(216, 143, 110, 0.35);
-
-      --blue-soft: #4879a8;
       --dark-divider: #26294e;
     }
 
@@ -41,14 +38,32 @@
 
     /* HERO */
     .hero {
+      position: relative;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      overflow: hidden;
+    }
+
+    .hero video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
         radial-gradient(circle at bottom right, var(--orange-glow), transparent 55%),
-        linear-gradient(180deg, var(--color-1), var(--color-3));
+        linear-gradient(180deg, rgba(21,22,26,0.65), rgba(21,22,26,0.85));
+      z-index: -1;
     }
 
     .hero h1 {
@@ -58,7 +73,7 @@
     }
 
     .tagline {
-      max-width: 520px;
+      max-width: 560px;
       margin: 0 auto;
       font-weight: 300;
       color: var(--orange-soft);
@@ -99,7 +114,6 @@
       font-size: 2.1rem;
       margin-bottom: 2.5rem;
       position: relative;
-      color: var(--color-4);
       text-shadow: 0 0 25px rgba(187, 91, 49, 0.25);
     }
 
@@ -194,9 +208,15 @@
 
   <!-- HERO -->
   <header class="hero">
+    <video autoplay muted loop playsinline>
+      <source src="hero video/gallery_sample_vid.mp4" type="video/mp4">
+    </video>
+
     <div class="fade-in">
       <h1>Meg</h1>
-      <p class="tagline">SeaTurtlesTravelArtGallery — stories shaped by travel, color, and quiet wonder.</p>
+      <p class="tagline">
+        SeaTurtlesTravelArtGallery — stories shaped by travel, color, and quiet wonder.
+      </p>
     </div>
   </header>
 
