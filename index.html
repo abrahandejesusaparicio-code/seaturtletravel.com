@@ -5,11 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SeaTurtlesTravelArtGallery — Meg</title>
 
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* =========================
+   PALETTE (LOCKED)
+========================= */
 :root {
   --color-1: #15161A;
   --color-2: #385E82;
@@ -28,195 +32,283 @@
   --tintshade-14: #d98f6e;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* =========================
+   RESET / BASE
+========================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--color-1);
-  color: var(--color-4);
   font-family: 'Inter', sans-serif;
+  background: #fafafa;
+  color: var(--color-1);
+  line-height: 1.6;
   overflow-x: hidden;
 }
 
-/* HERO */
+h1, h2 {
+  font-family: 'Playfair Display', serif;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* =========================
+   TOP BAR (LANG)
+========================= */
+.top-bar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 1.2rem 2rem;
+  z-index: 10;
+}
+
+.lang-btn {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--tintshade-7);
+}
+
+.lang-btn.active {
+  color: var(--color-2);
+  font-weight: 500;
+}
+
+/* =========================
+   HERO (HYBRID)
+========================= */
 .hero {
-  position: relative;
-  height: 100vh;
+  height: 120vh;
+  padding-top: 6rem;
+  overflow: hidden;
+  background: #fafafa;
+}
+
+.hero-inner {
+  position: sticky;
+  top: 6rem;
+}
+
+.hero-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.hero-title h1 {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+}
+
+.hero-title p {
+  max-width: 520px;
+  margin: 1rem auto 0;
+  color: var(--tintshade-7);
+}
+
+/* Horizontal track */
+.hero-track {
+  display: flex;
+  gap: 4rem;
+  padding-left: 10vw;
+  will-change: transform;
+}
+
+.hero-card {
+  min-width: 360px;
+  height: 480px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.4rem;
+  color: var(--color-2);
+}
+
+/* =========================
+   INTRO
+========================= */
+.intro {
+  max-width: 720px;
+  margin: 10rem auto;
+  padding: 0 2rem;
   text-align: center;
+  color: var(--tintshade-7);
 }
 
-.hero video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(21,22,26,0.5),
-    rgba(21,22,26,0.9)
-  );
-  z-index: -1;
-}
-
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 6vw, 5rem);
-}
-
-.tagline {
-  max-width: 600px;
-  margin: 1rem auto 0;
-  color: var(--tintshade-12);
-}
-
-/* ABOUT */
-.about {
-  max-width: 760px;
-  margin: 8rem auto;
-  text-align: center;
-  padding: 0 1.5rem;
-}
-
-/* MUSEUM SCROLL SECTIONS */
-.scroll-section {
-  height: 220vh;
+/* =========================
+   EXHIBITION SECTIONS
+========================= */
+.exhibit {
+  min-height: 200vh;
   position: relative;
 }
 
-.scroll-inner {
+.exhibit-inner {
   position: sticky;
-  top: 12vh;
-  padding: 0 clamp(2rem, 8vw, 10rem);
+  top: 15vh;
+  padding: 0 10vw;
 }
 
-.scroll-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 5vw, 4rem);
+.exhibit h2 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
   margin-bottom: 4rem;
-  opacity: 0;
-  transform: translateY(40px);
 }
 
-.scroll-grid {
+.exhibit-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 3rem;
 }
 
-.scroll-grid img {
+.exhibit-grid img {
   width: 100%;
-  border-radius: 8px;
-  opacity: 0;
+  border-radius: 10px;
   transform: translateY(60px);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-/* FOOTER */
-footer {
-  padding: 5rem 2rem;
+/* =========================
+   CTA / FOOTER
+========================= */
+.cta {
   text-align: center;
-  border-top: 1px solid var(--tintshade-11);
+  margin: 10rem 0 6rem;
+}
+
+.cta a {
+  padding: 1rem 3rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--tintshade-13), var(--tintshade-14));
+  color: white;
+  box-shadow: 0 20px 50px rgba(216,143,110,0.35);
+}
+
+footer {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--tintshade-7);
+  border-top: 1px solid #eee;
 }
 </style>
 </head>
 
 <body>
 
-<header class="hero">
-  <video autoplay muted loop playsinline>
-    <source src="hero video/gallery_sample_vid.mp4" type="video/mp4">
-  </video>
-  <div>
-    <h1>Meg</h1>
-    <p class="tagline">SeaTurtlesTravelArtGallery — a slow walk through color and memory.</p>
-  </div>
-</header>
+<!-- LANGUAGE -->
+<div class="top-bar">
+  <span class="lang-btn active" data-lang="en">EN</span>
+  <span class="lang-btn" data-lang="es">ES</span>
+</div>
 
-<section class="about">
-  <p>
-    Meg’s work unfolds slowly — paintings, ceramics, and illustrated stories
-    meant to be experienced like rooms in a museum.
-  </p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-title">
+      <h1 data-i18n="name">Meg</h1>
+      <p data-i18n="tagline"></p>
+    </div>
+
+    <div class="hero-track" id="heroTrack">
+      <div class="hero-card">Paintings</div>
+      <div class="hero-card">Books</div>
+      <div class="hero-card">Ceramics</div>
+      <div class="hero-card">Travel</div>
+    </div>
+  </div>
 </section>
 
+<!-- INTRO -->
+<section class="intro" data-i18n="intro"></section>
+
 <!-- PAINTINGS -->
-<section class="scroll-section">
-  <div class="scroll-inner">
-    <h2 class="scroll-title">Paintings</h2>
-    <div class="scroll-grid">
+<section class="exhibit">
+  <div class="exhibit-inner">
+    <h2 data-i18n="paintings"></h2>
+    <div class="exhibit-grid">
       <img src="pictures_paintings/potted_plants.jpg">
       <img src="pictures_paintings/pears_and_blooms.jpg">
       <img src="pictures_paintings/panga.jpg">
-      <img src="pictures_paintings/mermaid_in_sand.jpg">
-      <img src="pictures_paintings/kahuna_tuna.jpg">
     </div>
   </div>
 </section>
 
-<!-- BOOKS -->
-<section class="scroll-section">
-  <div class="scroll-inner">
-    <h2 class="scroll-title">Books</h2>
-    <div class="scroll-grid">
-      <a href="https://a.co/d/6RtuuIK" target="_blank"><img src="pictures books/more_than_a_moose.jpg"></a>
-      <a href="https://a.co/d/6FrfoJb" target="_blank"><img src="pictures books/the_iguana_from_tijuana.jpg"></a>
-      <a href="https://a.co/d/0TCZ4qY" target="_blank"><img src="pictures books/timothy_and_tonya.jpg"></a>
-    </div>
-  </div>
-</section>
+<!-- CTA -->
+<div class="cta">
+  <a href="#" data-i18n="cta"></a>
+</div>
 
-<!-- CERAMICS -->
-<section class="scroll-section">
-  <div class="scroll-inner">
-    <h2 class="scroll-title">Ceramics</h2>
-    <div class="scroll-grid">
-      <img src="pictures ceramic/Ceramic.jpg">
-      <img src="pictures ceramic/Ceramic (2).jpg">
-      <img src="pictures ceramic/Ceramic (3).jpg">
-      <img src="pictures ceramic/Ceramic (4).jpg">
-      <img src="pictures ceramic/Ceramic (5).jpg">
-    </div>
-  </div>
-</section>
-
-<footer>
-  © Meg — SeaTurtlesTravelArtGallery
-</footer>
+<footer data-i18n="footer"></footer>
 
 <script>
-const sections = document.querySelectorAll('.scroll-section');
+/* =========================
+   TRANSLATIONS
+========================= */
+const i18n = {
+  en: {
+    name: "Meg",
+    tagline: "SeaTurtlesTravelArtGallery — a slow walk through color and memory.",
+    intro: "This gallery is meant to be experienced gradually, like moving through rooms in a museum.",
+    paintings: "Paintings",
+    cta: "Explore the Collection",
+    footer: "© Meg — SeaTurtlesTravelArtGallery"
+  },
+  es: {
+    name: "Meg",
+    tagline: "SeaTurtlesTravelArtGallery — un recorrido lento por el color y la memoria.",
+    intro: "Esta galería está pensada para experimentarse con calma, como caminar por un museo.",
+    paintings: "Pinturas",
+    cta: "Explorar la Colección",
+    footer: "© Meg — SeaTurtlesTravelArtGallery"
+  }
+};
 
-window.addEventListener('scroll', () => {
-  sections.forEach(section => {
-    const inner = section.querySelector('.scroll-inner');
-    const title = section.querySelector('.scroll-title');
-    const images = section.querySelectorAll('img');
+function setLang(lang) {
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    el.textContent = i18n[lang][el.dataset.i18n];
+  });
+}
 
-    const rect = section.getBoundingClientRect();
-    const progress = Math.min(Math.max(-rect.top / (rect.height * 0.6), 0), 1);
+document.querySelectorAll(".lang-btn").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".lang-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    setLang(btn.dataset.lang);
+  };
+});
 
-    title.style.opacity = progress;
-    title.style.transform = `translateY(${40 - progress * 40}px)`;
+setLang("en");
 
-    images.forEach((img, i) => {
-      const delay = i * 0.08;
-      const p = Math.max(progress - delay, 0);
-      img.style.opacity = Math.min(p * 1.2, 1);
-      img.style.transform = `translateY(${60 - p * 60}px)`;
-    });
+/* =========================
+   HERO HYBRID MOTION
+========================= */
+const track = document.getElementById("heroTrack");
+let autoOffset = 0;
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  track.style.transform = `translateX(${autoOffset - scrollY * 0.15}px)`;
+});
+
+function autoMove() {
+  autoOffset -= 0.25;
+  track.style.transform = `translateX(${autoOffset}px)`;
+  requestAnimationFrame(autoMove);
+}
+autoMove();
+
+/* =========================
+   EXHIBIT IMAGE REVEAL
+========================= */
+const imgs = document.querySelectorAll(".exhibit-grid img");
+window.addEventListener("scroll", () => {
+  imgs.forEach(img => {
+    const r = img.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.8) {
+      img.style.opacity = 1;
+      img.style.transform = "translateY(0)";
+    }
   });
 });
 </script>
