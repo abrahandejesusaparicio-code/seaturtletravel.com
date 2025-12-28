@@ -2,94 +2,126 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const SeaTurtlesGallery = () => {
   const [language, setLanguage] = useState('EN');
-  const [scrollY, setScrollY] = useState(0);
-  const [heroOffset, setHeroOffset] = useState(0);
+  const [selectedArt, setSelectedArt] = useState(null);
+  const containerRef = useRef(null);
+  const [visibleItems, setVisibleItems] = useState(new Set());
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleItems((prev) => new Set([...prev, entry.target.dataset.index]));
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: '50px' }
+    );
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHeroOffset(prev => (prev + 0.5) % 1000);
-    }, 50);
-    return () => clearInterval(interval);
+    const elements = document.querySelectorAll('[data-index]');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
   }, []);
 
   const translations = {
     EN: {
-      lang: 'EN',
-      artistIntro: 'Artist, storyteller, keeper of color and form',
-      philosophy: 'Every piece begins with a moment of stillness—a breath between the sea and the shore, where imagination takes shape.',
-      paintings: 'Paintings',
-      paintingsDesc: 'Explorations in color, light, and coastal memory',
-      books: 'Books',
-      booksDesc: 'Stories that wander between worlds',
-      ceramics: 'Ceramics',
-      ceramicsDesc: 'Forms born from earth and intention',
-      cta: 'Begin your journey',
-      footer: '© 2025 Meg • SeaTurtlesTravelArtGallery'
+      title: 'SeaTurtles Travel Art Gallery',
+      subtitle: 'A journey through color, form, and story',
+      discover: 'Discover',
+      explore: 'Explore the Collection',
+      books: 'Published Stories',
+      ceramics: 'Sculptural Forms',
+      paintings: 'Canvas & Light'
     },
     ES: {
-      lang: 'ES',
-      artistIntro: 'Artista, narradora, guardiana del color y la forma',
-      philosophy: 'Cada pieza comienza con un momento de quietud—un respiro entre el mar y la orilla, donde la imaginación toma forma.',
-      paintings: 'Pinturas',
-      paintingsDesc: 'Exploraciones en color, luz y memoria costera',
-      books: 'Libros',
-      booksDesc: 'Historias que vagan entre mundos',
-      ceramics: 'Cerámicas',
-      ceramicsDesc: 'Formas nacidas de la tierra y la intención',
-      cta: 'Comienza tu viaje',
-      footer: '© 2025 Meg • SeaTurtlesTravelArtGallery'
+      title: 'Galería de Arte SeaTurtles Travel',
+      subtitle: 'Un viaje a través del color, la forma y la historia',
+      discover: 'Descubrir',
+      explore: 'Explorar la Colección',
+      books: 'Historias Publicadas',
+      ceramics: 'Formas Escultóricas',
+      paintings: 'Lienzo y Luz'
     }
   };
 
   const t = translations[language];
 
-  const books = [
-    { img: 'pictures%20books/more_than_a_moose.jpg', title: 'More Than a Moose', link: 'https://a.co/d/6RtuuIK' },
-    { img: 'pictures%20books/the_iguana_from_tijuana.jpg', title: 'The Iguana from Tijuana', link: 'https://a.co/d/6FrfoJb' },
-    { img: 'pictures%20books/timothy_and_tonya.jpg', title: 'TIMOTHY and TONYA', link: 'https://a.co/d/0TCZ4qY' }
+  const artworks = [
+    // Opening statement
+    { type: 'text', content: t.subtitle, size: 'hero' },
+    
+    // Paintings flow
+    { type: 'image', src: 'pictures_paintings/potted_plants.jpg', title: 'Potted Plants', category: 'painting', size: 'large' },
+    { type: 'image', src: 'pictures_paintings/pears_and_blooms.jpg', title: 'Pears and Blooms', category: 'painting', size: 'medium' },
+    { type: 'text', content: t.paintings, size: 'section' },
+    { type: 'image', src: 'pictures_paintings/kahuna_tuna.jpg', title: 'Kahuna Tuna', category: 'painting', size: 'large' },
+    { type: 'image', src: 'pictures_paintings/mermaid_in_sand.jpg', title: 'Mermaid in Sand', category: 'painting', size: 'medium' },
+    { type: 'image', src: 'pictures_paintings/panga.jpg', title: 'Panga', category: 'painting', size: 'small' },
+    
+    // Ceramics introduction
+    { type: 'text', content: t.ceramics, size: 'section' },
+    { type: 'image', src: 'pictures ceramic/Ceramic.jpg', title: 'Ceramic 1', category: 'ceramic', size: 'medium' },
+    { type: 'image', src: 'pictures ceramic/Ceramic (2).jpg', title: 'Ceramic 2', category: 'ceramic', size: 'large' },
+    { type: 'image', src: 'pictures ceramic/Ceramic (3).jpg', title: 'Ceramic 3', category: 'ceramic', size: 'small' },
+    
+    // More paintings
+    { type: 'image', src: 'pictures_paintings/Painting.jpg', title: 'Painting', category: 'painting', size: 'large' },
+    { type: 'image', src: 'pictures_paintings/Painting (2).jpg', title: 'Painting 2', category: 'painting', size: 'medium' },
+    { type: 'image', src: 'pictures_paintings/Painting (3).jpg', title: 'Painting 3', category: 'painting', size: 'small' },
+    
+    // Books section
+    { type: 'text', content: t.books, size: 'section' },
+    { type: 'image', src: 'pictures books/more_than_a_moose.jpg', title: 'More Than a Moose', category: 'book', size: 'book', link: 'https://a.co/d/6RtuuIK' },
+    { type: 'image', src: 'pictures books/the_iguana_from_tijuana.jpg', title: 'The Iguana from Tijuana', category: 'book', size: 'book', link: 'https://a.co/d/6FrfoJb' },
+    { type: 'image', src: 'pictures books/timothy_and_tonya.jpg', title: 'TIMOTHY and TONYA', category: 'book', size: 'book', link: 'https://a.co/d/0TCZ4qY' },
+    
+    // More ceramics
+    { type: 'image', src: 'pictures ceramic/Ceramic (4).jpg', title: 'Ceramic 4', category: 'ceramic', size: 'medium' },
+    { type: 'image', src: 'pictures ceramic/Ceramic (5).jpg', title: 'Ceramic 5', category: 'ceramic', size: 'large' },
+    
+    // Remaining paintings
+    { type: 'image', src: 'pictures_paintings/Painting (4).jpg', title: 'Painting 4', category: 'painting', size: 'medium' },
+    { type: 'image', src: 'pictures_paintings/Painting (5).jpg', title: 'Painting 5', category: 'painting', size: 'large' },
+    { type: 'image', src: 'pictures_paintings/Painting (6).jpg', title: 'Painting 6', category: 'painting', size: 'small' },
+    { type: 'image', src: 'pictures_paintings/Painting (7).jpg', title: 'Painting 7', category: 'painting', size: 'medium' },
+    { type: 'image', src: 'pictures_paintings/Painting (8).jpg', title: 'Painting 8', category: 'painting', size: 'large' },
+    { type: 'image', src: 'pictures_paintings/Painting (9).jpg', title: 'Painting 9', category: 'painting', size: 'small' },
+    { type: 'image', src: 'pictures_paintings/Painting (10).jpg', title: 'Painting 10', category: 'painting', size: 'medium' },
+    { type: 'image', src: 'pictures_paintings/Painting (11).jpg', title: 'Painting 11', category: 'painting', size: 'large' }
   ];
 
-  const paintings = [
-    'pictures_paintings/potted_plants.jpg',
-    'pictures_paintings/pears_and_blooms.jpg',
-    'pictures_paintings/panga.jpg',
-    'pictures_paintings/mermaid_in_sand.jpg',
-    'pictures_paintings/kahuna_tuna.jpg',
-    'pictures_paintings/Painting.jpg',
-    'pictures_paintings/Painting%20(2).jpg',
-    'pictures_paintings/Painting%20(3).jpg',
-    'pictures_paintings/Painting%20(4).jpg',
-    'pictures_paintings/Painting%20(5).jpg',
-    'pictures_paintings/Painting%20(6).jpg',
-    'pictures_paintings/Painting%20(7).jpg',
-    'pictures_paintings/Painting%20(8).jpg',
-    'pictures_paintings/Painting%20(9).jpg',
-    'pictures_paintings/Painting%20(10).jpg',
-    'pictures_paintings/Painting%20(11).jpg'
-  ];
-
-  const ceramics = [
-    'pictures%20ceramic/Ceramic.jpg',
-    'pictures%20ceramic/Ceramic%20(2).jpg',
-    'pictures%20ceramic/Ceramic%20(3).jpg',
-    'pictures%20ceramic/Ceramic%20(4).jpg',
-    'pictures%20ceramic/Ceramic%20(5).jpg'
-  ];
-
-  const heroTransform = `translateX(-${(heroOffset + scrollY * 0.1) % 100}%)`;
+  const getItemStyle = (size, index) => {
+    const layouts = {
+      large: 'col-span-2 row-span-2',
+      medium: 'col-span-1 row-span-1',
+      small: 'col-span-1 row-span-1',
+      book: 'col-span-1 row-span-1'
+    };
+    return layouts[size] || layouts.medium;
+  };
 
   return (
-    <div className="bg-white text-gray-900 font-serif">
+    <div className="bg-white min-h-screen overflow-x-hidden" ref={containerRef}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+        
+        :root {
+          --color-1: #15161A;
+          --color-2: #385E82;
+          --color-3: #2D315E;
+          --color-4: #C9C8CD;
+          --color-5: #6B3C32;
+          --color-6: #BB5B31;
+          --tintshade-7: #5a5e6f;
+          --tintshade-8: #253f57;
+          --tintshade-9: #4879a8;
+          --tintshade-10: #585faf;
+          --tintshade-11: #26294e;
+          --tintshade-12: #b46e5f;
+          --tintshade-13: #d0734a;
+          --tintshade-14: #d98f6e;
+        }
         
         * {
           margin: 0;
@@ -98,33 +130,63 @@ const SeaTurtlesGallery = () => {
         }
         
         body {
-          font-family: 'Cormorant Garamond', serif;
-          overflow-x: hidden;
+          font-family: 'Playfair Display', serif;
+          background: linear-gradient(to bottom, #ffffff 0%, #FFF5F0 100%);
         }
         
         .sans {
           font-family: 'Inter', sans-serif;
         }
         
-        .hero-carousel {
-          will-change: transform;
+        .art-item {
+          opacity: 0;
+          transform: translateY(80px) scale(0.95);
+          transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        .exhibition-img {
-          transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .art-item.visible {
+          opacity: 1;
+          transform: translateY(0) scale(1);
         }
         
-        .exhibition-img:hover {
-          transform: scale(1.02);
+        .art-image {
+          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        .fade-in {
-          animation: fadeIn 1.5s ease-out;
+        .art-image:hover {
+          transform: scale(1.05);
+        }
+        
+        .text-item {
+          opacity: 0;
+          transform: translateY(40px);
+          transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .text-item.visible {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        
+        .overlay {
+          backdrop-filter: blur(20px);
+          animation: fadeIn 0.3s ease-out;
         }
         
         @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        
+        .hero-text {
+          background: linear-gradient(135deg, var(--color-6) 0%, var(--tintshade-13) 50%, var(--tintshade-14) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .section-text {
+          color: var(--color-6);
         }
         
         img {
@@ -135,152 +197,132 @@ const SeaTurtlesGallery = () => {
         }
       `}</style>
 
-      {/* Utility Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 py-3 flex justify-end items-center">
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div className="max-w-screen-2xl mx-auto px-8 py-6 flex justify-between items-center">
+          <h1 className="text-2xl font-semibold" style={{ color: 'var(--color-6)' }}>
+            Meg
+          </h1>
           <button
             onClick={() => setLanguage(language === 'EN' ? 'ES' : 'EN')}
-            className="sans text-sm tracking-wider hover:text-orange-600 transition-colors"
-            style={{ color: '#BB5B31' }}
+            className="sans text-sm tracking-widest hover:opacity-60 transition-opacity"
+            style={{ color: 'var(--tintshade-13)' }}
           >
             {language === 'EN' ? 'ES' : 'EN'}
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden mt-12" style={{ backgroundColor: '#F8F8F8' }}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center z-10 px-6 fade-in">
-            <h1 className="text-7xl md:text-9xl font-light tracking-tight mb-6" style={{ color: '#15161A' }}>
-              Meg
-            </h1>
-            <p className="text-xl md:text-2xl font-light tracking-wide" style={{ color: '#385E82' }}>
-              {t.artistIntro}
-            </p>
-          </div>
-        </div>
-        
-        {/* Continuous horizontal movement background */}
-        <div 
-          className="absolute inset-0 hero-carousel flex items-center opacity-20"
-          style={{ transform: heroTransform }}
-        >
-          {[...paintings, ...paintings].map((img, i) => (
-            <div key={i} className="flex-shrink-0 w-96 h-96 mx-8">
-              <img src={img} alt="" className="w-full h-full object-cover rounded-lg" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Intro Section */}
-      <section className="py-32 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-2xl md:text-3xl font-light leading-relaxed" style={{ color: '#2D315E' }}>
-            {t.philosophy}
+      {/* Hero */}
+      <section className="relative h-screen flex items-center justify-center px-8">
+        <div className="text-center max-w-5xl">
+          <h2 className="text-7xl md:text-9xl font-bold mb-8 hero-text leading-tight">
+            {t.title}
+          </h2>
+          <p className="text-2xl md:text-3xl font-light" style={{ color: 'var(--tintshade-7)' }}>
+            {t.discover}
           </p>
         </div>
       </section>
 
-      {/* Paintings Exhibition */}
-      <section className="py-32 px-6" style={{ backgroundColor: '#FAFAFA' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-24">
-            <h2 className="text-6xl md:text-7xl font-light mb-4" style={{ color: '#15161A' }}>
-              {t.paintings}
-            </h2>
-            <p className="text-xl font-light" style={{ color: '#385E82' }}>
-              {t.paintingsDesc}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {paintings.map((img, i) => (
-              <div key={i} className="group">
-                <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden exhibition-img">
-                  <img src={img} alt={`Painting ${i + 1}`} />
+      {/* Flowing Gallery */}
+      <section className="max-w-screen-2xl mx-auto px-8 pb-32">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-fr">
+          {artworks.map((item, index) => {
+            const isVisible = visibleItems.has(String(index));
+            
+            if (item.type === 'text') {
+              if (item.size === 'hero') {
+                return (
+                  <div
+                    key={index}
+                    data-index={index}
+                    className={`col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-center py-32 text-item ${isVisible ? 'visible' : ''}`}
+                  >
+                    <h3 className="text-5xl md:text-7xl font-light text-center max-w-4xl hero-text px-8">
+                      {item.content}
+                    </h3>
+                  </div>
+                );
+              }
+              return (
+                <div
+                  key={index}
+                  data-index={index}
+                  className={`col-span-2 md:col-span-3 lg:col-span-4 flex items-center justify-start py-20 text-item ${isVisible ? 'visible' : ''}`}
+                >
+                  <h3 className="text-4xl md:text-6xl font-light section-text">
+                    {item.content}
+                  </h3>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              );
+            }
 
-      {/* Books Exhibition */}
-      <section className="py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-24">
-            <h2 className="text-6xl md:text-7xl font-light mb-4" style={{ color: '#15161A' }}>
-              {t.books}
-            </h2>
-            <p className="text-xl font-light" style={{ color: '#385E82' }}>
-              {t.booksDesc}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-            {books.map((book, i) => (
-              <a 
-                key={i} 
-                href={book.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group"
+            const itemClass = getItemStyle(item.size, index);
+            
+            return (
+              <div
+                key={index}
+                data-index={index}
+                className={`${itemClass} art-item ${isVisible ? 'visible' : ''}`}
+                style={{ 
+                  transitionDelay: `${(index % 4) * 0.1}s`,
+                  minHeight: item.size === 'large' ? '500px' : item.size === 'book' ? '400px' : '300px'
+                }}
               >
-                <div className="aspect-[3/4] bg-gray-200 rounded-lg overflow-hidden mb-6 exhibition-img">
-                  <img src={book.img} alt={book.title} />
-                </div>
-                <h3 className="text-2xl font-light group-hover:text-orange-600 transition-colors" style={{ color: '#2D315E' }}>
-                  {book.title}
-                </h3>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Ceramics Exhibition */}
-      <section className="py-32 px-6" style={{ backgroundColor: '#FAFAFA' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-24">
-            <h2 className="text-6xl md:text-7xl font-light mb-4" style={{ color: '#15161A' }}>
-              {t.ceramics}
-            </h2>
-            <p className="text-xl font-light" style={{ color: '#385E82' }}>
-              {t.ceramicsDesc}
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {ceramics.map((img, i) => (
-              <div key={i} className="group">
-                <div className="aspect-square bg-gray-200 rounded-lg overflow-hidden exhibition-img">
-                  <img src={img} alt={`Ceramic ${i + 1}`} />
-                </div>
+                {item.link ? (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
+                    style={{ backgroundColor: 'var(--color-4)' }}
+                  >
+                    <img src={item.src} alt={item.title} className="art-image" />
+                  </a>
+                ) : (
+                  <button
+                    onClick={() => setSelectedArt(item)}
+                    className="w-full h-full rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500"
+                    style={{ backgroundColor: 'var(--color-4)' }}
+                  >
+                    <img src={item.src} alt={item.title} className="art-image" />
+                  </button>
+                )}
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-32 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <button 
-            className="text-2xl md:text-3xl font-light px-12 py-6 border-2 hover:bg-opacity-10 transition-all duration-500"
-            style={{ color: '#BB5B31', borderColor: '#BB5B31' }}
+      {/* Fullscreen Overlay */}
+      {selectedArt && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-8 overlay"
+          style={{ backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
+          onClick={() => setSelectedArt(null)}
+        >
+          <div className="max-w-6xl max-h-full">
+            <img
+              src={selectedArt.src}
+              alt={selectedArt.title}
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+          </div>
+          <button
+            className="absolute top-8 right-8 text-4xl hover:opacity-60 transition-opacity"
+            style={{ color: 'var(--color-6)' }}
           >
-            {t.cta}
+            ×
           </button>
         </div>
-      </section>
+      )}
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t" style={{ borderColor: '#C9C8CD' }}>
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="sans text-sm" style={{ color: '#5a5e6f' }}>
-            {t.footer}
+      <footer className="py-16 px-8 border-t" style={{ borderColor: 'var(--color-4)' }}>
+        <div className="max-w-screen-2xl mx-auto text-center">
+          <p className="sans text-sm" style={{ color: 'var(--tintshade-7)' }}>
+            © 2025 Meg • SeaTurtlesTravelArtGallery
           </p>
         </div>
       </footer>
