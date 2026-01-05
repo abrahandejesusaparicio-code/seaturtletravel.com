@@ -1,1 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - SeaTurtles Travel Art Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-1: #15161A;
+            --color-2: #385E82;
+            --color-3: #2D315E;
+            --color-4: #C9C8CD;
+            --color-5: #6B3C32;
+            --color-6: #BB5B31;
+            --tintshade-7: #5a5e6f;
+            --tintshade-8: #253f57;
+            --tintshade-9: #4879a8;
+            --tintshade-10: #585faf;
+            --tintshade-11: #26294e;
+            --tintshade-12: #b46e5f;
+            --tintshade-13: #d0734a;
+            --tintshade-14: #d98f6e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .sans {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-6);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .logo:hover {
+            opacity: 0.7;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-6);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--tintshade-13);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .cart-badge {
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--color-6);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+        
+        .lang-toggle {
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.15em;
+            color: var(--tintshade-13);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .lang-toggle:hover {
+            opacity: 0.6;
+        }
+        
+        /* Hero */
+        .shop-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 3rem 4rem;
+            background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--tintshade-13) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+        
+        /* Sections */
+        .shop-section {
+            min-height: 100vh;
+            padding: 8rem 3rem;
+            position: relative;
+        }
+        
+        .shop-section.dark {
+            background: #0a0a0a;
+        }
+        
+        .shop-section.light {
+            background: #1a1a1a;
+        }
+        
+        .section-header {
+            max-width: 1600px;
+            margin: 0 auto 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            color: var(--color-6);
+            margin-bottom: 1rem;
+        }
+        
+        .section-subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+        
+        /* Product Grid */
+        .product-grid {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 4rem;
+        }
+        
+        .product-item {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .product-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .product-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            background: #000;
+            margin-bottom: 2rem;
+            transition: transform 0.6s;
+        }
+        
+        .product-item:hover .product-image-wrapper {
+            transform: translateY(-10px);
+        }
+        
+        .product-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            text-align: center;
+        }
+        
+        .product-title {
+            font-size: 1.75rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .product-sizes {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .size-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .size-option:hover,
+        .size-option.selected {
+            background: rgba(187, 91, 49, 0.1);
+            border-color: var(--color-6);
+            color: var(--tintshade-13);
+        }
+        
+        .size-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .size-price {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            color: var(--tintshade-13);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+        
+        .btn {
+            font-family: 'Inter', sans-serif;
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--color-6);
+            background: rgba(187, 91, 49, 0.1);
+            color: var(--color-6);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover:not(:disabled) {
+            background: var(--color-6);
+            color: #000;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .btn.added {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: #4CAF50;
+            color: #4CAF50;
+        }
+        
+        .collected-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.4);
+            letter-spacing: 0.1em;
+        }
+        
+        /* Book Items */
+        .book-product {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .book-link {
+            text-decoration: none;
+            color: inherit;
+            display: contents;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 4rem 3rem;
+            background: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        footer p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 1.5rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+            
+            .shop-section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .product-image-wrapper {
+                height: 400px;
+            }
+            
+            .product-sizes {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo" onclick="scrollToTop()">SeaTurtles Travel</div>
+            <div class="nav-links">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link active" href="shop.html">Shop</a>
+                <a class="nav-link" onclick="scrollToSection('prints-section')">Prints</a>
+                <a class="nav-link" onclick="scrollToSection('books-section')">Books</a>
+                <a class="nav-link" onclick="scrollToSection('ceramics-section')">Ceramics</a>
+                <div class="cart-badge">
+                    <span class="nav-link" style="cursor: default;">Cart</span>
+                    <span class="cart-count" id="cart-count" style="display: none;">0</span>
+                </div>
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    <span id="lang-btn">ES</span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Hero -->
+    <section class="shop-hero">
+        <div class="hero-content">
+            <h1 class="hero-title" id="hero-title">Collected Works</h1>
+            <p class="hero-subtitle" id="hero-subtitle">Bring a piece of the journey home</p>
+        </div>
+    </section>
+
+    <!-- Art Prints Section -->
+    <section class="shop-section dark" id="prints-section">
+        <div class="section-header">
+            <h2 class="section-title" id="prints-title">Art Prints</h2>
+            <p class="section-subtitle" id="prints-subtitle">Museum-quality giclée prints on archival paper</p>
+        </div>
+        <div class="product-grid" id="prints-grid">
+            <!-- Generated by JS -->
+        </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="shop-section light" id="books-section">
+        <div class="section-header">
+            <h2 class="section-title" id="books-title">Published Stories</h2>
+            <p class="section-subtitle" id="books-subtitle">Tales for wanderers and dreamers</p>
+        </div>
+        <div class="product-grid" id="books-grid">
+            <!-- Generated by JS -->
+        </div>
+    </section>
+
+    <!-- Ceramics Section -->
+    <section class="shop-section dark" id="ceramics-section">
+        <div class="section-header">
+            <h2 class="section-title" id="ceramics-title">Ceramic Pieces</h2>
+            <p class="section-subtitle" id="ceramics-subtitle">One-of-a-kind sculptural works</p>
+        </div>
+        <div class="product-grid" id="ceramics-grid">
+            <!-- Generated by JS -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Meg • SeaTurtlesTravelArtGallery</p>
+    </footer>
+
+    <script>
+        let currentLang = 'EN';
+        let cart = [];
+        
+        const translations = {
+            EN: {
+                heroTitle: 'Collected Works',
+                heroSubtitle: 'Bring a piece of the journey home',
+                printsTitle: 'Art Prints',
+                printsSubtitle: 'Museum-quality giclée prints on archival paper',
+                booksTitle: 'Published Stories',
+                booksSubtitle: 'Tales for wanderers and dreamers',
+                ceramicsTitle: 'Ceramic Pieces',
+                ceramicsSubtitle: 'One-of-a-kind sculptural works',
+                addToCart: 'Add to Cart',
+                added: 'Added ✓',
+                viewOnAmazon: 'View on Amazon',
+                collected: 'Collected',
+                oneOfOne: 'One of one'
+            },
+            ES: {
+                heroTitle: 'Obras Coleccionadas',
+                heroSubtitle: 'Lleva una pieza del viaje a casa',
+                printsTitle: 'Impresiones de Arte',
+                printsSubtitle: 'Impresiones giclée de calidad de museo en papel de archivo',
+                booksTitle: 'Historias Publicadas',
+                booksSubtitle: 'Cuentos para viajeros y soñadores',
+                ceramicsTitle: 'Piezas de Cerámica',
+                ceramicsSubtitle: 'Obras escultóricas únicas',
+                addToCart: 'Añadir al Carrito',
+                added: 'Añadido ✓',
+                viewOnAmazon: 'Ver en Amazon',
+                collected: 'Coleccionado',
+                oneOfOne: 'Única pieza'
+            }
+        };
+        
+        const prints = [
+            {
+                id: 'print-1',
+                src: 'pictures_paintings/potted_plants.jpg',
+                title: 'Potted Plants',
+                sizes: [
+                    { size: 'S', dimensions: '8x10"', price: 45 },
+                    { size: 'M', dimensions: '16x20"', price: 75 },
+                    { size: 'L', dimensions: '24x30"', price: 110 }
+                ]
+            },
+            {
+                id: 'print-2',
+                src: 'pictures_paintings/pears_and_blooms.jpg',
+                title: 'Pears and Blooms',
+                sizes: [
+                    { size: 'S', dimensions: '8x10"', price: 45 },
+                    { size: 'M', dimensions: '16x20"', price: 75 },
+                    { size: 'L', dimensions: '24x30"', price: 110 }
+                ]
+            },
+            {
+                id: 'print-3',
+                src: 'pictures_paintings/kahuna_tuna.jpg',
+                title: 'Kahuna Tuna',
+                sizes: [
+                    { size: 'S', dimensions: '8x10"', price: 45 },
+                    { size: 'M', dimensions: '16x20"', price: 75 },
+                    { size: 'L', dimensions: '24x30"', price: 110 }
+                ]
+            },
+            {
+                id: 'print-4',
+                src: 'pictures_paintings/mermaid_in_sand.jpg',
+                title: 'Mermaid in Sand',
+                sizes: [
+                    { size: 'S', dimensions: '8x10"', price: 45 },
+                    { size: 'M', dimensions: '16x20"', price: 75 },
+                    { size: 'L', dimensions: '24x30"', price: 110 }
+                ]
+            },
+            {
+                id: 'print-5',
+                src: 'pictures_paintings/panga.jpg',
+                title: 'Panga',
+                sizes: [
+                    { size: 'S', dimensions: '8x10"', price: 45 },
+                    { size: 'M', dimensions: '16x20"', price: 75 },
+                    { size: 'L', dimensions: '24x30"', price: 110 }
+                ]
+            }
+        ];
+        
+        const books = [
+            {
+                id: 'book-1',
+                src: 'pictures books/more_than_a_moose.jpg',
+                title: 'More Than a Moose',
+                description: 'A heartwarming tale of adventure and self-discovery in the wild.',
+                price: 18,
+                link: 'https://a.co/d/6RtuuIK'
+            },
+            {
+                id: 'book-2',
+                src: 'pictures books/the_iguana_from_tijuana.jpg',
+                title: 'The Iguana from Tijuana',
+                description: 'Journey across borders with an unlikely hero seeking home.',
+                price: 16,
+                link: 'https://a.co/d/6FrfoJb'
+            },
+            {
+                id: 'book-3',
+                src: 'pictures books/timothy_and_tonya.jpg',
+                title: 'TIMOTHY and TONYA',
+                description: 'Two souls, one adventure, endless possibilities.',
+                price: 17,
+                link: 'https://a.co/d/0TCZ4qY'
+            }
+        ];
+        
+        const ceramics = [
+            {
+                id: 'ceramic-1',
+                src: 'pictures ceramic/Ceramic.jpg',
+                title: 'Coastal Vessel I',
+                price: 280,
+                sold: false
+            },
+            {
+                id: 'ceramic-2',
+                src: 'pictures ceramic/Ceramic (2).jpg',
+                title: 'Tidal Form',
+                price: 320,
+                sold: true
+            },
+            {
+                id: 'ceramic-3',
+                src: 'pictures ceramic/Ceramic (3).jpg',
+                title: 'Ocean Memory',
+                price: 295,
+                sold: false
+            },
+            {
+                id: 'ceramic-4',
+                src: 'pictures ceramic/Ceramic (4).jpg',
+                title: 'Earth & Salt',
+                price: 310,
+                sold: false
+            }
+        ];
+        
+        // Navigation
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const offsetTop = element.offsetTop - navHeight - 20;
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+        
+        // Cart Management
+        function updateCartCount() {
+            const cartCount = document.getElementById('cart-count');
+            if (cart.length > 0) {
+                cartCount.textContent = cart.length;
+                cartCount.style.display = 'block';
+            } else {
+                cartCount.style.display = 'none';
+            }
+        }
+        
+        function addToCart(item, button) {
+            cart.push(item);
+            updateCartCount();
+            console.log('Added to cart:', item);
+            console.log('Current cart:', cart);
+            
+            // Visual feedback
+            button.textContent = translations[currentLang].added;
+            button.classList.add('added');
+            
+            setTimeout(() => {
+                button.textContent = translations[currentLang].addToCart;
+                button.classList.remove('added');
+            }, 2000);
+        }
+        
+        // Generate Prints
+        function generatePrints() {
+            const grid = document.getElementById('prints-grid');
+            grid.innerHTML = '';
+            
+            prints.forEach((print, index) => {
+                const div = document.createElement('div');
+                div.className = 'product-item';
+                div.style.transitionDelay = `${index * 0.1}s`;
+                
+                const sizesHTML = print.sizes.map((s, i) => `
+                    <div class="size-option ${i === 1 ? 'selected' : ''}" 
+                         onclick="selectSize(this, '${print.id}', ${s.price})"
+                         data-price="${s.price}">
+                        <span class="size-label">${s.size}</span>
+                        <span class="size-price">${s.dimensions} - $${s.price}</span>
+                    </div>
+                `).join('');
+                
+                div.innerHTML = `
+                    <div class="product-image-wrapper">
+                        <img src="${print.src}" alt="${print.title}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${print.title}</h3>
+                        <div class="product-sizes">
+                            ${sizesHTML}
+                        </div>
+                        <div class="product-price" id="price-${print.id}">$${print.sizes[1].price}</div>
+                        <button class="btn" onclick="addPrintToCart('${print.id}', this)">
+                            ${translations[currentLang].addToCart}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+        
+        function selectSize(element, printId, price) {
+            const parent = element.parentElement;
+            parent.querySelectorAll('.size-option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById(`price-${printId}`).textContent = `$${price}`;
+        }
+        
+        function addPrintToCart(printId, button) {
+            const print = prints.find(p => p.id === printId);
+            const selectedSize = document.querySelector(`#prints-grid .size-option.selected`);
+            const price = selectedSize.dataset.price;
+            const sizeLabel = selectedSize.querySelector('.size-label').textContent;
+            
+            addToCart({
+                type: 'print',
+                id: printId,
+                title: print.title,
+                size: sizeLabel,
+                price: parseFloat(price)
+            }, button);
+        }
+        
+        // Generate Books
+        function generateBooks() {
+            const grid = document.getElementById('books-grid');
+            grid.innerHTML = '';
+            
+            books.forEach((book, index) => {
+                const div = document.createElement('div');
+                div.className = 'product-item book-product';
+                div.style.transitionDelay = `${index * 0.1}s`;
+                
+                div.innerHTML = `
+                    <div class="product-image-wrapper">
+                        <img src="${book.src}" alt="${book.title}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${book.title}</h3>
+                        <p class="product-description">${book.description}</p>
+                        <div class="product-price">$${book.price}</div>
+                        <a href="${book.link}" target="_blank" rel="noopener noreferrer" class="btn">
+                            ${translations[currentLang].viewOnAmazon}
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+        
+        // Generate Ceramics
+        function generateCeramics() {
+            const grid = document.getElementById('ceramics-grid');
+            grid.innerHTML = '';
+            
+            ceramics.forEach((ceramic, index) => {
+                const div = document.createElement('div');
+                div.className = 'product-item';
+                div.style.transitionDelay = `${index * 0.1}s`;
+                
+                const actionHTML = ceramic.sold 
+                    ? `<span class="collected-badge">${translations[currentLang].collected}</span>`
+                    : `<button class="btn" onclick="addCeramicToCart('${ceramic.id}', this)">
+                           ${translations[currentLang].addToCart}
+                       </button>`;
+                
+                div.innerHTML = `
+                    <div class="product-image-wrapper">
+                        <img src="${ceramic.src}" alt="${ceramic.title}">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${ceramic.title}</h3>
+                        <p class="product-description">${translations[currentLang].oneOfOne}</p>
+                        <div class="product-price">$${ceramic.price}</div>
+                        ${actionHTML}
+                    </div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+        
+        function addCeramicToCart(ceramicId, button) {
+            const ceramic = ceramics.find(c => c.id === ceramicId);
+            
+            addToCart({
+                type: 'ceramic',
+                id: ceramicId,
+                title: ceramic.title,
+                price: ceramic.price
+            }, button);
+        }
+        
+        // Intersection Observer
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '100px' });
+            
+            document.querySelectorAll('.product-item, .section-header').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Language Toggle
+        function toggleLanguage() {
+            currentLang = currentLang === 'EN' ? 'ES' : 'EN';
+            const t = translations[currentLang];
+            
+            document.getElementById('lang-btn').textContent = currentLang === 'EN' ? 'ES' : 'EN';
+            document.getElementById('hero-title').textContent = t.heroTitle;
+            document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+            document.getElementById('prints-title').textContent = t.printsTitle;
+            document.getElementById('prints-subtitle').textContent = t.printsSubtitle;
+            document.getElementById('books-title').textContent = t.booksTitle;
+            document.getElementById('books-subtitle').textContent = t.
