@@ -835,13 +835,27 @@
         
         // Language Toggle
         function toggleLanguage() {
-            currentLang = currentLang === 'EN' ? 'ES' : 'EN';
-            const t = translations[currentLang];
-            
-            document.getElementById('lang-btn').textContent = currentLang === 'EN' ? 'ES' : 'EN';
-            document.getElementById('hero-title').textContent = t.heroTitle;
-            document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
-            document.getElementById('prints-title').textContent = t.printsTitle;
-            document.getElementById('prints-subtitle').textContent = t.printsSubtitle;
-            document.getElementById('books-title').textContent = t.booksTitle;
-            document.getElementById('books-subtitle').textContent = t.
+    currentLang = currentLang === 'EN' ? 'ES' : 'EN';
+    const t = translations[currentLang];
+
+    document.getElementById('lang-btn').textContent = currentLang === 'EN' ? 'ES' : 'EN';
+
+    document.getElementById('hero-title').textContent = t.heroTitle;
+    document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+
+    document.getElementById('prints-title').textContent = t.printsTitle;
+    document.getElementById('prints-subtitle').textContent = t.printsSubtitle;
+
+    document.getElementById('books-title').textContent = t.booksTitle;
+    document.getElementById('books-subtitle').textContent = t.booksSubtitle;
+
+    document.getElementById('ceramics-title').textContent = t.ceramicsTitle;
+    document.getElementById('ceramics-subtitle').textContent = t.ceramicsSubtitle;
+
+generatePrints();
+generateBooks();
+generateCeramics();
+observeElements();
+
+}
+
