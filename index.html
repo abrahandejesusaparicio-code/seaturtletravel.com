@@ -29,6 +29,10 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
             font-family: 'Playfair Display', serif;
             background: #0a0a0a;
@@ -65,6 +69,48 @@
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--color-6);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .logo:hover {
+            opacity: 0.7;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--color-6);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: var(--tintshade-13);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
         }
         
         .lang-toggle {
@@ -142,12 +188,46 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .hero-subtitle {
             font-size: clamp(1.25rem, 3vw, 2rem);
             font-weight: 300;
             color: rgba(255, 255, 255, 0.7);
+            min-height: 2.5rem;
+        }
+        
+        .typewriter {
+            display: inline-block;
+            overflow: hidden;
+        }
+        
+        .typewriter-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--tintshade-13);
+            margin-left: 2px;
+            animation: blink 1s step-end infinite;
+            opacity: 0;
+        }
+        
+        .typewriter-cursor.active {
+            opacity: 1;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
         }
         
         /* Section Spacer */
@@ -174,6 +254,14 @@
         .section-header {
             max-width: 1600px;
             margin: 0 auto 6rem;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .section-header.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .section-title {
@@ -187,6 +275,7 @@
             font-size: clamp(1rem, 2vw, 1.5rem);
             color: rgba(255, 255, 255, 0.5);
             font-weight: 300;
+            min-height: 2rem;
         }
         
         /* Paintings Carousel */
@@ -534,6 +623,13 @@
         @media (max-width: 768px) {
             .nav-content {
                 padding: 1.5rem 1.5rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
             }
             
             .gallery-section {
@@ -588,10 +684,15 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-content">
-            <div class="logo">Meg</div>
-            <button class="lang-toggle" onclick="toggleLanguage()">
-                <span id="lang-btn">ES</span>
-            </button>
+            <div class="logo" onclick="scrollToTop()">SeaTurtles Travel</div>
+            <div class="nav-links">
+                <a class="nav-link" onclick="scrollToSection('paintings-section')">Paintings</a>
+                <a class="nav-link" onclick="scrollToSection('books-section')">Books</a>
+                <a class="nav-link" onclick="scrollToSection('ceramics-section')">Ceramics</a>
+                <button class="lang-toggle" onclick="toggleLanguage()">
+                    <span id="lang-btn">ES</span>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -603,7 +704,10 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1 class="hero-title" id="hero-title">SeaTurtles Travel Art Gallery</h1>
-            <p class="hero-subtitle" id="hero-subtitle">A journey through color, form, and story</p>
+            <p class="hero-subtitle">
+                <span class="typewriter" id="hero-subtitle" data-text="A journey through color, form, and story"></span>
+                <span class="typewriter-cursor"></span>
+            </p>
         </div>
     </section>
 
@@ -613,7 +717,10 @@
     <section class="gallery-section dark" id="paintings-section">
         <div class="section-header">
             <h2 class="section-title" id="paintings-title">Canvas & Light</h2>
-            <p class="section-subtitle" id="paintings-subtitle">Explorations in color and coastal memory</p>
+            <p class="section-subtitle">
+                <span class="typewriter" id="paintings-subtitle" data-text="Explorations in color and coastal memory"></span>
+                <span class="typewriter-cursor"></span>
+            </p>
         </div>
         <div class="paintings-carousel-wrapper">
             <div class="paintings-carousel" id="paintings-carousel">
@@ -632,7 +739,10 @@
     <section class="gallery-section light" id="books-section">
         <div class="section-header">
             <h2 class="section-title" id="books-title">Published Stories</h2>
-            <p class="section-subtitle" id="books-subtitle">Tales that wander between worlds</p>
+            <p class="section-subtitle">
+                <span class="typewriter" id="books-subtitle" data-text="Tales that wander between worlds"></span>
+                <span class="typewriter-cursor"></span>
+            </p>
         </div>
         <div class="books-carousel-wrapper">
             <div class="books-carousel" id="books-carousel">
@@ -651,7 +761,10 @@
     <section class="gallery-section dark" id="ceramics-section">
         <div class="section-header">
             <h2 class="section-title" id="ceramics-title">Sculptural Forms</h2>
-            <p class="section-subtitle" id="ceramics-subtitle">Born from earth and intention</p>
+            <p class="section-subtitle">
+                <span class="typewriter" id="ceramics-subtitle" data-text="Born from earth and intention"></span>
+                <span class="typewriter-cursor"></span>
+            </p>
         </div>
         <div class="ceramics-grid">
             <div class="ceramics-carousel" id="ceramics-carousel">
@@ -734,10 +847,50 @@
             { src: 'pictures ceramic/Ceramic (5).jpg' }
         ];
         
+        // Typewriter Animation
+        class TypewriterEffect {
+            constructor(element, delay = 80) {
+                this.element = element;
+                this.cursor = element.nextElementSibling;
+                this.text = element.dataset.text;
+                this.delay = delay;
+                this.charIndex = 0;
+                this.hasAnimated = false;
+            }
+            
+            async type() {
+                if (this.hasAnimated) return;
+                this.hasAnimated = true;
+                this.element.textContent = '';
+                this.cursor.classList.add('active');
+                
+                for (let i = 0; i < this.text.length; i++) {
+                    this.element.textContent += this.text[i];
+                    await new Promise(resolve => setTimeout(resolve, this.delay));
+                }
+                
+                setTimeout(() => {
+                    this.cursor.classList.remove('active');
+                }, 500);
+            }
+        }
+        
+        // Navigation Functions
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            const navHeight = document.querySelector('nav').offsetHeight;
+            const offsetTop = element.offsetTop - navHeight - 20;
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+        
         // Generate Hero Carousel
         function generateHeroCarousel() {
             const carousel = document.getElementById('hero-carousel');
-            const allImages = [...paintings, ...paintings]; // Duplicate for seamless loop
+            const allImages = [...paintings, ...paintings];
             
             const track1 = document.createElement('div');
             track1.className = 'hero-bg-track';
@@ -767,197 +920,4 @@
             
             paintings.forEach((painting, index) => {
                 const div = document.createElement('div');
-                div.className = 'painting-item';
-                div.dataset.index = index;
-                div.innerHTML = `
-                    <div class="painting-wrapper" onclick="openOverlay('${painting.src}')">
-                        <img src="${painting.src}" alt="Painting ${index + 1}">
-                    </div>
-                    <div class="item-number">${String(index + 1).padStart(2, '0')}</div>
-                `;
-                carousel.appendChild(div);
-            });
-        }
-        
-        // Auto-scroll Paintings
-        let paintingsAutoScroll;
-        function startPaintingsAutoScroll() {
-            paintingsAutoScroll = setInterval(() => {
-                const carousel = document.getElementById('paintings-carousel');
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-                
-                if (carousel.scrollLeft >= maxScroll) {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: 520, behavior: 'smooth' });
-                }
-            }, 3000);
-        }
-        
-        function stopPaintingsAutoScroll() {
-            clearInterval(paintingsAutoScroll);
-        }
-        
-        // Paintings Carousel Navigation
-        function scrollPaintings(direction) {
-            const carousel = document.getElementById('paintings-carousel');
-            const scrollAmount = 520;
-            stopPaintingsAutoScroll();
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-            setTimeout(startPaintingsAutoScroll, 5000);
-        }
-        
-        // Stop auto-scroll on user interaction
-        document.addEventListener('DOMContentLoaded', () => {
-            const paintingsCarousel = document.getElementById('paintings-carousel');
-            paintingsCarousel.addEventListener('touchstart', stopPaintingsAutoScroll);
-            paintingsCarousel.addEventListener('mousedown', stopPaintingsAutoScroll);
-            paintingsCarousel.addEventListener('wheel', stopPaintingsAutoScroll);
-        });
-        
-        // Generate Books Carousel
-        function generateBooks() {
-            const carousel = document.getElementById('books-carousel');
-            carousel.innerHTML = '';
-            
-            books.forEach((book, index) => {
-                const div = document.createElement('div');
-                div.className = 'book-item';
-                div.dataset.index = index;
-                div.innerHTML = `
-                    <a href="${book.link}" target="_blank" rel="noopener noreferrer">
-                        <div class="book-wrapper">
-                            <img src="${book.src}" alt="${book.title}">
-                        </div>
-                        <h3 class="book-title">${book.title}</h3>
-                    </a>
-                `;
-                carousel.appendChild(div);
-            });
-        }
-        
-        // Generate Ceramics
-        function generateCeramics() {
-            const carousel = document.getElementById('ceramics-carousel');
-            carousel.innerHTML = '';
-            
-            ceramics.forEach((ceramic, index) => {
-                const div = document.createElement('div');
-                div.className = 'ceramic-item';
-                div.dataset.index = index;
-                div.innerHTML = `
-                    <div class="ceramic-wrapper" onclick="openOverlay('${ceramic.src}')">
-                        <img src="${ceramic.src}" alt="Ceramic ${index + 1}">
-                    </div>
-                    <div class="item-number">${String(index + 1).padStart(2, '0')}</div>
-                `;
-                carousel.appendChild(div);
-            });
-        }
-        
-        // Auto-scroll Ceramics
-        let ceramicsAutoScroll;
-        function startCeramicsAutoScroll() {
-            ceramicsAutoScroll = setInterval(() => {
-                const carousel = document.getElementById('ceramics-carousel');
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-                
-                if (carousel.scrollLeft >= maxScroll) {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: 470, behavior: 'smooth' });
-                }
-            }, 3000);
-        }
-        
-        function stopCeramicsAutoScroll() {
-            clearInterval(ceramicsAutoScroll);
-        }
-        
-        // Ceramics Carousel Navigation
-        function scrollCeramics(direction) {
-            const carousel = document.getElementById('ceramics-carousel');
-            const scrollAmount = 470;
-            stopCeramicsAutoScroll();
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-            setTimeout(startCeramicsAutoScroll, 5000);
-        }
-        
-        // Intersection Observer
-        function observeItems() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '100px' });
-            
-            document.querySelectorAll('[data-index]').forEach(el => {
-                observer.observe(el);
-            });
-        }
-        
-        // Carousel Navigation
-        function scrollCarousel(direction) {
-            const carousel = document.getElementById('books-carousel');
-            const scrollAmount = 420;
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Language Toggle
-        function toggleLanguage() {
-            currentLang = currentLang === 'EN' ? 'ES' : 'EN';
-            const t = translations[currentLang];
-            
-            document.getElementById('lang-btn').textContent = currentLang === 'EN' ? 'ES' : 'EN';
-            document.getElementById('hero-title').textContent = t.title;
-            document.getElementById('hero-subtitle').textContent = t.subtitle;
-            document.getElementById('paintings-title').textContent = t.paintingsTitle;
-            document.getElementById('paintings-subtitle').textContent = t.paintingsSubtitle;
-            document.getElementById('books-title').textContent = t.booksTitle;
-            document.getElementById('books-subtitle').textContent = t.booksSubtitle;
-            document.getElementById('ceramics-title').textContent = t.ceramicsTitle;
-            document.getElementById('ceramics-subtitle').textContent = t.ceramicsSubtitle;
-        }
-        
-        // Overlay
-        function openOverlay(src) {
-            document.getElementById('overlay-img').src = src;
-            document.getElementById('overlay').classList.add('active');
-        }
-        
-        function closeOverlay() {
-            document.getElementById('overlay').classList.remove('active');
-        }
-        
-        // Initialize
-        generateHeroCarousel();
-        generatePaintings();
-        generateBooks();
-        generateCeramics();
-        observeItems();
-        
-        // Start auto-scroll after page load
-        setTimeout(() => {
-            startPaintingsAutoScroll();
-            startCeramicsAutoScroll();
-        }, 1000);
-        
-        // Stop ceramics auto-scroll on user interaction
-        const ceramicsCarousel = document.getElementById('ceramics-carousel');
-        ceramicsCarousel.addEventListener('touchstart', stopCeramicsAutoScroll);
-        ceramicsCarousel.addEventListener('mousedown', stopCeramicsAutoScroll);
-        ceramicsCarousel.addEventListener('wheel', stopCeramicsAutoScroll);
-    </script>
-</body>
-</html>
+                div.className = 'painting
