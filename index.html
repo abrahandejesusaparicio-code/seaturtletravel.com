@@ -1,1158 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="SeaTurtles Travel is a visual journey through art, stories, and coastal memory. Explore paintings, books, and handcrafted works inspired by travel and the sea.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SeaTurtles Travel Art Gallery</title>
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-1: #15161A;
-            --color-2: #385E82;
-            --color-3: #2D315E;
-            --color-4: #C9C8CD;
-            --color-5: #6B3C32;
-            --color-6: #BB5B31;
-            --tintshade-7: #5a5e6f;
-            --tintshade-8: #253f57;
-            --tintshade-9: #4879a8;
-            --tintshade-10: #585faf;
-            --tintshade-11: #26294e;
-            --tintshade-12: #b46e5f;
-            --tintshade-13: #d0734a;
-            --tintshade-14: #d98f6e;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Playfair Display', serif;
-            background: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
-        }
-        
-        .sans {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .nav-content {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 1.5rem 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--color-6);
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-        
-        .logo:hover {
-            opacity: 0.7;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            align-items: center;
-        }
-        
-        .nav-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            letter-spacing: 0.1em;
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            cursor: pointer;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--color-6);
-            transition: width 0.3s;
-        }
-        
-        .nav-link:hover {
-            color: var(--tintshade-13);
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .lang-toggle {
-            background: none;
-            border: none;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            letter-spacing: 0.15em;
-            color: var(--tintshade-13);
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
-        
-        .lang-toggle:hover {
-            opacity: 0.6;
-        }
-        
-        /* Hero with Carousel */
-        .hero {
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            gap: 2rem;
-            animation: scrollCarousel 40s linear infinite;
-        }
-        
-        .hero-bg-track {
-            display: flex;
-            gap: 2rem;
-            flex-shrink: 0;
-        }
-        
-        .hero-img {
-            width: 400px;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 1rem;
-            opacity: 0.3;
-        }
-        
-        @keyframes scrollCarousel {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 0%, rgba(10, 10, 10, 0.7) 50%, rgba(10, 10, 10, 0.95) 100%);
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 1200px;
-            padding: 0 2rem;
-        }
-        
-        .hero-title {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 700;
-            margin-bottom: 2rem;
-            line-height: 1;
-            background: linear-gradient(135deg, #fff 0%, var(--tintshade-13) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease-out forwards;
-        }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .hero-subtitle {
-            font-size: clamp(1.25rem, 3vw, 2rem);
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.7);
-            min-height: 2.5rem;
-        }
-        
-        .typewriter {
-            display: inline-block;
-            overflow: hidden;
-        }
-        
-        .typewriter-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1em;
-            background: var(--tintshade-13);
-            margin-left: 2px;
-            animation: blink 1s step-end infinite;
-            opacity: 0;
-        }
-        
-        .typewriter-cursor.active {
-            opacity: 1;
-        }
-        
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        
-        /* Section Spacer */
-        .section-spacer {
-            height: 30vh;
-            background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a1a 100%);
-        }
-        
-        /* Gallery Sections */
-        .gallery-section {
-            min-height: 100vh;
-            padding: 8rem 3rem;
-            position: relative;
-        }
-        
-        .gallery-section.dark {
-            background: #0a0a0a;
-        }
-        
-        .gallery-section.light {
-            background: #1a1a1a;
-        }
-        
-        .section-header {
-            max-width: 1600px;
-            margin: 0 auto 6rem;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .section-header.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .section-title {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 300;
-            color: var(--color-6);
-            margin-bottom: 1rem;
-        }
-        
-        .section-subtitle {
-            font-size: clamp(1rem, 2vw, 1.5rem);
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 300;
-            min-height: 2rem;
-        }
-        
-        /* Paintings Carousel */
-        .paintings-carousel-wrapper {
-            max-width: 100%;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .paintings-carousel {
-            display: flex;
-            gap: 2rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            padding: 2rem 3rem;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .paintings-carousel::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .painting-item {
-            flex: 0 0 500px;
-            scroll-snap-align: start;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-        }
-        
-        .painting-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .painting-wrapper {
-            position: relative;
-            width: 100%;
-            height: 600px;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            background: #000;
-            cursor: pointer;
-            transition: transform 0.6s;
-        }
-        
-        .painting-wrapper:hover {
-            transform: translateY(-10px);
-        }
-        
-        .painting-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .item-number {
-            position: absolute;
-            bottom: 2rem;
-            left: 2rem;
-            font-size: 5rem;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.1);
-            line-height: 1;
-            pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .painting-item:hover .item-number,
-        .ceramic-item:hover .item-number {
-            color: rgba(187, 91, 49, 0.3);
-            transform: scale(1.1);
-        }
-        
-        .paintings-nav {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 3rem;
-        }
-        
-        .paintings-nav-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--color-6);
-            background: rgba(187, 91, 49, 0.1);
-            color: var(--color-6);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .paintings-nav-btn:hover {
-            background: var(--color-6);
-            color: #000;
-        }
-        
-        /* Books Carousel */
-        .books-carousel-wrapper {
-            max-width: 1600px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .books-carousel {
-            display: flex;
-            gap: 3rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            padding: 2rem 0;
-            scrollbar-width: none;
-        }
-        
-        .books-carousel::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .book-item {
-            flex: 0 0 400px;
-            scroll-snap-align: center;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .book-item.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .book-wrapper {
-            position: relative;
-            width: 100%;
-            height: 550px;
-            border-radius: 1.5rem;
-            overflow: hidden;
-            background: #000;
-            transition: transform 0.6s;
-        }
-        
-        .book-wrapper:hover {
-            transform: translateY(-10px);
-        }
-        
-        .book-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .book-title {
-            margin-top: 1.5rem;
-            font-size: 1.5rem;
-            color: var(--tintshade-13);
-            text-align: center;
-        }
-        
-        .carousel-nav {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 3rem;
-        }
-        
-        .carousel-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--color-6);
-            background: rgba(187, 91, 49, 0.1);
-            color: var(--color-6);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .carousel-btn:hover {
-            background: var(--color-6);
-            color: #000;
-        }
-        
-        /* Ceramics Grid */
-        .ceramics-grid {
-            max-width: 100%;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ceramics-carousel {
-            display: flex;
-            gap: 2rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            padding: 2rem 3rem;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .ceramics-carousel::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .ceramic-item {
-            flex: 0 0 450px;
-            scroll-snap-align: start;
-            opacity: 0;
-            transform: translateY(100px) scale(0.9);
-            transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-        }
-        
-        .ceramic-item.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        
-        .ceramic-wrapper {
-            position: relative;
-            width: 100%;
-            height: 550px;
-            overflow: hidden;
-            border-radius: 1.5rem;
-            cursor: pointer;
-            background: #000;
-            transition: transform 0.6s;
-        }
-        
-        .ceramic-wrapper:hover {
-            transform: translateY(-10px);
-        }
-        
-        .ceramic-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .ceramic-wrapper:hover img {
-            transform: scale(1.1);
-        }
-        
-        .ceramics-nav {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 3rem;
-        }
-        
-        .ceramics-nav-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid var(--color-6);
-            background: rgba(187, 91, 49, 0.1);
-            color: var(--color-6);
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        .ceramics-nav-btn:hover {
-            background: var(--color-6);
-            color: #000;
-        }
-        
-        /* Overlay */
-        .overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 2000;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(20px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            animation: fadeIn 0.3s ease-out;
-        }
-        
-        .overlay.active {
-            display: flex;
-        }
-        
-        .overlay img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-            border-radius: 1rem;
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            background: none;
-            border: none;
-            font-size: 3rem;
-            color: #fff;
-            cursor: pointer;
-            transition: opacity 0.3s;
-            line-height: 1;
-        }
-        
-        .close-btn:hover {
-            opacity: 0.6;
-        }
-        
-        /* Footer */
-        footer {
-            padding: 4rem 3rem;
-            background: #000;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-        
-        footer p {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.4);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-content {
-                padding: 1.5rem 1.5rem;
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                gap: 1.5rem;
-                flex-wrap: wrap;
-            }
-            
-            .gallery-section {
-                padding: 4rem 1.5rem;
-            }
-            
-            .paintings-carousel,
-            .books-carousel {
-                padding: 2rem 1.5rem;
-            }
-            
-            .painting-item {
-                flex: 0 0 350px;
-            }
-            
-            .painting-wrapper {
-                height: 450px;
-            }
-            
-            .book-item {
-                flex: 0 0 300px;
-            }
-            
-            .book-wrapper {
-                height: 450px;
-            }
-            
-            .hero-img {
-                width: 250px;
-                height: 350px;
-            }
-            
-            .ceramics-carousel {
-                padding: 2rem 1.5rem;
-            }
-            
-            .ceramic-item {
-                flex: 0 0 350px;
-            }
-            
-            .ceramic-wrapper {
-                height: 450px;
-            }
-            
-            .section-title {
-                font-size: 3rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense Tracker - Role Selection</title>
+  <style>
+    /* CSS Variables - Color Palette */
+    :root {
+      --color-1: #383858;
+      --color-2: #5E42DF;
+      --color-3: #CD2B62;
+      --color-4: #721C50;
+      --color-5: #9077FF;
+      --color-6: #A76496;
+
+      --shade-1: #25253b;
+      --shade-2: #341ca5;
+      --shade-3: #891d41;
+      --shade-4: #26091b;
+      --shade-5: #5d39ff;
+      --shade-6: #724065;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+      background: linear-gradient(135deg, var(--shade-1) 0%, var(--color-1) 50%, var(--shade-4) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e8e8f0;
+      overflow: hidden;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .container {
+      max-width: 900px;
+      width: 90%;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .header {
+      margin-bottom: 4rem;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product-name {
+      font-size: 2.5rem;
+      font-weight: 500;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+      color: #f5f5fa;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #b8b8cc;
+      line-height: 1.6;
+    }
+
+    .role-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .role-card {
+      background: linear-gradient(145deg, rgba(88, 88, 128, 0.15), rgba(56, 56, 88, 0.25));
+      border: 1px solid rgba(144, 119, 255, 0.2);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp 0.8s ease-out backwards;
+    }
+
+    .role-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .role-card:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .role-card.student {
+      border-color: rgba(144, 119, 255, 0.3);
+    }
+
+    .role-card.student::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, rgba(144, 119, 255, 0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .role-card.guardian {
+      border-color: rgba(94, 66, 223, 0.3);
+    }
+
+    .role-card.guardian::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top right, rgba(94, 66, 223, 0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .role-card:hover {
+      transform: scale(1.02) translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      border-color: rgba(144, 119, 255, 0.5);
+    }
+
+    .role-card:hover::before {
+      opacity: 1;
+    }
+
+    .role-card:active {
+      transform: scale(0.98) translateY(0);
+      transition: all 0.15s ease;
+    }
+
+    .role-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.5rem;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .student .role-icon {
+      background: linear-gradient(135deg, var(--color-5), var(--shade-5));
+    }
+
+    .guardian .role-icon {
+      background: linear-gradient(135deg, var(--color-2), var(--shade-2));
+    }
+
+    .role-title {
+      font-size: 1.75rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #f5f5fa;
+      position: relative;
+      z-index: 1;
+    }
+
+    .role-description {
+      font-size: 0.95rem;
+      color: #b8b8cc;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      color: #8888a0;
+      line-height: 1.6;
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    @media (max-width: 768px) {
+      .product-name {
+        font-size: 2rem;
+      }
+
+      .role-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .role-card {
+        padding: 2.5rem 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-content">
-            <div class="logo" onclick="scrollToTop()">SeaTurtles Travel</div>
-            <div class="nav-links">
-                <a class="nav-link" onclick="scrollToSection('paintings-section')">Paintings</a>
-                <a class="nav-link" onclick="scrollToSection('books-section')">Books</a>
-                <a class="nav-link" onclick="scrollToSection('ceramics-section')">Ceramics</a>
-                <a class="nav-link" href="shop.html">Shop</a>
-                <button class="lang-toggle" onclick="toggleLanguage()">
-                    <span id="lang-btn">ES</span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero with Carousel -->
-    <section class="hero">
-        <div class="hero-bg" id="hero-carousel">
-            <!-- Carousel images will be generated -->
-        </div>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title" id="hero-title">SeaTurtles Travel Art Gallery</h1>
-            <p class="hero-subtitle">
-                <span class="typewriter" id="hero-subtitle" data-text="A journey through color, form, and story"></span>
-                <span class="typewriter-cursor"></span>
-            </p>
-        </div>
-    </section>
-
-    <div class="section-spacer"></div>
-
-    <!-- Paintings Section -->
-    <section class="gallery-section dark" id="paintings-section">
-        <div class="section-header">
-            <h2 class="section-title" id="paintings-title">Canvas & Light</h2>
-            <p class="section-subtitle">
-                <span class="typewriter" id="paintings-subtitle" data-text="Explorations in color and coastal memory"></span>
-                <span class="typewriter-cursor"></span>
-            </p>
-        </div>
-        <div class="paintings-carousel-wrapper">
-            <div class="paintings-carousel" id="paintings-carousel">
-                <!-- Paintings will be generated -->
-            </div>
-            <div class="paintings-nav">
-                <button class="paintings-nav-btn" onclick="scrollPaintings(-1)">‹</button>
-                <button class="paintings-nav-btn" onclick="scrollPaintings(1)">›</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-spacer"></div>
-
-    <!-- Books Section -->
-    <section class="gallery-section light" id="books-section">
-        <div class="section-header">
-            <h2 class="section-title" id="books-title">Published Stories</h2>
-            <p class="section-subtitle">
-                <span class="typewriter" id="books-subtitle" data-text="Tales that wander between worlds"></span>
-                <span class="typewriter-cursor"></span>
-            </p>
-        </div>
-        <div class="books-carousel-wrapper">
-            <div class="books-carousel" id="books-carousel">
-                <!-- Books will be generated -->
-            </div>
-            <div class="carousel-nav">
-                <button class="carousel-btn" onclick="scrollCarousel(-1)">‹</button>
-                <button class="carousel-btn" onclick="scrollCarousel(1)">›</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="section-spacer"></div>
-
-    <!-- Ceramics Section -->
-    <section class="gallery-section dark" id="ceramics-section">
-        <div class="section-header">
-            <h2 class="section-title" id="ceramics-title">Sculptural Forms</h2>
-            <p class="section-subtitle">
-                <span class="typewriter" id="ceramics-subtitle" data-text="Born from earth and intention"></span>
-                <span class="typewriter-cursor"></span>
-            </p>
-        </div>
-        <div class="ceramics-grid">
-            <div class="ceramics-carousel" id="ceramics-carousel">
-                <!-- Ceramics will be generated -->
-            </div>
-            <div class="ceramics-nav">
-                <button class="ceramics-nav-btn" onclick="scrollCeramics(-1)">‹</button>
-                <button class="ceramics-nav-btn" onclick="scrollCeramics(1)">›</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>© 2025 Meg • SeaTurtlesTravelArtGallery</p>
-    </footer>
-
-    <!-- Fullscreen Overlay -->
-    <div class="overlay" id="overlay" onclick="closeOverlay()">
-        <button class="close-btn">×</button>
-        <img id="overlay-img" src="" alt="">
+  <div class="container">
+    <div class="header">
+      <h1 class="product-name">Expense Tracker</h1>
+      <p class="tagline">A clear view of student spending, built on trust.</p>
     </div>
 
-    <script>
-        let currentLang = 'EN';
-        
-        const translations = {
-            EN: {
-                title: 'SeaTurtles Travel Art Gallery',
-                subtitle: 'A journey through color, form, and story',
-                paintingsTitle: 'Canvas & Light',
-                paintingsSubtitle: 'Explorations in color and coastal memory',
-                booksTitle: 'Published Stories',
-                booksSubtitle: 'Tales that wander between worlds',
-                ceramicsTitle: 'Sculptural Forms',
-                ceramicsSubtitle: 'Born from earth and intention'
-            },
-            ES: {
-                title: 'Galería de Arte SeaTurtles Travel',
-                subtitle: 'Un viaje a través del color, la forma y la historia',
-                paintingsTitle: 'Lienzo y Luz',
-                paintingsSubtitle: 'Exploraciones en color y memoria costera',
-                booksTitle: 'Historias Publicadas',
-                booksSubtitle: 'Cuentos que vagan entre mundos',
-                ceramicsTitle: 'Formas Escultóricas',
-                ceramicsSubtitle: 'Nacidas de la tierra y la intención'
-            }
-        };
-        
-        const paintings = [
-            { src: 'pictures_paintings/potted_plants.jpg' },
-            { src: 'pictures_paintings/pears_and_blooms.jpg' },
-            { src: 'pictures_paintings/kahuna_tuna.jpg' },
-            { src: 'pictures_paintings/mermaid_in_sand.jpg' },
-            { src: 'pictures_paintings/panga.jpg' },
-            { src: 'pictures_paintings/Painting.jpg' },
-            { src: 'pictures_paintings/Painting (2).jpg' },
-            { src: 'pictures_paintings/Painting (3).jpg' },
-            { src: 'pictures_paintings/Painting (4).jpg' },
-            { src: 'pictures_paintings/Painting (5).jpg' },
-            { src: 'pictures_paintings/Painting (6).jpg' },
-            { src: 'pictures_paintings/Painting (7).jpg' },
-            { src: 'pictures_paintings/Painting (8).jpg' },
-            { src: 'pictures_paintings/Painting (9).jpg' },
-            { src: 'pictures_paintings/Painting (10).jpg' },
-            { src: 'pictures_paintings/Painting (11).jpg' }
-        ];
-        
-        const books = [
-            { src: 'pictures books/more_than_a_moose.jpg', title: 'More Than a Moose', link: 'https://a.co/d/6RtuuIK' },
-            { src: 'pictures books/the_iguana_from_tijuana.jpg', title: 'The Iguana from Tijuana', link: 'https://a.co/d/6FrfoJb' },
-            { src: 'pictures books/timothy_and_tonya.jpg', title: 'TIMOTHY and TONYA', link: 'https://a.co/d/0TCZ4qY' }
-        ];
-        
-        const ceramics = [
-            { src: 'pictures ceramic/Ceramic.jpg' },
-            { src: 'pictures ceramic/Ceramic (2).jpg' },
-            { src: 'pictures ceramic/Ceramic (3).jpg' },
-            { src: 'pictures ceramic/Ceramic (4).jpg' },
-            { src: 'pictures ceramic/Ceramic (5).jpg' }
-        ];
-        
-        // Typewriter Animation
-        class TypewriterEffect {
-            constructor(element, delay = 80) {
-                this.element = element;
-                this.cursor = element.nextElementSibling;
-                this.text = element.dataset.text;
-                this.delay = delay;
-                this.charIndex = 0;
-                this.hasAnimated = false;
-            }
-            
-            async type() {
-                if (this.hasAnimated) return;
-                this.hasAnimated = true;
-                this.element.textContent = '';
-                this.cursor.classList.add('active');
-                
-                for (let i = 0; i < this.text.length; i++) {
-                    this.element.textContent += this.text[i];
-                    await new Promise(resolve => setTimeout(resolve, this.delay));
-                }
-                
-                setTimeout(() => {
-                    this.cursor.classList.remove('active');
-                }, 500);
-            }
-        }
-        
-        // Navigation Functions
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            const navHeight = document.querySelector('nav').offsetHeight;
-            const offsetTop = element.offsetTop - navHeight - 20;
-            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-        }
-        
-        // Generate Hero Carousel
-        function generateHeroCarousel() {
-            const carousel = document.getElementById('hero-carousel');
-            const allImages = [...paintings, ...paintings];
-            
-            const track1 = document.createElement('div');
-            track1.className = 'hero-bg-track';
-            const track2 = document.createElement('div');
-            track2.className = 'hero-bg-track';
-            
-            allImages.forEach(img => {
-                const imgEl1 = document.createElement('img');
-                imgEl1.src = img.src;
-                imgEl1.className = 'hero-img';
-                track1.appendChild(imgEl1);
-                
-                const imgEl2 = document.createElement('img');
-                imgEl2.src = img.src;
-                imgEl2.className = 'hero-img';
-                track2.appendChild(imgEl2);
-            });
-            
-            carousel.appendChild(track1);
-            carousel.appendChild(track2);
-        }
-        
-        // Generate Paintings Carousel
-        function generatePaintings() {
-            const carousel = document.getElementById('paintings-carousel');
-            carousel.innerHTML = '';
-            
-            paintings.forEach((painting, index) => {
-                const div = document.createElement('div');
-                div.className = 'painting-item';
-                div.dataset.index = index;
-                div.innerHTML = `
-                    <div class="painting-wrapper" onclick="openOverlay('${painting.src}')">
-                        <img src="${painting.src}" alt="Painting ${index + 1}">
-                    </div>
-                    <div class="item-number">${String(index + 1).padStart(2, '0')}</div>
-                `;
-                carousel.appendChild(div);
-            });
-        }
-        
-        // Auto-scroll Paintings
-        let paintingsAutoScroll;
-        function startPaintingsAutoScroll() {
-            paintingsAutoScroll = setInterval(() => {
-                const carousel = document.getElementById('paintings-carousel');
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-                
-                if (carousel.scrollLeft >= maxScroll) {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: 520, behavior: 'smooth' });
-                }
-            }, 3000);
-        }
-        
-        function stopPaintingsAutoScroll() {
-            clearInterval(paintingsAutoScroll);
-        }
-        
-        // Paintings Carousel Navigation
-        function scrollPaintings(direction) {
-            const carousel = document.getElementById('paintings-carousel');
-            const scrollAmount = 520;
-            stopPaintingsAutoScroll();
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-            setTimeout(startPaintingsAutoScroll, 5000);
-        }
-        
-        // Generate Books Carousel
-        function generateBooks() {
-            const carousel = document.getElementById('books-carousel');
-            carousel.innerHTML = '';
-            
-            books.forEach((book, index) => {
-                const div = document.createElement('div');
-                div.className = 'book-item';
-                div.dataset.index = index;
-                div.innerHTML = `
-                    <a href="${book.link}" target="_blank" rel="noopener noreferrer">
-                        <div class="book-wrapper">
-                            <img src="${book.src}" alt="${book.title}">
-                        </div>
-                        <h3 class="book-title">${book.title}</h3>
-                    </a>
-                `;
-                carousel.appendChild(div);
-            });
-        }
-        
-        // Generate Ceramics
-        function generateCeramics() {
-            const carousel = document.getElementById('ceramics-carousel');
-            carousel.innerHTML = '';
-            
-            ceramics.forEach((ceramic, index) => {
-                const div = document.createElement('div');
-                div.className = 'ceramic-item';
-                div.dataset.index = index;
-                div.innerHTML = `
-                    <div class="ceramic-wrapper" onclick="openOverlay('${ceramic.src}')">
-                        <img src="${ceramic.src}" alt="Ceramic ${index + 1}">
-                    </div>
-                    <div class="item-number">${String(index + 1).padStart(2, '0')}</div>
-                `;
-                carousel.appendChild(div);
-            });
-        }
-        
-        // Auto-scroll Ceramics
-        let ceramicsAutoScroll;
-        function startCeramicsAutoScroll() {
-            ceramicsAutoScroll = setInterval(() => {
-                const carousel = document.getElementById('ceramics-carousel');
-                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-                
-                if (carousel.scrollLeft >= maxScroll) {
-                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    carousel.scrollBy({ left: 470, behavior: 'smooth' });
-                }
-            }, 3000);
-        }
-        
-        function stopCeramicsAutoScroll() {
-            clearInterval(ceramicsAutoScroll);
-        }
-        
-        // Ceramics Carousel Navigation
-        function scrollCeramics(direction) {
-            const carousel = document.getElementById('ceramics-carousel');
-            const scrollAmount = 470;
-            stopCeramicsAutoScroll();
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-            setTimeout(startCeramicsAutoScroll, 5000);
-        }
-        
-        // Intersection Observer for animations
-        function observeItems() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '100px' });
-            
-            document.querySelectorAll('[data-index]').forEach(el => {
-                observer.observe(el);
-            });
-            
-            // Observe section headers
-            document.querySelectorAll('.section-header').forEach(el => {
-                observer.observe(el);
-            });
-        }
-        
-        // Typewriter observer
-        function observeTypewriters() {
-            const typewriters = [];
-            document.querySelectorAll('.typewriter').forEach(el => {
-                typewriters.push(new TypewriterEffect(el));
-            });
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const tw = typewriters.find(t => t.element === entry.target);
-                        if (tw) tw.type();
-                    }
-                });
-            }, { threshold: 0.5 });
-            
-            typewriters.forEach(tw => observer.observe(tw.element));
-        }
-        
-        // Carousel Navigation
-        function scrollCarousel(direction) {
-            const carousel = document.getElementById('books-carousel');
-            const scrollAmount = 420;
-            carousel.scrollBy({
-                left: direction * scrollAmount,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Language Toggle
-        function toggleLanguage() {
-            currentLang = currentLang === 'EN' ? 'ES' : 'EN';
-            const t = translations[currentLang];
-            
-            document.getElementById('lang-btn').textContent = currentLang === 'EN' ? 'ES' : 'EN';
-            document.getElementById('hero-title').textContent = t.title;
-            
-            // Update typewriter texts
-            const heroSubtitle = document.getElementById('hero-subtitle');
-            heroSubtitle.dataset.text = t.subtitle;
-            heroSubtitle.textContent = t.subtitle;
-            
-            const paintingsSubtitle = document.getElementById('paintings-subtitle');
-            paintingsSubtitle.dataset.text = t.paintingsSubtitle;
-            paintingsSubtitle.textContent = t.paintingsSubtitle;
-            
-            const booksSubtitle = document.getElementById('books-subtitle');
-            booksSubtitle.dataset.text = t.booksSubtitle;
-            booksSubtitle.textContent = t.booksSubtitle;
-            
-            const ceramicsSubtitle = document.getElementById('ceramics-subtitle');
-            ceramicsSubtitle.dataset.text = t.ceramicsSubtitle;
-            ceramicsSubtitle.textContent = t.ceramicsSubtitle;
-            
-            document.getElementById('paintings-title').textContent = t.paintingsTitle;
-            document.getElementById('books-title').textContent = t.booksTitle;
-            document.getElementById('ceramics-title').textContent = t.ceramicsTitle;
-        }
-        
-        // Overlay
-        function openOverlay(src) {
-            document.getElementById('overlay-img').src = src;
-            document.getElementById('overlay').classList.add('active');
-        }
-        
-        function closeOverlay() {
-            document.getElementById('overlay').classList.remove('active');
-        }
-        
-        // Initialize
-        generateHeroCarousel();
-        generatePaintings();
-        generateBooks();
-        generateCeramics();
-        observeItems();
-        observeTypewriters();
-        
-        // Start auto-scroll after page load
-        setTimeout(() => {
-            startPaintingsAutoScroll();
-            startCeramicsAutoScroll();
-        }, 1000);
-        
-        // Stop auto-scroll on user interaction
-        document.addEventListener('DOMContentLoaded', () => {
-            const paintingsCarousel = document.getElementById('paintings-carousel');
-            paintingsCarousel.addEventListener('touchstart', stopPaintingsAutoScroll);
-            paintingsCarousel.addEventListener('mousedown', stopPaintingsAutoScroll);
-            paintingsCarousel.addEventListener('wheel', stopPaintingsAutoScroll);
-            
-            const ceramicsCarousel = document.getElementById('ceramics-carousel');
-            ceramicsCarousel.addEventListener('touchstart', stopCeramicsAutoScroll);
-            ceramicsCarousel.addEventListener('mousedown', stopCeramicsAutoScroll);
-            ceramicsCarousel.addEventListener('wheel', stopCeramicsAutoScroll);
-        });
-    </script>
+    <div class="role-cards">
+      <div class="role-card student" onclick="selectRole('student')">
+        <div class="role-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h2 class="role-title">Student</h2>
+        <p class="role-description">Track and manage your expenses with full control over your spending records.</p>
+      </div>
+
+      <div class="role-card guardian" onclick="selectRole('guardian')">
+        <div class="role-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <h2 class="role-title">Parent / Guardian</h2>
+        <p class="role-description">View spending patterns and provide supportive guidance through trusted oversight.</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Your privacy is respected. All information stays between you and your trusted circle.</p>
+    </div>
+  </div>
+
+  <script>
+    // Role selection handler - stores role and navigates to main dashboard
+    function selectRole(role) {
+      // Store role in session storage for main.html to read
+      sessionStorage.setItem('userRole', role);
+      
+      // Smooth fade out transition
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.3s ease';
+      
+      // Navigate to main dashboard after transition
+      setTimeout(() => {
+        window.location.href = 'main.html';
+      }, 300);
+    }
+  </script>
 </body>
 </html>
